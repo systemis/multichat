@@ -13,7 +13,7 @@ class InfoGroup extends Component {
 
         return (
             <div className={className()}>
-                {this.props.screenVersion}
+                {this.props.screenVersion + "Test"}
             </div>
         );
     }
