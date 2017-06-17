@@ -10,9 +10,8 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.resolve(__dirname, ".", "build")));
 
-app.get("/", (req, res) => {
-    path.resolve(__dirname, ".", "public/index.html");
-})
+// setup pages router
+require('./server/router.js')(app);
 
 app.listen(9999 || process.env.PORT, () => {
     console.log('Co nguoi dang nhap');

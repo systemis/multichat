@@ -4,17 +4,16 @@ import $                                            from 'jquery';
 import {connect}                                    from 'react-redux';
 
 import HomePage                                     from './Page/Home/home.js';
+import Navigation                                   from './Components/Navigation/navigation.js';
+import InfoGroup                                    from './Components/Info/info.js';
 import ChatGroup                                    from './Components/Chat/chat.js';
 import './App.css';
 
-
-const testCom = () => {
-  return(
-    <div>
-      Mobile
-    </div>
-  )
-} 
+function handlingHref(){
+  if($(window).width() > 991 && window.location.href.indexOf('/chat') >= 0){
+    window.location.href = '/';
+  }
+}
 
 class App extends Component {
   constructor(props){
@@ -23,7 +22,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log("Screen version" + this.props.screenVersion);
+    handlingHref();
     this.setState({screenWidth: $(window).width()});
     if($(window).width() <= 991){
       this.changeScreenVersion('mobile');
@@ -38,9 +37,15 @@ class App extends Component {
 
   renderRouter(){
     if(this.props.screenVersion === 'desktop'){
-      return <ChatGroup />;
+      return <HomePage />;
     }else{
-      return <ChatGroup />;
+      return (
+        <div>
+          <Route exact path="/" component={Navigation} />
+          <Route path="/chat"  component={ChatGroup} />
+          <Route path="/info"  component={InfoGroup} />
+        </div>
+      )
     }
   }
 
@@ -66,6 +71,7 @@ class App extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    handlingHref();
     if(nextState.screenWidth > 991){
       this.changeScreenVersion("desktop");
     }else{

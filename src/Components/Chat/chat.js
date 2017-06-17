@@ -3,6 +3,7 @@ import {connect}            from 'react-redux';
 
 class ChatGroup extends Component {
     componentWillMount() {
+        console.log(this.props);
         console.log("Version:" + this.props.screenVersion);
     }
 
