@@ -1,8 +1,10 @@
 import React, { Component }                         from 'react';
 import {BrowserRouter as Router, Route, hasHistory} from 'react-router-dom';
-import {connect}                                    from 'react-redux';
-import HomePage                                     from './Page/Home/home.js';
 import $                                            from 'jquery';
+import {connect}                                    from 'react-redux';
+
+import HomePage                                     from './Page/Home/home.js';
+import ChatGroup                                    from './Components/Chat/chat.js';
 import './App.css';
 
 
@@ -21,46 +23,62 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log("Screen version" + this.props.versionScreen);
+    console.log("Screen version" + this.props.screenVersion);
     this.setState({screenWidth: $(window).width()});
+    if($(window).width() <= 991){
+      this.changeScreenVersion('mobile');
+    }
+  }
+
+
+  changeScreenVersion(value){
+    const {dispatch} = this.props;
+    dispatch({type: 'change screen version', value: value});
+  }
+
+  renderRouter(){
+    if(this.props.screenVersion === 'desktop'){
+      return <ChatGroup />;
+    }else{
+      return <ChatGroup />;
+    }
   }
 
   render() {
-    const renderRouter = () => {
-      const width = this.state.screenWidth;
-      if(width > 991){
-        // reduxMG.dispatch({type: 'change version screen', value: 'desktop'});
-        return <Route exact path='/' component={HomePage} />
-      }else{
-        // reduxMG.dispatch({type: 'change version screen', value: 'mobile'});
-        // console.log("Version screen: " + reduxMG.getState().versionScreen);
-        
-        return (
-          <div>
-              <Route exact path='/' component={testCom} />
-          </div>
-        )
-      }
-    }
-    
     return (
       <Router>
         <div id="App">
-          {renderRouter()}
+          {this.renderRouter()}
         </div>
       </Router>
     );
   }
 
   componentDidMount() {
+    const sefl = this;
     window.onresize = () => {
-      this.setState({screenWidth: $(window).width()});
-    }    
+      const width = $(window).width();
+      const oldW  = this.state.screenWidth;
+      if(width < 991 && oldW > 991 || width > 991 && oldW < 991){
+        sefl.setState({screenWidth: width});
+      }
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextState.screenWidth > 991){
+      this.changeScreenVersion("desktop");
+    }else{
+      this.changeScreenVersion("mobile");
+    }
+    
+    this.render();
+    return true;    
   }
 }
 
-module.exports = connect(function(state){
+export default connect((state) => {
   return {
-    versionScreen: state.versionScreen
-  }
-})(App)
+    screenVersion: state.screenVersion
+  };
+})(App);

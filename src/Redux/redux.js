@@ -7,7 +7,7 @@ const defaultState = {
 
 const screenVersionReducer = (state = 'desktop', action) => {
     switch(action.type){
-        case 'change version screen':
+        case 'change screen version':
             return action.value;
         default:
             return state;
@@ -23,20 +23,8 @@ const isAdingReducer = (state = false, action) => {
     }
 }
 
-// const reducer = (state = defaultState, action) => {
-//     switch(action.type){
-//         case 'change version screen':
-//             return {...state, versionScreen: action.value};
-//         default: 
-//             break;
-//     }
-
-//     return state;
-// }
-
-
 const reducer = redux.combineReducers({
-    versionScreen: screenVersionReducer,
+    screenVersion: screenVersionReducer,
     isAding: isAdingReducer
 })
 
@@ -45,7 +33,7 @@ const store = redux.createStore(reducer, redux.compose(
 ));
 
 store.subscribe(() => {
-    console.log("Version screen: " + store.getState().versionScreen);
+    console.log("Version screen: " + store.getState().screenVersion);
 })
 
 module.exports = store;
