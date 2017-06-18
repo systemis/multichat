@@ -1,0 +1,34 @@
+#navigation-show-user-online {
+  margin: 0;
+  padding: 0; }
+  #navigation-show-user-online.desktop {
+    float: left;
+    width: 25%; }
+  #navigation-show-user-online .row #left-navi {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    float: left;
+    background: gray;
+    width: 10%; }
+    #navigation-show-user-online .row #left-navi #show-hiden-main-navi-btn {
+      color: white;
+      font-size: 25px;
+      text-align: center; }
+  #navigation-show-user-online .row #navigation-show-user-online-main-navi {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: scroll;
+    float: left;
+    background: blue; }
+    #navigation-show-user-online .row #navigation-show-user-online-main-navi.desktop {
+      width: 90%; }
+      #navigation-show-user-online .row #navigation-show-user-online-main-navi.desktop.hiden {
+        display: none; }
+    @media screen and (max-width: 991px) {
+      #navigation-show-user-online .row #navigation-show-user-online-main-navi {
+        width: 100%;
+        display: block; } }
+
+/*# sourceMappingURL=navigation-style.css.map */

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAOA,WAAW;EANP,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EAOV,MAAM,EAAE,KAAK;EACb,UAAU,EAAE,MAAM;EAClB,mBAAS;IACL,KAAK,EAAE,IAAI;IACX,KAAK,EAAE,GAAG",
+"sources": ["chat-group-style.scss"],
+"names": [],
+"file": "chat-group-style.css"
+}

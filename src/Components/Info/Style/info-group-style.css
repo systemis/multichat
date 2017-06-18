@@ -1,0 +1,10 @@
+#info-group {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: red; }
+  #info-group.desktop {
+    float: left;
+    width: 25%; }
+
+/*# sourceMappingURL=info-group-style.css.map */

@@ -7,7 +7,7 @@ class HomePage extends Component {
     render() {
         return (
             <div className="home-page row">
-                <Navigation Check={"dd"}/>
+                <Navigation />
                 <ChatGroup  />
                 <InfoGroup  />
             </div>

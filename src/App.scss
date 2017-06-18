@@ -1,2 +1,11 @@
 #App{
+    font-family: "nyt-cheltenham",georgia,"times new roman",times,serif;
+    padding: 0;
+    @mixin flex(){
+        margin: 0;
+        padding: 0;
+    }
+    & .row{
+        @include flex();
+    }
 }

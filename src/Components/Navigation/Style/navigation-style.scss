@@ -1,0 +1,45 @@
+@mixin flex(){
+    margin: 0;
+    padding: 0;
+}
+@mixin character-group-big{
+    height: 100vh;
+}
+#navigation-show-user-online{
+    @include flex();
+    &.desktop{
+        float: left;
+        width: 25%;
+    }
+    & .row{
+        & #left-navi{
+            @include flex();
+            @include character-group-big();
+            float: left;
+            background: gray;
+            width: 10%;
+            & #show-hiden-main-navi-btn{
+                color: white;
+                font-size: 25px;
+                text-align: center;
+            }
+        }
+        & #navigation-show-user-online-main-navi{
+            @include flex();
+            @include character-group-big();
+            overflow: scroll;
+            float: left;
+            background: blue;
+            &.desktop{
+                width: 90%;
+                &.hiden{
+                    display: none;
+                }
+            }
+            @media screen and (max-width: 991px) {
+                width: 100%;
+                display: block;
+            }
+        }
+    }
+}

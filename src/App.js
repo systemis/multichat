@@ -10,8 +10,10 @@ import ChatGroup                                    from './Components/Chat/chat
 import './App.css';
 
 function handlingHref(){
-  if($(window).width() > 991 && window.location.href.indexOf('/chat') >= 0){
-    window.location.href = '/';
+  if($(window).width() > 991){
+    if(window.location.href.indexOf('/chat') >= 0 || window.location.href.indexOf('/info') >= 0){
+      window.location.href = '/';
+    }
   }
 }
 
@@ -35,15 +37,19 @@ class App extends Component {
     dispatch({type: 'change screen version', value: value});
   }
 
-  renderRouter(){
+  router(){
     if(this.props.screenVersion === 'desktop'){
-      return <HomePage />;
+      return (
+        <div>
+          <Route exact path="/" component={HomePage} />
+        </div>
+      )
     }else{
       return (
         <div>
           <Route exact path="/" component={Navigation} />
-          <Route path="/chat"  component={ChatGroup} />
-          <Route path="/info"  component={InfoGroup} />
+          <Route path="/chat"   component={ChatGroup} />
+          <Route path="/info"   component={InfoGroup} />
         </div>
       )
     }
@@ -53,7 +59,7 @@ class App extends Component {
     return (
       <Router>
         <div id="App">
-          {this.renderRouter()}
+          {this.router()}
         </div>
       </Router>
     );
@@ -77,9 +83,9 @@ class App extends Component {
     }else{
       this.changeScreenVersion("mobile");
     }
-    
+
     this.render();
-    return true;    
+    return true;
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect}            from 'react-redux';
+import './Style/chat-group-style.css';
 
 class ChatGroup extends Component {
     componentWillMount() {
@@ -10,14 +11,13 @@ class ChatGroup extends Component {
     render() {
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
-                return 'chat-group col-md-6'
-            }else{
-                return 'chat-group'
+                return 'desktop';
             }
+            return "";            
         }
 
         return (
-            <div className={className()}>
+            <div className={className()} id="chat-group">
                 {this.props.screenVersion}
             </div>
         );

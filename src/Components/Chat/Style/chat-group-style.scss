@@ -1,0 +1,16 @@
+@mixin flex(){
+    margin: 0;
+    padding: 0;
+}
+@mixin character-group-big{
+    height: 100vh;
+}
+#chat-group{
+    @include flex();
+    height: 100vh;
+    background: yellow;
+    &.desktop{
+        float: left;
+        width: 50%;
+    }
+}

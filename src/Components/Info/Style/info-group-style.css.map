@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAOA,WAAW;EANP,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EAOV,MAAM,EAAE,KAAK;EACb,UAAU,EAAE,GAAG;EACf,mBAAS;IACL,KAAK,EAAE,IAAI;IACX,KAAK,EAAE,GAAG",
+"sources": ["info-group-style.scss"],
+"names": [],
+"file": "info-group-style.css"
+}

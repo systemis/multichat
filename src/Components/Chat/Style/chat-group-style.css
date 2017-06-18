@@ -1,0 +1,10 @@
+#chat-group {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: yellow; }
+  #chat-group.desktop {
+    float: left;
+    width: 50%; }
+
+/*# sourceMappingURL=chat-group-style.css.map */
