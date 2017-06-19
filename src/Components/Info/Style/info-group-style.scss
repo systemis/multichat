@@ -8,7 +8,7 @@
 #info-group{
     @include flex();
     height: 100vh;
-    background: red;
+    background: #FFFFFF;
     &.desktop{
         float: left;
         width: 25%;

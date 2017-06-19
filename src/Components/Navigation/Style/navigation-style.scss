@@ -7,16 +7,18 @@
 }
 #navigation-show-user-online{
     @include flex();
+    $border: 1px solid #eeeeee;
     &.desktop{
         float: left;
         width: 25%;
     }
     & .row{
         & #left-navi{
+            padding-top: 10px;
             @include flex();
             @include character-group-big();
             float: left;
-            background: gray;
+            background: #1E2329;
             width: 10%;
             & #show-hiden-main-navi-btn{
                 color: white;
@@ -29,7 +31,52 @@
             @include character-group-big();
             overflow: scroll;
             float: left;
-            background: blue;
+            background: #232A32;
+            color: white;
+            & .search-group{
+                position: relative;
+                color: #aaa;
+                height: 60px;
+                border-bottom: 0.5px solid darkgray;
+                font-size: 16px;
+                padding-left: 10px;
+                padding-top: 10px;            
+                padding-right: 10px;
+                & #search-user-by-name{
+                    background: #363C43;
+                    width: 100%;
+                    height: 32px;
+                    text-indent: 32px;
+                    border: none;
+                    border-radius: 15px;
+                    &:focus{
+                        border: none;
+                        box-shadow: none;
+                    }
+                }
+
+                & .fa.fa-search{
+                    position: absolute;
+                    top: 18px;
+                    left: 20px;
+                }
+            }
+            & .user-item{
+                & .show-image{
+                    & img{
+                        width: 100%;
+                        border-radius: 50%;
+                    }
+                }
+                & .show-user-info{
+                    & .show-name{
+
+                    }
+                    & .show-status{
+
+                    }
+                }
+            }
             &.desktop{
                 width: 90%;
                 &.hiden{

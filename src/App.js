@@ -17,6 +17,7 @@ function handlingHref(){
   }
 }
 
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -30,7 +31,6 @@ class App extends Component {
       this.changeScreenVersion('mobile');
     }
   }
-
 
   changeScreenVersion(value){
     const {dispatch} = this.props;

@@ -5,11 +5,12 @@
     float: left;
     width: 25%; }
   #navigation-show-user-online .row #left-navi {
+    padding-top: 10px;
     margin: 0;
     padding: 0;
     height: 100vh;
     float: left;
-    background: gray;
+    background: #1E2329;
     width: 10%; }
     #navigation-show-user-online .row #left-navi #show-hiden-main-navi-btn {
       color: white;
@@ -21,7 +22,34 @@
     height: 100vh;
     overflow: scroll;
     float: left;
-    background: blue; }
+    background: #232A32;
+    color: white; }
+    #navigation-show-user-online .row #navigation-show-user-online-main-navi .search-group {
+      position: relative;
+      color: #aaa;
+      height: 60px;
+      border-bottom: 0.5px solid darkgray;
+      font-size: 16px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-right: 10px; }
+      #navigation-show-user-online .row #navigation-show-user-online-main-navi .search-group #search-user-by-name {
+        background: #363C43;
+        width: 100%;
+        height: 32px;
+        text-indent: 32px;
+        border: none;
+        border-radius: 15px; }
+        #navigation-show-user-online .row #navigation-show-user-online-main-navi .search-group #search-user-by-name:focus {
+          border: none;
+          box-shadow: none; }
+      #navigation-show-user-online .row #navigation-show-user-online-main-navi .search-group .fa.fa-search {
+        position: absolute;
+        top: 18px;
+        left: 20px; }
+    #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image img {
+      width: 100%;
+      border-radius: 50%; }
     #navigation-show-user-online .row #navigation-show-user-online-main-navi.desktop {
       width: 90%; }
       #navigation-show-user-online .row #navigation-show-user-online-main-navi.desktop.hiden {
