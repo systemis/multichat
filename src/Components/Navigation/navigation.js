@@ -9,7 +9,21 @@ import avatar1               from '../../Image/test_avatar_men.jpg';
 import avatar2               from '../../Image/test_avatar_women.jpg';
 import './Style/navigation-style.css';
 
-var test = ["Yeu", "An", "Song"];
+var test = [{
+    name: 'Zoich Johny', 
+    status: 'I like code ...', 
+    avatar: avatar1
+},
+{
+    name: 'Wana waston', 
+    status: 'I like coffe I like coffe I like coffe I like coffe ...', 
+    avatar: avatar2
+},
+{
+    name: 'Wana Jick waston', 
+    status: 'I like coffe I like coffe I like coffe I like coffe ...', 
+    avatar: avatar2
+},];
 class Navigation extends Component {
     constructor(props) {
         super(props);
@@ -37,9 +51,21 @@ class Navigation extends Component {
     searchEvent(value){
         const searchValue = value;
         if(value){
-            this.setState({doneSearching: false});
-            setTimeout(() => this.setState({doneSearching: true}), 1000);
             this.setState({isSearching: true})
+            this.setState({doneSearching: false});
+            var result = [];
+            test.map((item, index) => {
+                if(item.name.indexOf(value) >=0){
+                    console.log(item.name);
+                    result.push(item);
+                }
+
+                if(index === test.length - 1){
+                    console.log(result);
+                    this.setState({searchUser: result});
+                    this.setState({doneSearching: true});
+                }
+            })
         }else{
             this.setState({isSearching: false})
         }
@@ -63,7 +89,11 @@ class Navigation extends Component {
     mainLayout(){
         if(this.state.isSearching){
             if(this.state.doneSearching){
-                return <SearchView data={this.state.searchUser}/>
+                if(this.state.searchUser.length > 0){
+                    return <SearchView data={this.state.searchUser}/>
+                }else{
+                    return <h3 style={{textAlign: 'center'}}> Khong co du lieu </h3>
+                }
             }else{
                 return(
                     <h3 
@@ -96,7 +126,6 @@ class Navigation extends Component {
                     <div className={childGroupClassName()} id="navigation-show-user-online-main-navi">
                         <SearchGroup searchEvent={this.searchEvent} />
                         {this.mainLayout()}
-                        {this.props.screenVersion}
                     </div>
                 </div>
             </div>
