@@ -47,9 +47,28 @@
         position: absolute;
         top: 18px;
         left: 20px; }
-    #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image img {
-      width: 100%;
-      border-radius: 50%; }
+    #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item {
+      padding: 10px 0; }
+      #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image {
+        margin: 0;
+        padding: 0; }
+        #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child {
+          padding-left: 15px;
+          padding-right: 15px; }
+          #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
+            width: 100%;
+            height: 54.31px;
+            border-radius: 50%; }
+      #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-user-info {
+        margin: 0;
+        padding: 0;
+        padding-top: 10px; }
+        #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-user-info .show-name {
+          line-height: 0; }
+        #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-user-info .show-status {
+          line-height: 0; }
+      #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item:hover {
+        background: red; }
     #navigation-show-user-online .row #navigation-show-user-online-main-navi.desktop {
       width: 90%; }
       #navigation-show-user-online .row #navigation-show-user-online-main-navi.desktop.hiden {

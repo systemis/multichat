@@ -62,19 +62,31 @@
                 }
             }
             & .user-item{
+                padding: 10px 0;
                 & .show-image{
-                    & img{
-                        width: 100%;
-                        border-radius: 50%;
+                    @include flex();
+                    & .child{
+                        padding-left: 15px;
+                        padding-right: 15px;
+                        & img{
+                            width: 100%;
+                            height: 54.31px;
+                            border-radius: 50%;
+                        }
                     }
                 }
                 & .show-user-info{
+                    @include flex();
+                    padding-top: 10px;
                     & .show-name{
-
+                        line-height: 0;
                     }
                     & .show-status{
-
+                        line-height: 0;
                     }
+                }
+                &:hover{
+                    background: red;
                 }
             }
             &.desktop{

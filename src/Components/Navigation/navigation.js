@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {connect}            from 'react-redux';
 import $                    from 'jquery';
-import avatar               from '../../Image/test_avatar.jpg';
 import SearchGroup          from './search-group.js';
 import SearchView           from './search-view.js';
 import UsersView            from './users-view';
+
+import avatar1               from '../../Image/test_avatar_men.jpg';
+import avatar2               from '../../Image/test_avatar_women.jpg';
 import './Style/navigation-style.css';
 
 var test = ["Yeu", "An", "Song"];
@@ -12,11 +14,19 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            defaultUser: [{
-                name: 'test user', 
-                status: 'I like code ...', 
-                avatar: avatar}],
-            searchUser: [{}],
+            defaultUser: [
+                {
+                    name: 'Zoich Johny', 
+                    status: 'I like code ...', 
+                    avatar: avatar1
+                },
+                {
+                    name: 'Wana waston', 
+                    status: 'I like coffe I like coffe I like coffe I like coffe ...', 
+                    avatar: avatar2
+                },
+            ],
+            searchUser: [],
             isSearching: false,
             doneSearching: false
         }
@@ -27,7 +37,6 @@ class Navigation extends Component {
     searchEvent(value){
         const searchValue = value;
         if(value){
-            console.log("Search value " + value);
             this.setState({doneSearching: false});
             setTimeout(() => this.setState({doneSearching: true}), 1000);
             this.setState({isSearching: true})
