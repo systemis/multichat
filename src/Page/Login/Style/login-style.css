@@ -1,0 +1,95 @@
+.sign-in-page {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-image: url("https://s-media-cache-ak0.pinimg.com/originals/c8/ed/9a/c8ed9a8e726a187a7c0078a559e15cc6.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  position: relative; }
+  .sign-in-page .login-page-left-group-show-backgrond {
+    padding: 0;
+    margin: 0;
+    height: 100vh; }
+    .sign-in-page .login-page-left-group-show-backgrond img {
+      width: 100%;
+      height: 100%; }
+  .sign-in-page .sign-in-group, .sign-in-page .sign-up-group {
+    border: 1px solid #e5e5e5;
+    color: white;
+    padding: 10px 15px;
+    right: 25%; }
+    .sign-in-page .sign-in-group .title, .sign-in-page .sign-up-group .title {
+      text-align: center;
+      font-family: inherit; }
+    @media screen and (min-width: 991px) {
+      .sign-in-page .sign-in-group, .sign-in-page .sign-up-group {
+        position: absolute;
+        top: 180px;
+        right: 150px; } }
+    @media screen and (max-width: 991px) {
+      .sign-in-page .sign-in-group, .sign-in-page .sign-up-group {
+        position: absolute;
+        top: 180px;
+        left: 25%; } }
+  .sign-in-page input[type=text], .sign-in-page input[type=password] {
+    width: 250px;
+    padding: 10px 5px;
+    border: none;
+    margin-bottom: 20px; }
+    @media screen and (max-width: 991px) {
+      .sign-in-page input[type=text], .sign-in-page input[type=password] {
+        width: 100%; } }
+  .sign-in-page input[type=button], .sign-in-page .login-with-face {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    letter-spacing: 5px;
+    border: none;
+    background: rgba(233, 30, 99, 0.7);
+    text-transform: uppercase;
+    font-family: Space Mono; }
+    @media screen and (max-width: 768px) {
+      .sign-in-page input[type=button], .sign-in-page .login-with-face {
+        padding: 15px 0; } }
+  .sign-in-page .login-with-face {
+    margin-top: 20px; }
+    .sign-in-page .login-with-face .fa.fa-facebook {
+      font-size: 20px; }
+
+.sign-up-page {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-image: url("https://s-media-cache-ak0.pinimg.com/originals/c8/ed/9a/c8ed9a8e726a187a7c0078a559e15cc6.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  position: relative; }
+  .sign-up-page .login-page-left-group-show-backgrond {
+    padding: 0;
+    margin: 0;
+    height: 100vh; }
+    .sign-up-page .login-page-left-group-show-backgrond img {
+      width: 100%;
+      height: 100%; }
+  .sign-up-page .sign-in-group, .sign-up-page .sign-up-group {
+    border: 1px solid #e5e5e5;
+    color: white;
+    padding: 10px 15px;
+    right: 25%; }
+    .sign-up-page .sign-in-group .title, .sign-up-page .sign-up-group .title {
+      text-align: center;
+      font-family: inherit; }
+    @media screen and (min-width: 991px) {
+      .sign-up-page .sign-in-group, .sign-up-page .sign-up-group {
+        position: absolute;
+        top: 180px;
+        right: 150px; } }
+    @media screen and (max-width: 991px) {
+      .sign-up-page .sign-in-group, .sign-up-page .sign-up-group {
+        position: absolute;
+        top: 180px;
+        left: 25%; } }
+
+/*# sourceMappingURL=login-style.css.map */

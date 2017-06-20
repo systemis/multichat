@@ -1,0 +1,96 @@
+$border: 1px solid #e5e5e5;
+@mixin flex(){
+    padding: 0;
+    margin: 0;
+}
+
+@mixin left-background(){
+    & .login-page-left-group-show-backgrond{
+        @include flex();
+        height: 100vh;
+        & img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+@mixin character-together(){
+    @include flex();
+    @include left-background();
+    height: 100vh;
+    background-image: url('https://s-media-cache-ak0.pinimg.com/originals/c8/ed/9a/c8ed9a8e726a187a7c0078a559e15cc6.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;     
+    position: relative;
+    & .sign-in-group, & .sign-up-group{
+        border: $border;
+        color: white;
+        padding: 10px 15px;
+        right: 25%;
+        & .title{
+            text-align: center;
+            font-family: inherit;
+        }
+        @media screen and (min-width: 991px){
+            position: absolute;
+            top: 180px;
+            right: 150px;
+        }
+        @media screen and (max-width: 991px){
+            position: absolute;
+            top: 180px;
+            left: 25%;   
+        }
+    }
+}
+
+
+@mixin input-character(){
+    width: 250px;
+    padding: 10px 5px;
+    border: none;
+    margin-bottom: 20px;
+    @media screen and (max-width: 991px){
+        width: 100%;
+    }
+}
+
+@mixin button(){
+    & input[type=button], & .login-with-face{
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+        letter-spacing: 5px;
+        border: none;
+        background: rgba(233,30,99,.7);
+        text-transform: uppercase;
+        font-family: Space Mono;
+        @media screen and(max-width: 768px){
+            padding: 15px 0;
+        }
+    }
+    & .login-with-face{
+        margin-top: 20px;
+        & .fa.fa-facebook{
+            font-size: 20px;
+        }
+    }
+}
+
+.sign-in-page{
+    @include character-together();
+    & #login-form{
+        
+    }
+    & input[type=text], & input[type=password]{
+        @include input-character();
+    }
+    
+    @include button();
+}
+
+.sign-up-page{
+    @include character-together();
+}
