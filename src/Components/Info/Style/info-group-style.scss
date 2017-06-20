@@ -5,7 +5,7 @@
 @mixin character-group-big{
     height: 100vh;
 }
-$border: 1px solid darkgray;
+$border: 1px solid #e5e5e5;
 #info-group{
     @include flex();
     height: 100vh;
@@ -33,6 +33,66 @@ $border: 1px solid darkgray;
             & .dropdown-menu{
                 right: 15px;
                 top: 40px;
+            }
+        }
+    }
+    & .show-info{
+        & .show-simple-info{
+            padding-bottom: 20px;
+            border-bottom: $border;
+            & .show-avatar{
+                & p{
+                    text-align: center;
+                    margin-top: 30px;
+                    & img{
+                        width: 150px;
+                        height: 150px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+            & .show-name-andress{
+                margin-top: 20px;
+                & .show-name, .show-andress{
+                    text-align: center;
+                    padding: 0;
+                    margin: 0;
+                }
+                & .show-name{
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+                & .show-andress{
+                    color: gray
+                }
+            }
+        }
+        & .show-default-info{
+            padding-top: 30px;
+            padding-right: 30px;
+            padding-left: 30px;
+            & .table-show-user-default-info{
+                width: 100%;
+                & tr{
+                    font-size: 14px;
+                    $padding-top: 10px;
+                    $padding-bottom: 20px;
+                    &:not(:last-child){
+                        border-bottom: $border;
+                    }
+                    & .show-title{
+                        padding-top: $padding-top;
+                        padding-bottom: $padding-bottom;
+                        color: #6C6F70;
+                    }
+                    & .show-value{
+                        padding-top: $padding-top;
+                        padding-bottom: $padding-bottom;
+                        float: right;
+                        color: #B4B4B6;
+                    }
+                }
             }
         }
     }

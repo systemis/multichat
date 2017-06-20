@@ -9,7 +9,7 @@
   #info-group .header-bar {
     position: relative;
     height: 60px;
-    border-bottom: 1px solid darkgray; }
+    border-bottom: 1px solid #e5e5e5; }
     #info-group .header-bar .dropdown .show-client-name {
       float: right;
       margin-right: 15px;
@@ -21,5 +21,45 @@
     #info-group .header-bar .dropdown .dropdown-menu {
       right: 15px;
       top: 40px; }
+  #info-group .show-info .show-simple-info {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5; }
+    #info-group .show-info .show-simple-info .show-avatar p {
+      text-align: center;
+      margin-top: 30px; }
+      #info-group .show-info .show-simple-info .show-avatar p img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%; }
+    #info-group .show-info .show-simple-info .show-name-andress {
+      margin-top: 20px; }
+      #info-group .show-info .show-simple-info .show-name-andress .show-name, #info-group .show-info .show-simple-info .show-name-andress .show-andress {
+        text-align: center;
+        padding: 0;
+        margin: 0; }
+      #info-group .show-info .show-simple-info .show-name-andress .show-name {
+        font-size: 18px;
+        font-weight: bold; }
+      #info-group .show-info .show-simple-info .show-name-andress .show-andress {
+        color: gray; }
+  #info-group .show-info .show-default-info {
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-left: 30px; }
+    #info-group .show-info .show-default-info .table-show-user-default-info {
+      width: 100%; }
+      #info-group .show-info .show-default-info .table-show-user-default-info tr {
+        font-size: 14px; }
+        #info-group .show-info .show-default-info .table-show-user-default-info tr:not(:last-child) {
+          border-bottom: 1px solid #e5e5e5; }
+        #info-group .show-info .show-default-info .table-show-user-default-info tr .show-title {
+          padding-top: 10px;
+          padding-bottom: 20px;
+          color: #6C6F70; }
+        #info-group .show-info .show-default-info .table-show-user-default-info tr .show-value {
+          padding-top: 10px;
+          padding-bottom: 20px;
+          float: right;
+          color: #B4B4B6; }
 
 /*# sourceMappingURL=info-group-style.css.map */
