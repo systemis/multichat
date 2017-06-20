@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import {connect}            from 'react-redux';
 
 class UserItem extends Component {
+    clickItemEvent(){
+        var {dispatch} = this.props;
+        dispatch({type: 'change_chat_id', value: this.props.data.name});
+        console.log(this.props.data.name);
+    }
+
     render() {
         return (
             <div 
                 className="user-item row" 
-                onClick={() => {console.log(this.props.data.name)}}>
+                onClick={() => this.clickItemEvent()}>
                 <div className="col-md-3 col-sm-3 col-xs-3 show-image">
                     <div className="child">
                         <img src={this.props.data.avatar} />
@@ -20,4 +27,4 @@ class UserItem extends Component {
     }
 }
 
-export default UserItem;
+export default connect()(UserItem);

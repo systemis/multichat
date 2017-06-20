@@ -2,9 +2,71 @@
   margin: 0;
   padding: 0;
   height: 100vh;
-  background: #EEF1F6; }
+  background: #EEF1F6;
+  position: relative; }
   #chat-group.desktop {
     float: left;
     width: 50%; }
+  #chat-group .header-bar {
+    position: relative;
+    height: 60px;
+    border-bottom: 1px solid darkgray; }
+    #chat-group .header-bar .chat-group-show-name {
+      float: left;
+      margin-left: 15px;
+      margin-top: 20px; }
+    #chat-group .header-bar .chat-group-list-tool {
+      list-style-type: none;
+      float: right;
+      height: 100%; }
+      #chat-group .header-bar .chat-group-list-tool li {
+        float: right;
+        height: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+        border-right: 1px solid darkgray;
+        border-left: 1px solid darkgray; }
+        #chat-group .header-bar .chat-group-list-tool li .fa {
+          margin-top: 20px; }
+        #chat-group .header-bar .chat-group-list-tool li:first-child {
+          border: none; }
+        #chat-group .header-bar .chat-group-list-tool li:hover {
+          background: red; }
+  #chat-group .show-message {
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    right: 0;
+    left: 0; }
+  #chat-group .group-send-message {
+    position: absolute;
+    background: #FBFCFD;
+    bottom: 0;
+    height: 60px;
+    right: 0;
+    left: 0; }
+    #chat-group .group-send-message .fa-paperclip {
+      width: 10%;
+      float: left;
+      font-size: 30px;
+      margin-top: 20px;
+      padding-left: 10px; }
+    #chat-group .group-send-message #input-message {
+      float: left;
+      width: 80%;
+      height: 100%;
+      border: none;
+      padding-right: 20px;
+      background: transparent; }
+    #chat-group .group-send-message .fa-paper-plane {
+      float: left;
+      width: 10%;
+      font-size: 20px;
+      margin-top: 25px;
+      padding-right: 10px;
+      padding-left: 5px; }
+      @media screen and (min-width: 991px) {
+        #chat-group .group-send-message .fa-paper-plane {
+          padding-left: 20px; } }
 
 /*# sourceMappingURL=chat-group-style.css.map */

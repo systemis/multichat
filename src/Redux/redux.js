@@ -23,8 +23,18 @@ const isAdingReducer = (state = false, action) => {
     }
 }
 
+const chatId = (state = -1, action) => {
+    switch(action.type){
+        case 'change_chat_id':
+            return action.value;
+        default: 
+            return state;
+    }
+}
+
 const reducer = redux.combineReducers({
     screenVersion: screenVersionReducer,
+    chatId: chatId,
     isAding: isAdingReducer
 })
 

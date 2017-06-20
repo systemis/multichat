@@ -5,8 +5,9 @@ import SearchGroup          from './search-group.js';
 import SearchView           from './search-view.js';
 import UsersView            from './users-view';
 
-import avatar1               from '../../Image/test_avatar_men.jpg';
-import avatar2               from '../../Image/test_avatar_women.jpg';
+// Image for test ui 
+import avatar1              from '../../Image/test_avatar_men.jpg';
+import avatar2              from '../../Image/test_avatar_women.jpg';
 import './Style/navigation-style.css';
 
 var test = [{
@@ -45,6 +46,7 @@ class Navigation extends Component {
             doneSearching: false
         }
 
+        // Backend API 
         this.searchEvent = this.searchEvent.bind(this);
     }
 
@@ -75,7 +77,7 @@ class Navigation extends Component {
         if(this.props.screenVersion === 'desktop'){
             return (
                 <div id="left-navi">
-                    <p style={{textAlign: 'center'}}>
+                    <p>
                         <i className="fa fa-bars" 
                            aria-hidden="true" 
                            id="show-hiden-main-navi-btn"></i>

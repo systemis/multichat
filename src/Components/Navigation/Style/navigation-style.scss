@@ -20,10 +20,14 @@
             float: left;
             background: #1E2329;
             width: 10%;
-            & #show-hiden-main-navi-btn{
-                color: white;
-                font-size: 25px;
+            & p{
+                margin-top: 10px;
                 text-align: center;
+                & #show-hiden-main-navi-btn{
+                    color: white;
+                    font-size: 25px;
+                    text-align: center;
+                }
             }
         }
         & #navigation-show-user-online-main-navi{

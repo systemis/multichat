@@ -5,12 +5,87 @@
 @mixin character-group-big{
     height: 100vh;
 }
+$boder: 1px solid darkgray;
 #chat-group{
     @include flex();
     height: 100vh;
     background: #EEF1F6;
+    position: relative;
     &.desktop{
         float: left;
         width: 50%;
+    }
+    & .header-bar{
+        position: relative;
+        height: 60px;
+        border-bottom: $boder;
+        & .chat-group-show-name{
+            float: left;
+            margin-left: 15px;
+            margin-top: 20px;
+        }
+        & .chat-group-list-tool{
+            list-style-type: none;
+            float: right;
+            height: 100%;
+            & li{
+                float: right;
+                height: 100%;
+                padding-right: 20px; 
+                padding-left: 20px;
+                border-right: $boder;
+                border-left: $boder;
+                & .fa{
+                    margin-top: 20px;
+                }
+                &:first-child{
+                    border: none;
+                }
+                &:hover{
+                    background: red;
+                }
+            }
+        }
+    }
+    & .show-message{
+        position: absolute;
+        top: 60px;
+        bottom: 60px;
+        right: 0;
+        left: 0;
+    }
+    & .group-send-message{
+        position: absolute;
+        background: #FBFCFD;
+        bottom: 0;
+        height: 60px;
+        right: 0;
+        left: 0;
+        & .fa-paperclip{
+            width: 10%;
+            float: left;
+            font-size: 30px;
+            margin-top: 20px;
+            padding-left: 10px;
+        }
+        & #input-message{
+            float: left;
+            width: 80%;
+            height: 100%;
+            border: none;
+            padding-right: 20px;
+            background: transparent;
+        }
+        & .fa-paper-plane{
+            float: left;
+            width: 10%;
+            font-size: 20px;
+            margin-top: 25px;
+            padding-right: 10px;
+            padding-left: 5px;
+            @media screen and (min-width: 991px){
+                padding-left: 20px;
+            }
+        }
     }
 }

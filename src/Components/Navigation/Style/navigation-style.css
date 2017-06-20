@@ -12,10 +12,13 @@
     float: left;
     background: #1E2329;
     width: 10%; }
-    #navigation-show-user-online .row #left-navi #show-hiden-main-navi-btn {
-      color: white;
-      font-size: 25px;
+    #navigation-show-user-online .row #left-navi p {
+      margin-top: 10px;
       text-align: center; }
+      #navigation-show-user-online .row #left-navi p #show-hiden-main-navi-btn {
+        color: white;
+        font-size: 25px;
+        text-align: center; }
   #navigation-show-user-online .row #navigation-show-user-online-main-navi {
     margin: 0;
     padding: 0;
