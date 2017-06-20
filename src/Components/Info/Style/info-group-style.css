@@ -6,5 +6,20 @@
   #info-group.desktop {
     float: left;
     width: 25%; }
+  #info-group .header-bar {
+    position: relative;
+    height: 60px;
+    border-bottom: 1px solid darkgray; }
+    #info-group .header-bar .dropdown .show-client-name {
+      float: right;
+      margin-right: 15px;
+      margin-top: 15px; }
+      #info-group .header-bar .dropdown .show-client-name .caret {
+        margin-left: 10px; }
+      #info-group .header-bar .dropdown .show-client-name:hover {
+        color: red; }
+    #info-group .header-bar .dropdown .dropdown-menu {
+      right: 15px;
+      top: 40px; }
 
 /*# sourceMappingURL=info-group-style.css.map */

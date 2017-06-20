@@ -5,6 +5,7 @@
 @mixin character-group-big{
     height: 100vh;
 }
+$border: 1px solid darkgray;
 #info-group{
     @include flex();
     height: 100vh;
@@ -12,5 +13,27 @@
     &.desktop{
         float: left;
         width: 25%;
+    }
+    & .header-bar{
+        position: relative;
+        height: 60px;
+        border-bottom: $border;
+        & .dropdown{
+            & .show-client-name{
+                float: right;
+                margin-right: 15px;
+                margin-top: 15px;
+                & .caret{
+                    margin-left: 10px;
+                }
+                &:hover{
+                    color: red;
+                }
+            }
+            & .dropdown-menu{
+                right: 15px;
+                top: 40px;
+            }
+        }
     }
 }
