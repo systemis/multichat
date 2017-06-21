@@ -25,11 +25,4 @@ require('./server/app/login.js')(app);
 
 app.listen(9999 || process.env.PORT, () => {
     console.log('Co nguoi dang nhap');
-    const bundle = {
-        name : 'test',
-        email: 'systemofpet',
-        password: 'Hi'
-    }
-
-    userDm.newUser(bundle, (err, result) => console.log(result));
 })

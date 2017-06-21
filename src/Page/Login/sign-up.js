@@ -40,16 +40,19 @@ class SignUpPage extends Component {
 
     componentDidMount() {
         document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
             const name     = document.getElementById('input-name-sign-up').value;
             const email    = document.getElementById('input-email-sign-up').value;
             const password = document.getElementById('input-password-sign-up').value;
             if(name && email && password){
                 userMG.register(name, email, password, (err, result) => {
                     if(err){
-                        return alert('Loi: ' + result);
+                        console.log(result);
+                        return alert('Loi: ' + JSON.stringify(result));
                     }
 
-                    return alert(result);
+                    window.location.href = '/sign-in';
+                    alert(result);
                 })
             }else{
                 alert('Mot so thong tin co trong xin moi nhap lai');

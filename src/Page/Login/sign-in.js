@@ -29,6 +29,7 @@ class SignInPage extends Component {
                             id="login-email-btn"
                             value="Login"/>
                     </form>
+                    <a href="/sign-up"> Sign Up </a>
                     <button className="login-with-face">
                         <span> Login with  </span>
                         <i className="fa fa-facebook" />

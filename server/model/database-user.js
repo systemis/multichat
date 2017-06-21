@@ -2,7 +2,7 @@ const connection = require('../config/database.js');
 const tableName  = "UserData";
 class UserMD {
     constructor(){
-        connection.query("CREATE TABLE `"+tableName+"` ( `id` INT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `andress` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `date` TEXT NULL DEFAULT NULL , `gender` TEXT NULL DEFAULT NULL , `language` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=armscii8 COLLATE armscii8_general_ci", (err, result) => {
+        connection.query("CREATE TABLE `"+tableName+"` ( `id` INT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `andress` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `date` TEXT NULL DEFAULT NULL , `gender` TEXT NULL DEFAULT NULL , `language` TEXT NULL DEFAULT NULL , `avatar` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=armscii8 COLLATE armscii8_general_ci", (err, result) => {
             if(err) {
                 return console.log("Create user table fail");
             }
@@ -13,18 +13,21 @@ class UserMD {
 
     newUser(bundle, fn){
         this.checkAlreadyExistsEmail(bundle.email, rs => {
+            // set default avatar 
+            bundle.avatar = 'https://www.ihh.org.tr/resource/svg/user-shape.svg';
             if(rs){
                 connection.query("INSERT INTO " + tableName + " SET ?", bundle, (err, result, field) => {
                     if(err){
                         console.log("Error when register")
-                        return console.log(err);
+                        console.log(err);
+                        return fn(true, err);
                     }
 
                     console.log(field);
-                    fn(false, result);
+                    fn(false, "success");
                 })
             }else{
-                fn(true, "Co ");
+                fn(true, "exists");
             }
         })
     }

@@ -1,6 +1,7 @@
 module.exports = (app) => {
     var passport      = require('passport');
     var passportLocal = require('passport-local');
+    var userDM        = require('../model/database-user.js');
     var path          = require('path');
 
     app.use(passport.initialize());
@@ -34,6 +35,21 @@ module.exports = (app) => {
     })
 
     app.post('/sign-up', (req, res) => {
-        console.log("Co nguoi dang dang ky bang email");
+        userDM.newUser(req.body, (err, result) => {
+            console.log("Co nguoi dang dang ky bang email");
+            console.log(req.body);
+            if(err){
+                switch(result){
+                    case 'exists': 
+                        res.send({err: true, message: "Account already exists"});
+                        break;
+                    default:
+                        res.send({err: true, message: "Some error, try again after 5 minute"});
+                        break
+                }
+            }
+
+            res.send({err: false, message: 'Register success'});
+        })
     })
 }
