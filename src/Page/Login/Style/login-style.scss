@@ -52,13 +52,14 @@ $border: 1px solid #e5e5e5;
     padding: 10px 5px;
     border: none;
     margin-bottom: 20px;
+    color: black;
     @media screen and (max-width: 991px){
         width: 100%;
     }
 }
 
 @mixin button(){
-    & input[type=button], & .login-with-face{
+    & input[type=submit], & .login-with-face{
         width: 100%;
         padding: 20px 0;
         text-align: center;

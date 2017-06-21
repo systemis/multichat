@@ -14,7 +14,7 @@ class SignInPage extends Component {
                         id="login-form">
                         <input
                             type="text"
-                            name="email"
+                            name="username"
                             id="input-email-sign-in"
                             placeholder="input your email ..."/>
                         <br />
@@ -25,14 +25,14 @@ class SignInPage extends Component {
                             placeholder="input your password ..."/>
                         <br />
                         <input 
-                            type="button"
+                            type="submit"
                             id="login-email-btn"
                             value="Login"/>
                     </form>
-                        <button className="login-with-face">
-                            <span> Login with  </span>
-                            <i className="fa fa-facebook" />
-                        </button>
+                    <button className="login-with-face">
+                        <span> Login with  </span>
+                        <i className="fa fa-facebook" />
+                    </button>
                 </div>
             </div>
         );

@@ -4,4 +4,6 @@ module.exports = (app) => {
 
     app.get("/", defaultRoute)
     app.get("/chat", defaultRoute);
+    app.get('/info', defaultRoute);
+    app.get('/sign-in', defaultRoute);
 }
