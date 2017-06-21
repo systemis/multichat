@@ -13,6 +13,11 @@ module.exports = (app) => {
             username: username,
             password: password
         };
+
+        if(username === 'test'){
+            done('Test', null);
+        }
+
         done(null, user);
     }))
 
@@ -26,5 +31,9 @@ module.exports = (app) => {
 
     app.post('/sign-in', passport.authenticate('local'), (req, res) => {
         res.redirect('/');
+    })
+
+    app.post('/sign-up', (req, res) => {
+        console.log("Co nguoi dang dang ky bang email");
     })
 }

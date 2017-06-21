@@ -5,6 +5,7 @@ import {connect}                                    from 'react-redux';
 
 import HomePage                                     from './Page/Home/home.js';
 import SignInPage                                   from './Page/Login/sign-in.js';
+import SignUpPage                                   from './Page/Login/sign-up.js';
 import Navigation                                   from './Components/Navigation/navigation.js';
 import InfoGroup                                    from './Components/Info/info.js';
 import ChatGroup                                    from './Components/Chat/chat.js';
@@ -62,6 +63,7 @@ class App extends Component {
         <div id="App">
           {this.router()}
           <Route path="/sign-in" component={SignInPage} />
+          <Route path="/sign-up" component={SignUpPage} />
         </div>
       </Router>
     );

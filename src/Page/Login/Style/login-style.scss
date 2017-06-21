@@ -80,7 +80,7 @@ $border: 1px solid #e5e5e5;
     }
 }
 
-.sign-in-page{
+.sign-in-page, .sign-up-page{
     @include character-together();
     & #login-form{
         
@@ -90,8 +90,4 @@ $border: 1px solid #e5e5e5;
     }
     
     @include button();
-}
-
-.sign-up-page{
-    @include character-together();
 }

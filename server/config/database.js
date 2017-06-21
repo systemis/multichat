@@ -6,6 +6,6 @@ module.exports = mysql.createConnection({
     port: 8889,
     user: 'root',
     password: 'root',
-    database: '',
+    database: 'ChatTogether',
     socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
 })

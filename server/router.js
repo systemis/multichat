@@ -6,4 +6,5 @@ module.exports = (app) => {
     app.get("/chat", defaultRoute);
     app.get('/info', defaultRoute);
     app.get('/sign-in', defaultRoute);
+    app.get('/sign-up', defaultRoute);
 }
