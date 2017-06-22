@@ -20,6 +20,13 @@ function handlingHref(){
 }
 
 
+const Test = React.createClass({
+  render(){
+    return (
+      <div>Xin chao {window.location.href = "/home"}</div>
+    );
+  }
+})
 class App extends Component {
   constructor(props){
     super(props);
@@ -43,13 +50,13 @@ class App extends Component {
     if(this.props.screenVersion === 'desktop'){
       return (
         <div>
-          <Route exact path="/" component={HomePage} />
+          <Route path="/home" component={HomePage} />
         </div>
       )
     }else{
       return (
         <div>
-          <Route exact path="/" component={Navigation} />
+          <Route path="/home" component={Navigation} />
           <Route path="/chat"   component={ChatGroup} />
           <Route path="/info"   component={InfoGroup} />
         </div>
@@ -61,6 +68,7 @@ class App extends Component {
     return (
       <Router>
         <div id="App">
+          <Route exact path="/" component={Test} />
           {this.router()}
           <Route path="/sign-in" component={SignInPage} />
           <Route path="/sign-up" component={SignUpPage} />

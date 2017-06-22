@@ -29,11 +29,13 @@ class SignInPage extends Component {
                             id="login-email-btn"
                             value="Login"/>
                     </form>
+                    <br/>
                     <a href="/sign-up"> Sign Up </a>
-                    <button className="login-with-face">
+                    <br/>
+                    <a href="/auth/fb" className="login-with-face">
                         <span> Login with  </span>
                         <i className="fa fa-facebook" />
-                    </button>
+                    </a>
                 </div>
             </div>
         );

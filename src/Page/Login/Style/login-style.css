@@ -31,7 +31,21 @@
       .sign-in-page .sign-in-group, .sign-in-page .sign-up-group, .sign-up-page .sign-in-group, .sign-up-page .sign-up-group {
         position: absolute;
         top: 180px;
-        left: 25%; } }
+        left: 30%;
+        width: 40%; } }
+  @media screen and (max-width: 991px) and (max-width: 768px) {
+    .sign-in-page .sign-in-group, .sign-in-page .sign-up-group, .sign-up-page .sign-in-group, .sign-up-page .sign-up-group {
+      left: 30%;
+      width: 40%; } }
+
+  @media screen and (max-width: 991px) and (max-width: 768px) and (max-width: 400px) {
+    .sign-in-page .sign-in-group, .sign-in-page .sign-up-group, .sign-up-page .sign-in-group, .sign-up-page .sign-up-group {
+      left: 10%;
+      width: 80%; } }
+
+  @media screen and (max-width: 551px) {
+    .sign-in-page, .sign-up-page {
+      background-image: url("../../../Image/background-login-screen-mobile.jpg"); } }
   .sign-in-page input[type=text], .sign-in-page input[type=password], .sign-up-page input[type=text], .sign-up-page input[type=password] {
     width: 250px;
     padding: 10px 5px;
@@ -41,9 +55,10 @@
     @media screen and (max-width: 991px) {
       .sign-in-page input[type=text], .sign-in-page input[type=password], .sign-up-page input[type=text], .sign-up-page input[type=password] {
         width: 100%; } }
-  .sign-in-page input[type=submit], .sign-in-page .login-with-face, .sign-up-page input[type=submit], .sign-up-page .login-with-face {
+  .sign-in-page input[type=submit], .sign-in-page a, .sign-up-page input[type=submit], .sign-up-page a {
+    padding: 10px 0;
     width: 100%;
-    padding: 20px 0;
+    display: block;
     text-align: center;
     letter-spacing: 5px;
     border: none;
@@ -51,11 +66,12 @@
     text-transform: uppercase;
     font-family: Space Mono; }
     @media screen and (max-width: 768px) {
-      .sign-in-page input[type=submit], .sign-in-page .login-with-face, .sign-up-page input[type=submit], .sign-up-page .login-with-face {
+      .sign-in-page input[type=submit], .sign-in-page a, .sign-up-page input[type=submit], .sign-up-page a {
         padding: 15px 0; } }
-  .sign-in-page .login-with-face, .sign-up-page .login-with-face {
-    margin-top: 20px; }
-    .sign-in-page .login-with-face .fa.fa-facebook, .sign-up-page .login-with-face .fa.fa-facebook {
-      font-size: 20px; }
+  .sign-in-page a, .sign-up-page a {
+    display: block;
+    color: white; }
+    .sign-in-page a .fa.fa-facebook, .sign-up-page a .fa.fa-facebook {
+      font-size: 10px; }
 
 /*# sourceMappingURL=login-style.css.map */

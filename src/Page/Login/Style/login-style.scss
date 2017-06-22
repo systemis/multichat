@@ -41,7 +41,21 @@ $border: 1px solid #e5e5e5;
         @media screen and (max-width: 991px){
             position: absolute;
             top: 180px;
-            left: 25%;   
+            left: 30%;
+            width: 40%;
+            @media screen and (max-width: 768px){
+                left: 30%;
+                width: 40%;
+                @media screen and (max-width: 400px){
+                    left: 10%;
+                    width: 80%;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 551px){
+        &{
+            background-image: url("../../../Image/background-login-screen-mobile.jpg");
         }
     }
 }
@@ -59,9 +73,10 @@ $border: 1px solid #e5e5e5;
 }
 
 @mixin button(){
-    & input[type=submit], & .login-with-face{
+    & input[type=submit], a{
+        padding: 10px 0; 
         width: 100%;
-        padding: 20px 0;
+        display: block;
         text-align: center;
         letter-spacing: 5px;
         border: none;
@@ -72,10 +87,12 @@ $border: 1px solid #e5e5e5;
             padding: 15px 0;
         }
     }
-    & .login-with-face{
-        margin-top: 20px;
+
+    & a{
+        display: block;
+        color: white;
         & .fa.fa-facebook{
-            font-size: 20px;
+            font-size: 10px;
         }
     }
 }

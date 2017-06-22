@@ -1,10 +1,26 @@
 module.exports = (app) => {
     const path         = require('path');
-    const defaultRoute = (req, res) => res.sendFile(path.resolve(__dirname, "..", "build/index.html"));
+    const authenRoute2  = (req, res) => {
+        console.log(req.isAuthenticated());
+        if(req.isAuthenticated() !== true){
+            return res.sendFile(path.resolve(__dirname, "..", "build/index.html"));
+        }
 
-    app.get("/", defaultRoute)
-    app.get("/chat", defaultRoute);
-    app.get('/info', defaultRoute);
-    app.get('/sign-in', defaultRoute);
-    app.get('/sign-up', defaultRoute);
+        return res.redirect('/home');
+    }
+
+    const authenRoute  = (req, res) => {
+        console.log(req.isAuthenticated());
+        if(req.isAuthenticated()){
+            return res.sendFile(path.resolve(__dirname, "..", "build/index.html"));
+        }
+
+        return res.redirect('/sign-in');
+    }
+
+    app.get("/home", authenRoute)
+    app.get("/chat", authenRoute);
+    app.get('/info', authenRoute);
+    app.get('/sign-in', authenRoute2);
+    app.get('/sign-up', authenRoute2);
 }
