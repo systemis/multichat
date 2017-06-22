@@ -44,6 +44,8 @@ class userMG {
             }, error: err => fn(true, "Co loi xay ra")
         })
     }
+
+    // Test     
 }
 
 export default new userMG();
