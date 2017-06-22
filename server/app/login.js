@@ -9,7 +9,7 @@ module.exports = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-
+    // Login with email 
     passport.use(new passportLocal.Strategy((username, password, done) => {
         var user = { username: username };
         userDM.checkLogin(username, password, (err, message, result) => {
@@ -28,6 +28,34 @@ module.exports = (app) => {
             }
         })
     }))
+
+    // Login with facebook 
+    passport.use(new passportfb(
+        {
+            clientID: '167157813823645',
+            clientSecret: '38a2f71294d8e6148b3146d1b0ecc782',
+            callbackURL: 'http://localhost:3000/login-facebook',
+            profileFields: ['email', 'gender', 'locale', 'displayName', 'photos', 'birthday']
+        },
+        function(accessToken, refreshToken, profile, done){
+            const info = profile._json; console.log(info);
+            const user = {
+                id: info.id,
+                name: info.name,
+                email: info.email,
+                password: info.id,
+                gender: info.gender,
+                language: info.locale,
+                birthday: info.birthday,
+                avatar: `https://graph.facebook.com/v2.3/${info.id}/picture?type=large`
+            }
+            
+            userDM.newUser(user, (err, result) => {
+                done(null, user);
+            })
+        }
+    )) 
+
     passport.serializeUser((user, done) => {
         console.log(user);
         done(null, user);
@@ -61,28 +89,7 @@ module.exports = (app) => {
     })
 
     app.get('/auth/fb', passport.authenticate('facebook', {scope: ['email']}));
-    app.get('/login-facebook', passport.authenticate('facebook', {failureRedirect: '/sign-in', successRedirect: '/home'}));
-    passport.use(new passportfb(
-        {
-            clientID: '',
-            clientSecret: '',
-            callbackURL: 'http://localhost:3000/login-facebook',
-            profileFields: ['email', 'gender', 'locale', 'displayName']
-        },
-        (accessToken, refreshToken, profile, done) => {
-            const info = profile._json;
-            const user = {
-                id: info.id,
-                name: info.name,
-                email: info.email,
-                password: info.id,
-                gender: info.gender,
-                language: info.locale,
-            }
-            
-            userDM.newUser(user, (err, result) => {
-                done(null, user);
-            })
-        }))
-    
+    app.get('/login-facebook', passport.authenticate('facebook', {
+        failureRedirect: '/sign-in', successRedirect: '/home'
+    }));
 }

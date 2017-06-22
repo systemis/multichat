@@ -17,7 +17,7 @@ class InfoGroup extends Component {
                         <span 
                             className="show-client-name dropdown-toggle"
                             data-toggle="dropdown">
-                            Matth Thomas
+                            {this.props.userInfo.name}
                             <span className="caret" />
                         </span>
                         <ul className="dropdown-menu">
@@ -32,23 +32,23 @@ class InfoGroup extends Component {
                     <div className="show-simple-info">
                         <div className="show-avatar">
                             <p>
-                                <img src={testAvatar} alt="User Avatar " />
+                                <img src={this.props.userInfo.avatar} alt="User Avatar " />
                             </p>
                         </div>
                         <div className="show-name-andress">
-                            <p className="show-name"   > Kristin </p>
-                            <p className="show-andress"> Cape </p>
+                            <p className="show-name"   > {this.props.userInfo.name} </p>
+                            <p className="show-andress"> {this.props.userInfo.name} </p>
                         </div>
                     </div>
                     <div className="show-default-info">
                         <table className="table-show-user-default-info">
                             <tr> 
                                 <td className="show-title">Nick name:</td>
-                                <td className="show-value">Kili </td>
+                                <td className="show-value">{this.props.userInfo.name}</td>
                             </tr>
                             <tr> 
                                 <td className="show-title">Tel:</td>
-                                <td className="show-value">072 143 9920</td>
+                                <td className="show-value">{this.props.userInfo.phone}</td>
                             </tr>
                             <tr> 
                                 <td className="show-title">Date of birth:</td>
@@ -56,11 +56,11 @@ class InfoGroup extends Component {
                             </tr>
                             <tr> 
                                 <td className="show-title">Gender</td>
-                                <td className="show-value">Male</td>
+                                <td className="show-value">{this.props.userInfo.gender}</td>
                             </tr>
                             <tr> 
                                 <td className="show-title">Language</td>
-                                <td className="show-value">English</td>
+                                <td className="show-value">{this.props.userInfo.language}</td>
                             </tr>
                         </table>
                     </div>
@@ -71,5 +71,5 @@ class InfoGroup extends Component {
 }
 
 export default connect((state) => {
-    return {screenVersion: state.screenVersion};
+    return {screenVersion: state.screenVersion, userInfo: state.userInfo};
 })(InfoGroup);

@@ -9,24 +9,26 @@ import SignUpPage                                   from './Page/Login/sign-up.j
 import Navigation                                   from './Components/Navigation/navigation.js';
 import InfoGroup                                    from './Components/Info/info.js';
 import ChatGroup                                    from './Components/Chat/chat.js';
+import userMG                                       from './js/user.js';
 import './App.css';
 
-function handlingHref(){
+const handlingHref = () => {
   if($(window).width() > 991){
     if(window.location.href.indexOf('/chat') >= 0 || window.location.href.indexOf('/info') >= 0){
       window.location.href = '/';
-    }
-  }
-}
-
-
-const Test = React.createClass({
+    }}}
+const DieuHuong = React.createClass({
   render(){
     return (
       <div>Xin chao {window.location.href = "/home"}</div>
     );
-  }
-})
+  }})
+
+
+
+
+
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -44,6 +46,18 @@ class App extends Component {
   changeScreenVersion(value){
     const {dispatch} = this.props;
     dispatch({type: 'change screen version', value: value});
+  }
+
+  getClientInfo(){
+    const {dispatch} = this.props;
+    userMG.getClientInfo((err, result) => {
+      if(err) {
+        alert(result);
+      }else{
+        console.log(result);
+        dispatch({type: "CHANGE_USER_INFO", value: result});
+      }
+    })
   }
 
   router(){
@@ -68,7 +82,7 @@ class App extends Component {
     return (
       <Router>
         <div id="App">
-          <Route exact path="/" component={Test} />
+          <Route exact path="/" component={DieuHuong} />
           {this.router()}
           <Route path="/sign-in" component={SignInPage} />
           <Route path="/sign-up" component={SignUpPage} />
@@ -79,6 +93,7 @@ class App extends Component {
 
   componentDidMount() {
     const sefl = this;
+    this.getClientInfo();
     window.onresize = () => {
       const width = $(window).width();
       const oldW  = this.state.screenWidth;

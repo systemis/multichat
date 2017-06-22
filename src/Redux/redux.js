@@ -1,4 +1,5 @@
-var redux = require('redux');
+var redux           = require('redux');
+var userInfoReducer = require('./user.js');
 
 const defaultState = {
     versionScreen: 'desktop',
@@ -35,6 +36,7 @@ const chatId = (state = -1, action) => {
 const reducer = redux.combineReducers({
     screenVersion: screenVersionReducer,
     chatId: chatId,
+    userInfo: userInfoReducer,
     isAding: isAdingReducer
 })
 
@@ -43,7 +45,7 @@ const store = redux.createStore(reducer, redux.compose(
 ));
 
 store.subscribe(() => {
-    console.log("Version screen: " + store.getState().screenVersion);
+    console.log("Version screen: " + store.getState().userInfo);
 })
 
 module.exports = store;

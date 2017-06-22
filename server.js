@@ -22,8 +22,10 @@ app.use(express.static("build"));
 
 // setup pages router
 require('./server/app/login.js')(app);
+require('./server/app/user.js')(app);
 require('./server/router.js')(app);
 
 app.listen(3000 || process.env.PORT, () => {
     console.log('Co nguoi dang nhap');
+    // userDm.dropTable(rs => console.log(rs));
 })
