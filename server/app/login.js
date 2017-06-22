@@ -60,7 +60,6 @@ module.exports = (app) => {
         })
     })
 
-
     app.get('/auth/fb', passport.authenticate('facebook', {scope: ['email']}));
     app.get('/login-facebook', passport.authenticate('facebook', {failureRedirect: '/sign-in', successRedirect: '/home'}));
     passport.use(new passportfb(
@@ -85,4 +84,5 @@ module.exports = (app) => {
                 done(null, user);
             })
         }))
+    
 }
