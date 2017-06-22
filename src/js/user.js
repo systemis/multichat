@@ -45,7 +45,15 @@ class userMG {
         })
     }
 
-    // Test     
+    getUserList(fn){
+        $.ajax({
+            url: '/get/user-list', type: 'POST', 
+            success: data => {
+                return fn(data.err, data.result);
+            },
+            error: err => fn(true, "")
+        })
+    }
 }
 
 export default new userMG();

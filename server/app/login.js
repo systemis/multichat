@@ -82,9 +82,9 @@ module.exports = (app) => {
                         res.send({err: true, message: "Some error, try again after 5 minute"});
                         break
                 }
+            }else{
+                res.send({err: false, message: 'Register success'});
             }
-
-            res.send({err: false, message: 'Register success'});
         })
     })
 

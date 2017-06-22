@@ -25,4 +25,10 @@ module.exports = (app) => {
             }
         })    
     })
+
+    app.post('/get/user-list', (req, res) => {
+        userDM.getUserlist((err, result) => {
+            return res.send({err: err, result: result});
+        })
+    })
 }

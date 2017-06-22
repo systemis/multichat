@@ -52,11 +52,22 @@ class App extends Component {
     const {dispatch} = this.props;
     userMG.getClientInfo((err, result) => {
       if(err) {
-        alert(result);
+        console.log(result);
       }else{
         console.log(result);
         dispatch({type: "CHANGE_USER_INFO", value: result});
       }
+    })
+  }
+
+  getUserList(){
+    const {dispatch} = this.props;
+    userMG.getUserList((err, result) => {
+      if(err){
+        return console.log("Co loi xay ra, vui long thu lai sau ");
+      }
+
+      return dispatch({type: `CHANGE_USER_LIST`, value: result});
     })
   }
 
@@ -94,6 +105,7 @@ class App extends Component {
   componentDidMount() {
     const sefl = this;
     this.getClientInfo();
+    this.getUserList();
     window.onresize = () => {
       const width = $(window).width();
       const oldW  = this.state.screenWidth;

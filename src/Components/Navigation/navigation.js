@@ -52,17 +52,18 @@ class Navigation extends Component {
 
     searchEvent(value){
         const searchValue = value;
+        const userList    = this.props.userList;
         if(value){
             this.setState({isSearching: true})
             this.setState({doneSearching: false});
             var result = [];
-            test.map((item, index) => {
+            userList.map((item, index) => {
                 if(item.name.indexOf(value) >=0){
-                    console.log(item.name);
+                    console.log(JSON.stringify(item));
                     result.push(item);
                 }
 
-                if(index === test.length - 1){
+                if(index === userList.length - 1){
                     console.log(result);
                     this.setState({searchUser: result});
                     this.setState({doneSearching: true});
@@ -152,4 +153,4 @@ class Navigation extends Component {
     }
 }
 
-export default connect((state) => {return {screenVersion: state.screenVersion}})(Navigation);
+export default connect((state) => {return {screenVersion: state.screenVersion, userList: state.userList}})(Navigation);

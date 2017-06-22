@@ -2,7 +2,7 @@ const connection = require('../config/database.js');
 const tableName  = "UserData";
 class UserMD {
     constructor(){
-        connection.query("CREATE TABLE `"+tableName+"` ( `id` INT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=armscii8 COLLATE armscii8_general_ci", (err, result) => {
+        connection.query("CREATE TABLE `"+tableName+"` ( `id` VARCHAR(200) NOT NULL, `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=armscii8 COLLATE armscii8_general_ci", (err, result) => {
             if(err) {
                 return console.log("Create user table fail");
             }
@@ -12,24 +12,35 @@ class UserMD {
     }
 
     newUser(bundle, fn){
-        this.checkAlreadyExistsEmail(bundle.email, rs => {
-            // set default avatar 
-            if(bundle.avatar === null || !bundle.avatar){
-                bundle.avatar = 'https://www.ihh.org.tr/resource/svg/user-shape.svg';
-            }
+        // set default avatar 
+        var b = true;
+        do{
+            bundle.id = Math.random().toString().replace(".", "");
+            this.checkAlreadyExistsId(bundle.id, bool => {
+                if(bool){
+                    this.checkAlreadyExistsEmail(bundle.email, rs => {
+                        if(bundle.avatar === null || !bundle.avatar){
+                            bundle.avatar = 'https://www.ihh.org.tr/resource/svg/user-shape.svg';
+                        }
 
-            if(rs){
-                connection.query("INSERT INTO " + tableName + " SET ?", bundle, (err, result, field) => {
-                    if(err){
-                        return fn(true, err);
-                    }
+                        if(rs){
+                            connection.query("INSERT INTO " + tableName + " SET ?", bundle, (err, result, field) => {
+                                if(err){
+                                    console.log(err);
+                                    return fn(true, err);
+                                }
 
-                    fn(false, "success");
-                })
-            }else{
-                fn(true, "exists");
-            }
-        })
+                                fn(false, "success");
+                            })
+                        }else{
+                            fn(true, "exists");
+                        }
+                    })
+                }else{
+                    b = bool;
+                }
+            })
+        }while(b === false);
     }
 
     checkLogin(email, password, fn){
@@ -74,6 +85,34 @@ class UserMD {
             }
 
             return fn(rs);
+        })
+    }
+
+    checkAlreadyExistsId(id, fn){
+        connection.query("SELECT * FROM " + tableName, (err, result) => {
+            var rs = true;
+            if(err){
+                console.log("Select table faile");
+                return console.log(err);
+            }
+
+            for(var i = 0; i < result.length; i++){
+                if(result[i].id === id){
+                    rs = false;
+                }
+            }
+
+            return fn(rs);
+        })
+    }
+
+    getUserlist(fn){
+        connection.query(`SELECT * FROM ${tableName} `, (err, result) => {
+            if(err){
+                return fn(true, "");
+            }
+
+            return fn(false, result);
         })
     }
 

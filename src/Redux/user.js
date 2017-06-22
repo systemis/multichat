@@ -1,12 +1,22 @@
-const defaultState    = {}
-const userInfoReducer = (state = defaultState, action) => {
+const userInfoState    = {}
+const usersList        = [];
+
+const userInfoReducer = (state = userInfoState, action) => {
     switch(action.type){
         case "CHANGE_USER_INFO":
-            console.log("Change user info ");
             return action.value;
         default: 
             return state;
     }
 }
 
-module.exports = userInfoReducer;
+const userListReducer = (state = usersList, action) => {
+    switch(action.type){
+        case `CHANGE_USER_LIST`:
+            return action.value;
+        default: 
+            return state;
+    }
+}
+
+module.exports = {userInfoReducer: userInfoReducer, userListReducer: userListReducer};

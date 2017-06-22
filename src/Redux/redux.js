@@ -1,5 +1,5 @@
 var redux           = require('redux');
-var userInfoReducer = require('./user.js');
+var userReducer     = require('./user.js');
 
 const defaultState = {
     versionScreen: 'desktop',
@@ -36,7 +36,8 @@ const chatId = (state = -1, action) => {
 const reducer = redux.combineReducers({
     screenVersion: screenVersionReducer,
     chatId: chatId,
-    userInfo: userInfoReducer,
+    userInfo: userReducer.userInfoReducer,
+    userList: userReducer.userListReducer,
     isAding: isAdingReducer
 })
 
