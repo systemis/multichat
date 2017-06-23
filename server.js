@@ -7,13 +7,18 @@ var morgan        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var expresssession= require('express-session');
 var app           = express();
-var server  = require('http').Server(app);
-var io      = require('socket.io')(server);
+var server        = require('http').Server(app);
+var io            = require('socket.io')(server);
 
 var userDm        = require('./server/model/database-user.js');
+var importcscc    = require('./server/socket/chat-socket.js');
 
-io.on('connection', (socket) => {
-    socket.emit('message', "Xin chao");
+io.on('connect', socket => {
+    var chatSocket    = new importcscc(socket);
+    socket.on('message', message => {
+        console.log("new message " + message.receiveId);
+        io.sockets.emit(`/receive/message/${message.receiveId}`, message);
+    })
 })
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
@@ -30,6 +35,8 @@ app.use(express.static("build"));
 require('./server/app/login.js')(app);
 require('./server/app/user.js')(app);
 require('./server/router.js')(app);
+
+
 
 server.listen(3000, () => {
 

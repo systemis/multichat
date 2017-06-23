@@ -42,18 +42,16 @@ class Navigation extends Component {
             this.setState({isSearching: true})
             this.setState({doneSearching: false});
             var result = [];
-            console.log(userList);
             for(var i = 0; i < userList.length; i++){
-                if(userList[i]){
-                    if(userList[i].name.indexOf(value) >=0){
+                if(userList[i] !== null){
+                    if(userList[i].name.indexOf(value) >= 0){
                         result.push(userList[i]);
                     }
-                }else if(i === userList.length - 1){
-                    console.log(result);
-                    this.setState({searchUser: result});
-                    this.setState({doneSearching: true});
                 }
             }
+
+            this.setState({searchUser: result});
+            this.setState({doneSearching: true});
         }else{
             this.setState({isSearching: false})
         }

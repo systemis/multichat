@@ -10,7 +10,9 @@ import Navigation                                   from './Components/Navigatio
 import InfoGroup                                    from './Components/Info/info.js';
 import ChatGroup                                    from './Components/Chat/chat.js';
 import userMG                                       from './js/user.js';
+import chatSocket                                   from './js/chat.js';
 import './App.css';
+
 
 const handlingHref = () => {
   if($(window).width() > 991){

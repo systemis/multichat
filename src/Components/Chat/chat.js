@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 import {connect}            from 'react-redux';
+import chatSocket           from '../../js/chat.js';
 import './Style/chat-group-style.css';
 
 class ChatGroup extends Component {
     constructor(props) {
         super(props);
-
     }
 
     // Back-end api .
     sendMessage(){
         const messageField = document.getElementById('input-message');
         const message = messageField.value;
-        
-        console.log("Client id: " + this.props.clientId);
-        console.log("Chat user id: " + this.props.chatId);
-        console.log(message);
+
+        chatSocket.sendMessage({sendId: this.props.clientId, receiveId: this.props.chatId, message: message});
     }
 
     componentWillMount() {
     }
 
     render() {
+        console.log("///");
+        chatSocket.receiveMessage(this.props.clientId, (message) => {
+            console.log(`New message from id: ${message.sendId} Message: ${message.message}`);
+        })        
+        
         // Set class name to custom ui with desktop version and mobile version .
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
@@ -64,6 +67,8 @@ class ChatGroup extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+        this.render();
+
         return true;        
     }
 }
