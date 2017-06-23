@@ -12,6 +12,9 @@ class ChatGroup extends Component {
     sendMessage(){
         const messageField = document.getElementById('input-message');
         const message = messageField.value;
+        
+        console.log("Client id: " + this.props.clientId);
+        console.log("Chat user id: " + this.props.chatId);
         console.log(message);
     }
 
