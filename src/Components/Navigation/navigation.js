@@ -10,21 +10,6 @@ import avatar1              from '../../Image/test_avatar_men.jpg';
 import avatar2              from '../../Image/test_avatar_women.jpg';
 import './Style/navigation-style.css';
 
-var test = [{
-    name: 'Zoich Johny', 
-    status: 'I like code ...', 
-    avatar: avatar1
-},
-{
-    name: 'Wana waston', 
-    status: 'I like coffe I like coffe I like coffe I like coffe ...', 
-    avatar: avatar2
-},
-{
-    name: 'Wana Jick waston', 
-    status: 'I like coffe I like coffe I like coffe I like coffe ...', 
-    avatar: avatar2
-},];
 class Navigation extends Component {
     constructor(props) {
         super(props);
@@ -57,18 +42,18 @@ class Navigation extends Component {
             this.setState({isSearching: true})
             this.setState({doneSearching: false});
             var result = [];
-            userList.map((item, index) => {
-                if(item.name.indexOf(value) >=0){
-                    console.log(JSON.stringify(item));
-                    result.push(item);
-                }
-
-                if(index === userList.length - 1){
+            console.log(userList);
+            for(var i = 0; i < userList.length; i++){
+                if(userList[i]){
+                    if(userList[i].name.indexOf(value) >=0){
+                        result.push(userList[i]);
+                    }
+                }else if(i === userList.length - 1){
                     console.log(result);
                     this.setState({searchUser: result});
                     this.setState({doneSearching: true});
                 }
-            })
+            }
         }else{
             this.setState({isSearching: false})
         }

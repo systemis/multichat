@@ -1,6 +1,16 @@
 const userInfoState    = {}
 const usersList        = [];
 
+const clientIdReducer = (state = -1, action) => {
+    switch(action.type){
+        case 'CHANGE_CLIENT_ID':
+            console.log(`Change client id ${action.value}`)
+            return action.value;
+        default: 
+            return state;
+    }
+}
+
 const userInfoReducer = (state = userInfoState, action) => {
     switch(action.type){
         case "CHANGE_USER_INFO":
@@ -19,4 +29,8 @@ const userListReducer = (state = usersList, action) => {
     }
 }
 
-module.exports = {userInfoReducer: userInfoReducer, userListReducer: userListReducer};
+module.exports = {
+    clientIdReducer: clientIdReducer, 
+    userInfoReducer: userInfoReducer, 
+    userListReducer: userListReducer
+};

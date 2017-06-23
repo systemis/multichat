@@ -29,9 +29,9 @@ class ChatGroup extends Component {
         return (
             <div className={className()} id="chat-group">
                 <div className="header-bar">
-                    {console.log(this.props.chatId)}
+                    {console.log(this.props.chatUserName)}
                     <p className="chat-group-show-name">
-                        {this.props.chatId} 
+                        {this.props.chatUserName} 
                     </p>
                     <ul className="chat-group-list-tool">
                         <li>
@@ -68,6 +68,8 @@ class ChatGroup extends Component {
 export default connect((state) => {
     return {
         screenVersion: state.screenVersion, 
-        chatId: state.chatId
+        clientId: state.clientId, 
+        chatId: state.chatId,
+        chatUserName: state.chatUserName
     }
 })(ChatGroup);

@@ -8,7 +8,7 @@ var cookieParser  = require('cookie-parser');
 var expresssession= require('express-session');
 var app           = express();
 
-// var userDm        = require('./server/model/database-user.js');
+var userDm        = require('./server/model/database-user.js');
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 app.use(cookieParser());
@@ -27,5 +27,6 @@ require('./server/router.js')(app);
 
 app.listen(3000 || process.env.PORT, () => {
     console.log('Co nguoi dang nhap');
+    // userDm.findUserByEmail("systemofpeter@gmail.com", (err, reuslt) => console.log(reuslt));
     // userDm.dropTable(rs => console.log(rs));
 })

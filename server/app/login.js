@@ -50,8 +50,14 @@ module.exports = (app) => {
                 avatar: `https://graph.facebook.com/v2.3/${info.id}/picture?type=large`
             }
             
-            userDM.newUser(user, (err, result) => {
-                done(null, user);
+            userDM.newUser(user, (err, result, userG) => {
+                if(result === 'success'){
+                    return done(null, userG);
+                }else if(result === 'exists'){
+                    userDM.findUserByEmail(user.email, (error, rs) => {
+                        done(null, rs);
+                    })
+                }
             })
         }
     )) 
@@ -70,7 +76,7 @@ module.exports = (app) => {
     })
 
     app.post('/sign-up', (req, res) => {
-        userDM.newUser(req.body, (err, result) => {
+        userDM.newUser(req.body, (err, result, user) => {
             console.log("Co nguoi dang dang ky bang email");
             console.log(req.body);
             if(err){

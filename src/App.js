@@ -54,7 +54,7 @@ class App extends Component {
       if(err) {
         console.log(result);
       }else{
-        console.log(result);
+        dispatch({type: "CHANGE_CLIENT_ID", value: result.id});
         dispatch({type: "CHANGE_USER_INFO", value: result});
       }
     })

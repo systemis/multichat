@@ -27,8 +27,22 @@ module.exports = (app) => {
     })
 
     app.post('/get/user-list', (req, res) => {
-        userDM.getUserlist((err, result) => {
-            return res.send({err: err, result: result});
-        })
+        if(req.isAuthenticated()){
+            userDM.getUserlist((err, result) => {
+                if(err === false){
+                    for(var i = 0; i < result.length; i++){
+                        if(result[i].id === req.user.id){
+                            delete result[i];
+                        }
+
+                        if(i === result.length - 1){
+                            res.send({err: false, result: result});
+                        }
+                    }
+                }else{
+                    res.send({err: true, result: "Error"});
+                }
+            })
+        }
     })
 }

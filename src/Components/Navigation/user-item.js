@@ -4,8 +4,11 @@ import {connect}            from 'react-redux';
 class UserItem extends Component {
     clickItemEvent(){
         var {dispatch} = this.props;
-        dispatch({type: 'change_chat_id', value: this.props.data.name});
         console.log(this.props.data.name);
+
+        dispatch({type: "CHANGE_USER_INFO", value: this.props.data});
+        dispatch({type: 'CHANGE_CHAT_ID', value: this.props.data.id});
+        dispatch({type: 'CHANGE_CHAT_USER_NAME', value: this.props.data.name});
     }
 
     render() {
@@ -27,4 +30,4 @@ class UserItem extends Component {
     }
 }
 
-export default connect()(UserItem);
+export default connect((state) => {return {clientId: state.clientId}})(UserItem);

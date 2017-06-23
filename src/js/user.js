@@ -19,7 +19,7 @@ class userMG {
             success: data => {
                 switch(data){
                     case `NOT_LOGIN`:
-                        return fn(false, "Chua dang nhap");
+                        return fn(true, "Chua dang nhap");
                     case `ERROR`: 
                         return fn(true, "Co loi xay ra");
                     default :

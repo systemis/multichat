@@ -2,7 +2,7 @@ const connection = require('../config/database.js');
 const tableName  = "UserData";
 class UserMD {
     constructor(){
-        connection.query("CREATE TABLE `"+tableName+"` ( `id` VARCHAR(200) NOT NULL, `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=armscii8 COLLATE armscii8_general_ci", (err, result) => {
+        connection.query("CREATE TABLE `"+tableName+"` ( `id` VARCHAR(200) NOT NULL, `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , `message` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=armscii8 COLLATE armscii8_general_ci", (err, result) => {
             if(err) {
                 return console.log("Create user table fail");
             }
@@ -27,13 +27,13 @@ class UserMD {
                             connection.query("INSERT INTO " + tableName + " SET ?", bundle, (err, result, field) => {
                                 if(err){
                                     console.log(err);
-                                    return fn(true, err);
+                                    return fn(true, err, null);
                                 }
 
-                                fn(false, "success");
+                                fn(false, "success", bundle);
                             })
                         }else{
-                            fn(true, "exists");
+                            fn(true, "exists", null);
                         }
                     })
                 }else{
@@ -67,6 +67,16 @@ class UserMD {
             if(result.length < 0) return fn(false, "NOT_REGISTER");
 
             return fn(false, result[0]);
+        })
+    }
+
+    findUserByEmail(email, fn){
+        connection.query(`SELECT * FROM ${tableName}`, (err, result) => {
+            result.map((item, index) => {
+                if(item.email === email){
+                    return fn(false, item)
+                }
+            })
         })
     }
 
