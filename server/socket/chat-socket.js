@@ -1,6 +1,6 @@
 module.exports = server => {
     var io     = require('socket.io')(server);
-    var chatMG = require('../model/database-room.js');
+    var roomMD = require('../model/database-room.js');
     io.on('connect', socket => {
         socket.on(`get_messages`, chatRoomId => {
             roomMD.findChatRoomById(chatRoomId, (err, result) => {
@@ -11,22 +11,22 @@ module.exports = server => {
         })
 
         socket.on('new_message', data => {
-            data = JSON.parse(data);
-
             const chatRoomId = data.chatRoomId;
-            const message = JSON.stringify(data.message);
+            const message    =    data.message;
 
-            console.log(console.log(data));
-
-            chatMG.addMessage(chatRoomId, message, (err, result) => {
+            roomMD.addMessage(chatRoomId, message, (err, result) => {
                 if(!err){
                     roomMD.findChatRoomById(chatRoomId, (er, rs) => {
                         if(!er){
                             rs.users    = JSON.parse(rs.users);
                             rs.messages = JSON.parse(rs.messages);
+
+                            console.log("New message");
                             io.sockets.emit(`/receive/message/${chatRoomId}`, rs);
                         }
                     })
+                }else{
+                    console.log(err);
                 }
             })
         })

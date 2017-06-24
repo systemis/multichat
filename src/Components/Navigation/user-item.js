@@ -14,15 +14,33 @@ class UserItem extends Component {
 
         chatMG.checkChatRoomId(this.props.clientId.toString() + this.props.data.id.toString(), (err, bool) => {
             if(!err){
-                if(bool){
-                    dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId.toString() + this.props.data.id.toString()});
+                if(!bool){
+                    chatMG.checkChatRoomId(this.props.data.id + this.props.clientId, (er, bo) => {
+                        if(!er){
+                            if(!bo){
+                                dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId + this.props.data.id});
+                                chatMG.newRoom(this.props.clientId, this.props.data.id);
+                            }else{
+                                dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.data.id + this.props.data.clientId});
+                                chatMG.acessRom(this.props.data.id + this.props.clientId, (err, result) => {
+                                    console.log(result);
+                                    if(!err){
+                                        dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
+                                    }
+                                })
+                            }
+                        }
+                    })
                 }else{
-                    dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.data.id.toString() + this.props.clientId.toString()});
-                    chatMG.newRoom(this.props.data.id.toString(), this.props.clientId.toString());
+                    dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId + this.props.data.id});
+                    chatMG.newRoom(this.props.clientId, this.props.data.id);
+                    chatMG.acessRom(this.props.clientId + this.props.data.id, (err, result) => {
+                        console.log(result);
+                        if(!err){
+                            dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
+                        }
+                    })
                 }
-            }else{
-                alert("Co loi xay ra");
-                window.location.href = '/logout';
             }
         })
     }

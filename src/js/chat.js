@@ -3,10 +3,10 @@ import $  from 'jquery';
 const socket = io.connect(`http://localhost:3000/`);
 
 class chat{
-    sendMessage(chatRomId, message){
-        if(chatRomId){
-            console.log(JSON.stringify({chatRomId: chatRomId, message: message}));
-            socket.emit(`new_message`, JSON.stringify({chatRomId: chatRomId, message: message}));
+    sendMessage(chatRoomId, message){
+        if(chatRoomId){
+            console.log(JSON.stringify({chatRoomId: chatRoomId, message: message}));
+            socket.emit(`new_message`, {chatRoomId: chatRoomId, message: message});
         }
     }
 
@@ -34,7 +34,7 @@ class chat{
     receiveMessage(chatRomId, fn){
         socket.on(`/receive/message/${chatRomId}`, data => {
             console.log("A new message: " + JSON.stringify(data.message));
-            fn(data.message);
+            fn(JSON.stringify(data));
         })
     }
 
@@ -45,6 +45,21 @@ class chat{
                 fn(data.err, data.bool);
             },
             error: err => fn(err, null)
+        })
+    }
+
+    acessRom(chatRoomId, fn){
+        $.ajax({
+            url: `/get/chat-room-info/${chatRoomId}`, type: `POST`,
+            success: data => {
+                console.log(data);
+
+                fn(data.err, data.result);
+            },
+            error: err =>{
+                console.log(err);
+                fn(err, null)
+            }
         })
     }
 }

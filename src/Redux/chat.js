@@ -1,3 +1,13 @@
+const chatRoomInfoReducer = (state = {}, action) => {
+    switch(action.type){
+        case `CHANGE_CHAT_ROOM_INFO`:
+            console.log(`Change chat room info: ${action.value}`);
+            return action.value;
+        default: 
+            return action;
+    }
+}
+
 const chatRoomIdReducer = (state = "", action) => {
     switch(action.type){
         case "CHANGE_CHAT_ROOM_ID":
@@ -30,6 +40,7 @@ const chatUserNameReducer = (state = "", action) => {
 
 module.exports = {
     chatRoomIdReducer: chatRoomIdReducer,
+    chatRoomInfoReducer: chatRoomInfoReducer,
     chatIdReducer: chatIdReducer, 
     chatUserNameReducer: chatUserNameReducer
 };

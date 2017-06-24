@@ -23,7 +23,7 @@ class ChatGroup extends Component {
     receiveMessage(){
         if(this.props.chatRoomId){
             chatSocket.receiveMessage(this.props.chatRoomId, (message) => {
-                console.log(`New message from id: ${message.sendId} Message: ${message.message}`);
+                console.log(`New message from id: ${message}`);
             })        
         }
     }

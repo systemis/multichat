@@ -41,6 +41,8 @@ module.exports = (app) => {
     app.post(`/get/chat-room-info/:id`, (req, res) => {
         const chatRoomId = req.params.id;
         roomMD.findChatRoomById(chatRoomId, (err, result) => {
+            console.log(`JSON ${result}`);
+
             return res.send({err, result});
         })
     })

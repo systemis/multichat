@@ -39,6 +39,7 @@ const reducer = redux.combineReducers({
     clientId: userReducer.clientIdReducer,
     userInfo: userReducer.userInfoReducer,
     chatRoomId: chatReducer.chatRoomIdReducer,
+    chatRoomInfo: chatReducer.chatRoomInfoReducer,
     chatId: chatReducer.chatIdReducer,
     chatUserName: chatReducer.chatUserNameReducer,
     userList: userReducer.userListReducer,

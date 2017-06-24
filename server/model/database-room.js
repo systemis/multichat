@@ -24,7 +24,10 @@ class RomMD{
     addMessage(id, message, fn){
         connection.query(`SELECT * FROM ${tablename} WHERE id = ?`, [id], (err, result) => {
             if(err) return fn(err, "");
-            if(result <= 0) return fn("Error", "");
+            if(result.length <= 0) return fn("Khong co du lieu", "");
+
+            console.log(id);
+            console.log(result);
 
             var messages = JSON.parse(result[0].messages);
             
@@ -40,9 +43,11 @@ class RomMD{
     }
 
     findChatRoomById(chatRoomId, fn){
-        connection.query(`SELECT * FROM ${tablename} WHERE id = ?`, [id], (err, result) => {
+        connection.query(`SELECT * FROM ${tablename} WHERE id = ?`, [chatRoomId], (err, result) => {
             if(err) return fn(err, "");
-            if(result.length <= 0) return fn("Room khong tim thay", "");
+            if(result.length <= 0) {
+                return fn("Room khong tim thay", "");
+            }
 
             return fn(null, result[0]);
         })
