@@ -24,7 +24,7 @@ class InfoGroup extends Component {
                             <li className="dropdown-header">Dropdown header 1</li>
                             <li><a href="#">HTML</a></li>
                             <li><a href="#">CSS</a></li>
-                            <li><a href="#">JavaScript</a></li>
+                            <li><a href="/logout">Log out</a></li>
                         </ul>
                     </div>
                 </div>

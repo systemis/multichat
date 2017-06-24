@@ -1,3 +1,14 @@
+const chatRoomIdReducer = (state = "", action) => {
+    switch(action.type){
+        case "CHANGE_CHAT_ROOM_ID":
+            console.log(`Change chat room id ${action.value}`);
+            return action.value;
+        default:
+            return state;
+    }
+}
+
+
 const chatIdReducer = (state = -1, action) => {
     switch(action.type){
         case "CHANGE_CHAT_ID":
@@ -17,4 +28,8 @@ const chatUserNameReducer = (state = "", action) => {
     }
 }
 
-module.exports = {chatIdReducer: chatIdReducer, chatUserNameReducer: chatUserNameReducer};
+module.exports = {
+    chatRoomIdReducer: chatRoomIdReducer,
+    chatIdReducer: chatIdReducer, 
+    chatUserNameReducer: chatUserNameReducer
+};

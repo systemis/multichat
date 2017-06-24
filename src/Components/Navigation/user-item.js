@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect}            from 'react-redux';
+import userMG               from '../../js/user.js';
 import chatMG               from '../../js/chat.js';
 
 class UserItem extends Component {
@@ -8,10 +9,22 @@ class UserItem extends Component {
         console.log(this.props.data.name);
 
         dispatch({type: "CHANGE_USER_INFO", value: this.props.data});
-        dispatch({type: 'CHANGE_CHAT_ID', value: this.props.data.id});
         dispatch({type: 'CHANGE_CHAT_USER_NAME', value: this.props.data.name});
+        dispatch({type: 'CHANGE_CHAT_ID', value: this.props.data.id});
 
-        chatMG.newRoom(this.props.clientId, this.props.data.id);
+        chatMG.checkChatRoomId(this.props.clientId.toString() + this.props.data.id.toString(), (err, bool) => {
+            if(!err){
+                if(bool){
+                    dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId.toString() + this.props.data.id.toString()});
+                }else{
+                    dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.data.id.toString() + this.props.clientId.toString()});
+                    chatMG.newRoom(this.props.data.id.toString(), this.props.clientId.toString());
+                }
+            }else{
+                alert("Co loi xay ra");
+                window.location.href = '/logout';
+            }
+        })
     }
 
     render() {

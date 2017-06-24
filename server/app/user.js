@@ -53,4 +53,9 @@ module.exports = (app) => {
             message.sendId    = clientId;
         }
     })
+
+    app.get('/logout', (req, res) => {
+        req.logout();
+        res.redirect('/');
+    })
 }

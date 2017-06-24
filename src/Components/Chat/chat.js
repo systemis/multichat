@@ -11,24 +11,29 @@ class ChatGroup extends Component {
     // Back-end api .
     sendMessage(){
         const messageField = document.getElementById('input-message');
-        const message = messageField.value;
-
-        chatSocket.sendMessage({
-            sendId: this.props.clientId, 
-            receiveId: this.props.chatId, 
+        const message      = messageField.value;
+        const aMessage     = {
+            sendId: this.props.clientId,
             message: message
-        });
+        }
+
+        chatSocket.sendMessage(this.props.chatRoomId, aMessage);
+    }
+
+    receiveMessage(){
+        if(this.props.chatRoomId){
+            chatSocket.receiveMessage(this.props.chatRoomId, (message) => {
+                console.log(`New message from id: ${message.sendId} Message: ${message.message}`);
+            })        
+        }
     }
 
     componentWillMount() {
     }
 
     render() {
-        chatSocket.receiveMessage(this.props.clientId, (message) => {
-            console.log(`New message from id: ${message.sendId} Message: ${message.message}`);
-        })        
-        
-        // Set class name to custom ui with desktop version and mobile version .
+        // Receive message
+        this.receiveMessage();
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
                 return 'desktop';
@@ -80,6 +85,7 @@ export default connect((state) => {
     return {
         screenVersion: state.screenVersion, 
         clientId: state.clientId, 
+        chatRoomId: state.chatRoomId, 
         chatId: state.chatId,
         chatUserName: state.chatUserName
     }

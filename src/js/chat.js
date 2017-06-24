@@ -3,14 +3,17 @@ import $  from 'jquery';
 const socket = io.connect(`http://localhost:3000/`);
 
 class chat{
-    sendMessage(message){
-        socket.emit(`message`, message);
-        this.saveMessage(message);
+    sendMessage(chatRomId, message){
+        if(chatRomId){
+            console.log(JSON.stringify({chatRomId: chatRomId, message: message}));
+            socket.emit(`new_message`, JSON.stringify({chatRomId: chatRomId, message: message}));
+        }
     }
 
     newRoom(clientId, chatId){
         const roomConfig = {
             id: clientId.toString() + chatId.toString(),
+            id2: chatId.toString() + clientId.toString(),
             users: JSON.stringify([clientId, chatId]),
             messages: JSON.stringify([]),
         }
@@ -28,23 +31,20 @@ class chat{
         })
     }
 
-    receiveMessage(clientId, fn){
-        socket.on(`/receive/message/${clientId}`, message => {
-            console.log("A new message: " + JSON.stringify(message));
-            fn(message);
+    receiveMessage(chatRomId, fn){
+        socket.on(`/receive/message/${chatRomId}`, data => {
+            console.log("A new message: " + JSON.stringify(data.message));
+            fn(data.message);
         })
     }
 
-    saveMessage(message){
+    checkChatRoomId(chatRomId, fn){
         $.ajax({
-            url: `/save/message`, type: `POST`,
-            data: {
-                message: message    
-            },
+            url: `/check/chat-rom/${chatRomId}`, type: `POST`,
             success: data => {
-                console.log(data);
+                fn(data.err, data.bool);
             },
-            error: err => console.log(err)
+            error: err => fn(err, null)
         })
     }
 }
