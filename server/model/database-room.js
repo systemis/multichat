@@ -49,6 +49,9 @@ class RomMD{
                 return fn("Room khong tim thay", "");
             }
 
+            result[0].users    = JSON.parse(result[0].users);
+            result[0].messages = JSON.parse(result[0].messages);
+
             return fn(null, result[0]);
         })
     }

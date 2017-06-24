@@ -33,8 +33,7 @@ class chat{
 
     receiveMessage(chatRomId, fn){
         socket.on(`/receive/message/${chatRomId}`, data => {
-            console.log("A new message: " + JSON.stringify(data.message));
-            fn(JSON.stringify(data));
+            fn(data);
         })
     }
 

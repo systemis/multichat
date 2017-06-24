@@ -4,31 +4,31 @@ module.exports = (app) => {
     
     app.post(`/new/chat-room`, (req, res) => {
         var config = req.body;
-        roomMD.checkAlreadyId(config.id, (error, bool) => {
-            if(!error){
-                if(!bool){
-                    roomMD.checkAlreadyId(config.id2, (error2, bool2) => {
-                        if(!error2){
-                            if(!bool2){
-                                delete config.id2;
-                                roomMD.newRoom(config, (err, result) => {
-                                    if(err) return res.send({err, result});
+        // roomMD.checkAlreadyId(config.id, (error, bool) => {
+        //     if(!error){
+        //         if(!bool){
+        //             roomMD.checkAlreadyId(config.id2, (error2, bool2) => {
+        //                 if(!error2){
+        //                     if(!bool2){
+        delete config.id2;
+        roomMD.newRoom(config, (err, result) => {
+            if(err) return res.send({err, result});
 
-                                    const users = JSON.parse(config.users);
-                                    users.map(userId => {
-                                        userMD.addToRomsRequest(userId, config.id, (er, rs) => {
-                                            if(err) console.log(err);
-                                        })
-                                    }) 
+            const users = JSON.parse(config.users);
+            users.map(userId => {
+                userMD.addToRomsRequest(userId, config.id, (er, rs) => {
+                    if(err) console.log(err);
+                })
+            }) 
 
-                                    return res.send({err: null, result: "success"});
-                                })
-                            }
-                        }
-                    })
-                }
-            }
+            return res.send({err: null, result: "success"});
         })
+        //                    }
+        //                 }
+        //             })
+        //         }
+        //     }
+        // })
     })
 
     app.post(`/check/chat-rom/:id`, (req, res) => {

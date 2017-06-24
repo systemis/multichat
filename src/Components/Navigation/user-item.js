@@ -4,6 +4,16 @@ import userMG               from '../../js/user.js';
 import chatMG               from '../../js/chat.js';
 
 class UserItem extends Component {
+    accessRoom(chatId){
+        var {dispatch} = this.props;
+        chatMG.acessRom(chatId, (err, result) => {
+            console.log("Chat data: " + result);
+            if(!err){
+                dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
+            }
+        })
+    }
+
     clickItemEvent(){
         var {dispatch} = this.props;
         console.log(this.props.data.name);
@@ -12,7 +22,7 @@ class UserItem extends Component {
         dispatch({type: 'CHANGE_CHAT_USER_NAME', value: this.props.data.name});
         dispatch({type: 'CHANGE_CHAT_ID', value: this.props.data.id});
 
-        chatMG.checkChatRoomId(this.props.clientId.toString() + this.props.data.id.toString(), (err, bool) => {
+        chatMG.checkChatRoomId(this.props.clientId + this.props.data.id, (err, bool) => {
             if(!err){
                 if(!bool){
                     chatMG.checkChatRoomId(this.props.data.id + this.props.clientId, (er, bo) => {
@@ -21,25 +31,14 @@ class UserItem extends Component {
                                 dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId + this.props.data.id});
                                 chatMG.newRoom(this.props.clientId, this.props.data.id);
                             }else{
-                                dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.data.id + this.props.data.clientId});
-                                chatMG.acessRom(this.props.data.id + this.props.clientId, (err, result) => {
-                                    console.log(result);
-                                    if(!err){
-                                        dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
-                                    }
-                                })
+                                dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.data.id + this.props.clientId});
+                                this.accessRoom(this.props.data.id + this.props.clientId);
                             }
                         }
                     })
                 }else{
                     dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId + this.props.data.id});
-                    chatMG.newRoom(this.props.clientId, this.props.data.id);
-                    chatMG.acessRom(this.props.clientId + this.props.data.id, (err, result) => {
-                        console.log(result);
-                        if(!err){
-                            dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
-                        }
-                    })
+                    this.accessRoom(this.props.clientId + this.props.data.id);
                 }
             }
         })

@@ -18,9 +18,6 @@ module.exports = server => {
                 if(!err){
                     roomMD.findChatRoomById(chatRoomId, (er, rs) => {
                         if(!er){
-                            rs.users    = JSON.parse(rs.users);
-                            rs.messages = JSON.parse(rs.messages);
-
                             console.log("New message");
                             io.sockets.emit(`/receive/message/${chatRoomId}`, rs);
                         }

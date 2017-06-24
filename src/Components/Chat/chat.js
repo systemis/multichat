@@ -3,9 +3,39 @@ import {connect}            from 'react-redux';
 import chatSocket           from '../../js/chat.js';
 import './Style/chat-group-style.css';
 
+const AMessage = (props) => {
+    return (
+        <p>
+            {props.text}
+        </p>
+    )
+}
+
 class ChatGroup extends Component {
     constructor(props) {
         super(props);
+    }
+
+    showMessages(){
+        if(this.props.chatRoomInfo.users){
+            const messages = this.props.chatRoomInfo.messages;
+            const dom = [];
+            messages.map((message, index) => {
+                console.log(message);
+
+                dom.push((<p key={index}>{ message.message }</p>));
+
+                if(index === messages.length - 1){
+                    console.log(dom);
+
+                    return dom; 
+                }
+            })
+
+            return dom;
+        }else{
+            return [];
+        }
     }
 
     // Back-end api .
@@ -21,9 +51,10 @@ class ChatGroup extends Component {
     }
 
     receiveMessage(){
+        var {dispatch} = this.props;
         if(this.props.chatRoomId){
-            chatSocket.receiveMessage(this.props.chatRoomId, (message) => {
-                console.log(`New message from id: ${message}`);
+            chatSocket.receiveMessage(this.props.chatRoomId, (data) => {
+                dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: data});
             })        
         }
     }
@@ -33,6 +64,7 @@ class ChatGroup extends Component {
 
     render() {
         // Receive message
+        const list = this.showMessages();
         this.receiveMessage();
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
@@ -57,6 +89,11 @@ class ChatGroup extends Component {
                     </ul>
                 </div>
                 <div className="show-message">
+                    {
+                        list.map((r, index) => {
+                            return r;
+                        })
+                    }
                 </div>
                 <div className="group-send-message">
                     <i className="fa fa-paperclip"> </i>
@@ -86,6 +123,7 @@ export default connect((state) => {
         screenVersion: state.screenVersion, 
         clientId: state.clientId, 
         chatRoomId: state.chatRoomId, 
+        chatRoomInfo: state.chatRoomInfo,
         chatId: state.chatId,
         chatUserName: state.chatUserName
     }

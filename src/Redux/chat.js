@@ -1,7 +1,7 @@
-const chatRoomInfoReducer = (state = {}, action) => {
+const chatRoomInfoReducer = (state = "", action) => {
     switch(action.type){
         case `CHANGE_CHAT_ROOM_INFO`:
-            console.log(`Change chat room info: ${action.value}`);
+            console.log(`Change chat room info: ${JSON.stringify(action.value)}`);
             return action.value;
         default: 
             return action;
