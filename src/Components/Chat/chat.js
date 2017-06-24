@@ -13,14 +13,17 @@ class ChatGroup extends Component {
         const messageField = document.getElementById('input-message');
         const message = messageField.value;
 
-        chatSocket.sendMessage({sendId: this.props.clientId, receiveId: this.props.chatId, message: message});
+        chatSocket.sendMessage({
+            sendId: this.props.clientId, 
+            receiveId: this.props.chatId, 
+            message: message
+        });
     }
 
     componentWillMount() {
     }
 
     render() {
-        console.log("///");
         chatSocket.receiveMessage(this.props.clientId, (message) => {
             console.log(`New message from id: ${message.sendId} Message: ${message.message}`);
         })        

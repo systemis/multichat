@@ -1,21 +1,8 @@
-class ChatSocket{
-    constructor(socket){
-        this.socket = socket
-    }
-
-    receiveMessage(){
-        this.socket.on('message', message => {
-            console.log("New message " + JSON.stringify(message));
-            console.log(`/receive/message/${message.id}`);
-            this.socket.emit(`/receive/message/${message.id}`, message);
+module.exports = server => {
+    const io = require('socket.io')(server);
+    io.on('connect', socket => {
+        socket.on('message', message => {
+            io.sockets.emit(`/receive/message/${message.receiveId}`, message);
         })
-    }
-
-    sendMessage(message){
-        console.log("Send emit");
-        console.log(message.id);
-        this.socket.emit(`/receive/message/${message.id}`, message);
-    }
-}
-
-module.exports = ChatSocket;
+    })
+};

@@ -45,4 +45,12 @@ module.exports = (app) => {
             })
         }
     })
+
+    app.post('/save/message', (req, res) => {
+        const message  = req.body.message;
+        if(message.receiveId === clientId){
+            message.receiveId = message.sendId;
+            message.sendId    = clientId;
+        }
+    })
 }

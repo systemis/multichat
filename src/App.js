@@ -28,9 +28,6 @@ const DieuHuong = React.createClass({
 
 
 
-
-
-
 class App extends Component {
   constructor(props){
     super(props);
