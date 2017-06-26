@@ -73,22 +73,27 @@ $boder: 1px solid darkgray;
                 float: left;
                 padding-left: 10px;
                 & p{
-                    padding: 5px 0; 
-                    background: #EEF1F6;
+                    float: left;
+                    background: beige;
+                    padding-top: 10px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    max-width: 80%;
                 }
             }
 
-            // &.right{
-            //     & .show-user-avatar{
-            //         float: right;
-            //     }
+            &.right{
+                & .show-user-avatar{
+                    float: right;
+                }
 
-            //     & .show-message-value{
-            //         & p{
-            //             float: right
-            //         }
-            //     }
-            // }
+                & .show-message-value{
+                    & p{
+                        float: right;
+                        padding-right: 10px;
+                    }
+                }
+            }
         }
     }
         

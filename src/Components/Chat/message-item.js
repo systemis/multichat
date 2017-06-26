@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class AMessageItem extends Component {
     render() {
         return (
-            <div className={`message-item ${this.props.className.messageName}`}>
+            <div className={`message-item row ${this.props.className.messageName}`}>
                 <div className="show-user-avatar">
                     <img 
                         className={this.props.showAvatar} 

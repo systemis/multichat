@@ -52,8 +52,17 @@
       float: left;
       padding-left: 10px; }
       #chat-group .show-message .message-item .show-message-value p {
-        padding: 5px 0;
-        background: #EEF1F6; }
+        float: left;
+        background: beige;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        max-width: 80%; }
+    #chat-group .show-message .message-item.right .show-user-avatar {
+      float: right; }
+    #chat-group .show-message .message-item.right .show-message-value p {
+      float: right;
+      padding-right: 10px; }
   #chat-group .group-send-message {
     position: absolute;
     background: #FBFCFD;
