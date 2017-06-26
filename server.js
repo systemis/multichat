@@ -31,6 +31,7 @@ require('./server/router.js')(app);
 
 
 server.listen(3000, () => {
+    // userDm.dropTable((err, result) => {})
     // roomDm.dropTable((err, result) => {})
 });
 

@@ -47,13 +47,52 @@ $boder: 1px solid darkgray;
             }
         }
     }
+
     & .show-message{
         position: absolute;
         top: 60px;
         bottom: 60px;
         right: 0;
         left: 0;
+        overflow: scroll;
+        & .message-item{
+            & .show-user-avatar{
+                width: 5%;
+                float: left;
+                & img{
+                    width: 100%;
+                    border-radius: 50%;
+                    &.hiden{
+                        display: none;
+                    }
+                }
+            }
+
+            & .show-message-value{
+                width: 95%;
+                float: left;
+                padding-left: 10px;
+                & p{
+                    padding: 5px 0; 
+                    background: #EEF1F6;
+                }
+            }
+
+            // &.right{
+            //     & .show-user-avatar{
+            //         float: right;
+            //     }
+
+            //     & .show-message-value{
+            //         & p{
+            //             float: right
+            //         }
+            //     }
+            // }
+        }
     }
+        
+    
     & .group-send-message{
         position: absolute;
         background: #FBFCFD;

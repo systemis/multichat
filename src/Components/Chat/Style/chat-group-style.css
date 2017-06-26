@@ -37,7 +37,23 @@
     top: 60px;
     bottom: 60px;
     right: 0;
-    left: 0; }
+    left: 0;
+    overflow: scroll; }
+    #chat-group .show-message .message-item .show-user-avatar {
+      width: 5%;
+      float: left; }
+      #chat-group .show-message .message-item .show-user-avatar img {
+        width: 100%;
+        border-radius: 50%; }
+        #chat-group .show-message .message-item .show-user-avatar img.hiden {
+          display: none; }
+    #chat-group .show-message .message-item .show-message-value {
+      width: 95%;
+      float: left;
+      padding-left: 10px; }
+      #chat-group .show-message .message-item .show-message-value p {
+        padding: 5px 0;
+        background: #EEF1F6; }
   #chat-group .group-send-message {
     position: absolute;
     background: #FBFCFD;

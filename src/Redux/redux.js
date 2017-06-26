@@ -37,6 +37,7 @@ const chatId = (state = -1, action) => {
 const reducer = redux.combineReducers({
     screenVersion: screenVersionReducer,
     clientId: userReducer.clientIdReducer,
+    clientInfo: userReducer.clientInfoReducer,
     userInfo: userReducer.userInfoReducer,
     chatRoomId: chatReducer.chatRoomIdReducer,
     chatRoomInfo: chatReducer.chatRoomInfoReducer,

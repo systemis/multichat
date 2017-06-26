@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
+import MessageItem          from './message-item.js'
 import {connect}            from 'react-redux';
 import chatSocket           from '../../js/chat.js';
 import './Style/chat-group-style.css';
-
-const AMessage = (props) => {
-    return (
-        <p>
-            {props.text}
-        </p>
-    )
-}
 
 class ChatGroup extends Component {
     constructor(props) {
@@ -23,13 +16,28 @@ class ChatGroup extends Component {
             messages.map((message, index) => {
                 console.log(message);
 
-                dom.push((<p key={index}>{ message.message }</p>));
+                var className = {
+                    messageName: '',
+                    showAvatar: ''
+                };
 
-                if(index === messages.length - 1){
-                    console.log(dom);
-
-                    return dom; 
+                if(message.sendId === this.props.clientId){
+                    className.messageName = 'right';
                 }
+
+                if(index !== 0){
+                    if(messages.sendId === messages[index - 1].sendId){
+                        className.showAvatar = 'hiden';
+                    }
+                }
+
+                dom.push((
+                    <MessageItem 
+                        key={index} 
+                        message={message.message} 
+                        avatar={message.sendAvatar} 
+                        className={className}/>
+                ));
             })
 
             return dom;
@@ -44,6 +52,7 @@ class ChatGroup extends Component {
         const message      = messageField.value;
         const aMessage     = {
             sendId: this.props.clientId,
+            sendAvatar: this.props.clientInfo.avatar,
             message: message
         }
 
@@ -64,7 +73,6 @@ class ChatGroup extends Component {
 
     render() {
         // Receive message
-        const list = this.showMessages();
         this.receiveMessage();
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
@@ -90,7 +98,7 @@ class ChatGroup extends Component {
                 </div>
                 <div className="show-message">
                     {
-                        list.map((r, index) => {
+                        this.showMessages().map((r, index) => {
                             return r;
                         })
                     }
@@ -122,6 +130,7 @@ export default connect((state) => {
     return {
         screenVersion: state.screenVersion, 
         clientId: state.clientId, 
+        clientInfo: state.clientInfo, 
         chatRoomId: state.chatRoomId, 
         chatRoomInfo: state.chatRoomInfo,
         chatId: state.chatId,
