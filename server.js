@@ -22,9 +22,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("build"));
 
 // setup pages router
+require('./server/app/login.js')(app);
 require('./server/socket/chat-socket.js')(server); // Custom chat 
 require('./server/app/chat.js')(app);
-require('./server/app/login.js')(app);
 require('./server/app/user.js')(app);
 require('./server/router.js')(app);
 

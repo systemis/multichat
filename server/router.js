@@ -18,9 +18,16 @@ module.exports = (app) => {
         return res.redirect('/sign-in');
     }
 
-    app.get("/home", authenRoute)
+    // desktop version screen 
     app.get("/chat", authenRoute);
     app.get('/info', authenRoute);
+
+    // mobile version screen
+    app.get(`/chat/:roomId`, authenRoute);
+    app.get(`/chat/:userId`, authenRoute);
+
+    // any version screen 
+    app.get("/home", authenRoute)
     app.get('/sign-in', authenRoute2);
     app.get('/sign-up', authenRoute2);
 }

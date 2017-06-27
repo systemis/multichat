@@ -75,14 +75,14 @@ class App extends Component {
     if(this.props.screenVersion === 'desktop'){
       return (
         <div>
-          <Route path="/home" component={HomePage} />
+          <Route exact path="/home" component={HomePage} />
         </div>
       )
     }else{
       return (
         <div>
-          <Route path="/home" component={Navigation} />
-          <Route path="/chat"   component={ChatGroup} />
+          <Route exact path="/home" component={Navigation} />
+          <Route path="/chat/:roomId"   component={ChatGroup} />
           <Route path="/info"   component={InfoGroup} />
         </div>
       )

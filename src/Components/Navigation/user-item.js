@@ -5,7 +5,7 @@ import chatMG               from '../../js/chat.js';
 
 class UserItem extends Component {
     accessRoom(chatId){
-        var {dispatch} = this.props;
+        const {dispatch} = this.props;
         chatMG.acessRom(chatId, (err, result) => {
             console.log("Chat data: " + result);
             if(!err){
@@ -14,8 +14,18 @@ class UserItem extends Component {
         })
     }
 
+    changeChatRoomId(chatRoomId){
+        const {dispatch}    = this.props;
+        const screenVersion = this.props.screenVersion; 
+        if(screenVersion === `desktop`){
+            dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatRoomId});
+        }else{
+            window.location.href = `/chat/${chatRoomId}`;
+        }
+    }
+
     clickItemEvent(){
-        var {dispatch} = this.props;
+        const {dispatch} = this.props;
         console.log(this.props.data.name);
 
         dispatch({type: "CHANGE_USER_INFO", value: this.props.data});
@@ -28,16 +38,18 @@ class UserItem extends Component {
                     chatMG.checkChatRoomId(this.props.data.id + this.props.clientId, (er, bo) => {
                         if(!er){
                             if(!bo){
-                                dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId + this.props.data.id});
+                                this.changeChatRoomId(this.props.clientId + this.props.data.id);
+                                // dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId + this.props.data.id});
                                 chatMG.newRoom(this.props.clientId, this.props.data.id);
                             }else{
-                                dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.data.id + this.props.clientId});
+                                // dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.data.id + this.props.clientId});
+                                this.changeChatRoomId(this.props.data.id + this.props.clientId);
                                 this.accessRoom(this.props.data.id + this.props.clientId);
                             }
                         }
                     })
                 }else{
-                    dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId + this.props.data.id});
+                    this.changeChatRoomId(this.props.clientId + this.props.data.id);
                     this.accessRoom(this.props.clientId + this.props.data.id);
                 }
             }
@@ -63,4 +75,8 @@ class UserItem extends Component {
     }
 }
 
-export default connect((state) => {return {clientId: state.clientId}})(UserItem);
+export default connect((state) => {
+    return {
+        screenVersion: state.screenVersion, 
+        clientId: state.clientId
+}})(UserItem);

@@ -8,6 +8,16 @@ class ChatGroup extends Component {
     constructor(props) {
         super(props);
     }
+    
+    accessRoom(chatId){
+        var {dispatch} = this.props;
+        chatSocket.acessRom(chatId, (err, result) => {
+            console.log("Chat data: " + result);
+            if(!err){
+                dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
+            }
+        })
+    }
 
     showMessages(){
         if(this.props.chatRoomInfo.users){
@@ -26,7 +36,7 @@ class ChatGroup extends Component {
                 }
 
                 if(index !== 0){
-                    if(messages.sendId === messages[index - 1].sendId){
+                    if(message.sendId === messages[index - 1].sendId){
                         className.showAvatar = 'hiden';
                     }
                 }
@@ -57,6 +67,7 @@ class ChatGroup extends Component {
         }
 
         chatSocket.sendMessage(this.props.chatRoomId, aMessage);
+        messageField.value = "";
     }
 
     receiveMessage(){
@@ -69,6 +80,15 @@ class ChatGroup extends Component {
     }
 
     componentWillMount() {
+        if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
+            const {dispatch} = this.props;
+            const roomId     = this.props.match.params.roomId;
+            if(typeof parseInt(roomId) === `number`){
+                console.log(`Room id is ${roomId}`);
+                dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: roomId});
+                this.accessRoom(roomId);
+            }
+        }
     }
 
     render() {
@@ -78,6 +98,7 @@ class ChatGroup extends Component {
             if(this.props.screenVersion === 'desktop'){
                 return 'desktop';
             }
+
             return "";}
 
         return (

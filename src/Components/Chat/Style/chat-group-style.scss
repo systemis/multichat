@@ -54,8 +54,12 @@ $boder: 1px solid darkgray;
         bottom: 60px;
         right: 0;
         left: 0;
+        padding-top: 3px;
+        padding-bottom: 3px;
         overflow: scroll;
         & .message-item{
+            padding-left: 3px;
+            padding-right: 3px;
             & .show-user-avatar{
                 width: 5%;
                 float: left;
@@ -74,11 +78,13 @@ $boder: 1px solid darkgray;
                 padding-left: 10px;
                 & p{
                     float: left;
-                    background: beige;
-                    padding-top: 10px;
+                    background: #4080ff;
+                    color: white;
+                    border-radius: 10%;
                     padding-left: 10px;
                     padding-right: 10px;
                     max-width: 80%;
+                    line-height: 2;
                 }
             }
 

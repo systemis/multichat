@@ -38,31 +38,38 @@
     bottom: 60px;
     right: 0;
     left: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
     overflow: scroll; }
-    #chat-group .show-message .message-item .show-user-avatar {
-      width: 5%;
-      float: left; }
-      #chat-group .show-message .message-item .show-user-avatar img {
-        width: 100%;
-        border-radius: 50%; }
-        #chat-group .show-message .message-item .show-user-avatar img.hiden {
-          display: none; }
-    #chat-group .show-message .message-item .show-message-value {
-      width: 95%;
-      float: left;
-      padding-left: 10px; }
-      #chat-group .show-message .message-item .show-message-value p {
+    #chat-group .show-message .message-item {
+      padding-left: 3px;
+      padding-right: 3px; }
+      #chat-group .show-message .message-item .show-user-avatar {
+        width: 5%;
+        float: left; }
+        #chat-group .show-message .message-item .show-user-avatar img {
+          width: 100%;
+          border-radius: 50%; }
+          #chat-group .show-message .message-item .show-user-avatar img.hiden {
+            display: none; }
+      #chat-group .show-message .message-item .show-message-value {
+        width: 95%;
         float: left;
-        background: beige;
-        padding-top: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
-        max-width: 80%; }
-    #chat-group .show-message .message-item.right .show-user-avatar {
-      float: right; }
-    #chat-group .show-message .message-item.right .show-message-value p {
-      float: right;
-      padding-right: 10px; }
+        padding-left: 10px; }
+        #chat-group .show-message .message-item .show-message-value p {
+          float: left;
+          background: #4080ff;
+          color: white;
+          border-radius: 10%;
+          padding-left: 10px;
+          padding-right: 10px;
+          max-width: 80%;
+          line-height: 2; }
+      #chat-group .show-message .message-item.right .show-user-avatar {
+        float: right; }
+      #chat-group .show-message .message-item.right .show-message-value p {
+        float: right;
+        padding-right: 10px; }
   #chat-group .group-send-message {
     position: absolute;
     background: #FBFCFD;
