@@ -37,7 +37,7 @@ class chat{
             if(isAccess){
                 socket.emit(`new_message`, {chatRoomId: chatRoomId, message: message});
             }else{
-                alert('ban khong duoc phep');
+                alert(`Bạn không được phép truy cập, vui kiểm tra lại sau !`);
             }
         })
     }
@@ -56,8 +56,6 @@ class chat{
                 if(data.err){
                     return console.log(`New room failure ${data.err}`)
                 }
-                
-                console.log("New room success: " + data.result);
             },
             error: err => console.log(`New room failure ${JSON.stringify(err)}`)
         })
@@ -85,12 +83,9 @@ class chat{
                 $.ajax({
                     url: `/get/chat-room-info/${chatRoomId}`, type: `POST`,
                     success: data => {
-                        console.log(data);
-
                         fn(data.err, data.result);
                     },
                     error: err =>{
-                        console.log(err);
                         fn(err, null)
                     }
                 })

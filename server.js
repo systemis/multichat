@@ -34,9 +34,3 @@ server.listen(3000, () => {
     // userDm.dropTable((err, result) => {})
     // roomDm.dropTable((err, result) => {})
 });
-
-// app.listen(3000 || process.env.PORT, () => {
-//     console.log('Co nguoi dang nhap');
-//     // userDm.findUserByEmail("systemofpeter@gmail.com", (err, reuslt) => console.log(reuslt));
-//     // userDm.dropTable(rs => console.log(rs));
-//})

@@ -5,7 +5,7 @@ import {connect}            from 'react-redux';
 import chatSocket           from '../../js/chat.js';
 import './Style/chat-group-style.css';
 
-const runTime = () => {
+const scrollMessageGroupToBottom = () => {
     $(document).ready(function(){
         const messagesGroup = document.getElementById('show-messages-group');
         if(messagesGroup){
@@ -148,14 +148,14 @@ class ChatGroup extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         this.render();
-        runTime();
+        scrollMessageGroupToBottom();
         chatSocket.update();
 
         return true;        
     }
 
     componentDidMount() {
-        runTime();
+        scrollMessageGroupToBottom();
 
         if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
             const {dispatch} = this.props;

@@ -1,7 +1,7 @@
-import chatReducer  from './chat.js';
-var redux           = require('redux');
-var userReducer     = require('./user.js');
+import chatReducer   from './chat.js';
+import userReducer   from './user.js';
 
+var redux = require('redux');
 
 const defaultState = {
     versionScreen: 'desktop',

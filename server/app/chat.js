@@ -27,15 +27,11 @@ module.exports = (app) => {
     })
 
     app.post(`/get/chat-room-info/:id`, (req, res) => {
-        console.log(req.isAuthenticated);
         if(req.isAuthenticated()){
             const chatRoomId = req.params.id;
             roomMD.findChatRoomById(chatRoomId, (err, result) => {
                 // Pase error; 
-                console.log(chatRoomId);
-
                 if(err) { console.log(err); return res.send({err: err, result: null}); }
-                console.log(result.users);
                 return res.send({err, result});
             })
         }else{
@@ -48,7 +44,6 @@ module.exports = (app) => {
         if(req.isAuthenticated()){
             roomMD.findChatRoomById(chatRoomId, (err, result) => {
                 if(err){ 
-                    console.log(err);
                     return res.send({err, result});
                 }
 
