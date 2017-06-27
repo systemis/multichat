@@ -1,6 +1,7 @@
+import chatReducer  from './chat.js';
 var redux           = require('redux');
 var userReducer     = require('./user.js');
-var chatReducer     = require('./chat.js');
+
 
 const defaultState = {
     versionScreen: 'desktop',
@@ -55,4 +56,4 @@ store.subscribe(() => {
     // console.log("Version screen: " + store.getState().userInfo);
 })
 
-module.exports = store;
+export default store;

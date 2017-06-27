@@ -37,15 +37,6 @@ module.exports = (app) => {
                 if(err) { console.log(err); return res.send({err: err, result: null}); }
                 console.log(result.users);
                 return res.send({err, result});
-
-
-                // if(result.users.indexOf(req.user.id) >= 0){
-                //     console.log(`JSON ${result}`);
-
-                //     return res.send({err, result});
-                // }else{
-                //     return res.send({err: "Not access", result: null});
-                // }
             })
         }else{
             return res.send({err: "Error: Not login", result: null});

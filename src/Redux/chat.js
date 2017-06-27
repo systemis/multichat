@@ -1,3 +1,4 @@
+import chatMG from '../js/chat.js';
 const chatRoomInfoReducer = (state = "", action) => {
     switch(action.type){
         case `CHANGE_CHAT_ROOM_INFO`:
@@ -35,7 +36,7 @@ const chatUserNameReducer = (state = "", action) => {
     }
 }
 
-module.exports = {
+export default {
     chatRoomIdReducer: chatRoomIdReducer,
     chatRoomInfoReducer: chatRoomInfoReducer,
     chatIdReducer: chatIdReducer, 
