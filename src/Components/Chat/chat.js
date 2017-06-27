@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import $                    from 'jquery';
 import MessageItem          from './message-item.js'
 import {connect}            from 'react-redux';
-import chatSocket           from '../../js/chat.js';
+import chatMG           from '../../js/chat.js';
 import './Style/chat-group-style.css';
 
 const scrollMessageGroupToBottom = () => {
@@ -21,7 +21,7 @@ class ChatGroup extends Component {
     
     accessRoom(chatRoomId){
         var {dispatch} = this.props;
-        chatSocket.acessRom(chatRoomId, (err, result) => {
+        chatMG.acessRom(chatRoomId, (err, result) => {
             if(!err){
                 dispatch({type: `CHANGE_CHAT_ROOM_ID`  , value: chatRoomId});
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
@@ -79,14 +79,14 @@ class ChatGroup extends Component {
             message: message
         }
 
-        chatSocket.sendMessage(this.props.chatRoomId, aMessage);
+        chatMG.sendMessage(this.props.chatRoomId, aMessage);
         messageField.value = "";
     }
 
     receiveMessage(){
         var {dispatch} = this.props;
         if(this.props.chatRoomId){
-            chatSocket.receiveMessage(this.props.chatRoomId, (data) => {
+            chatMG.receiveMessage(this.props.chatRoomId, (data) => {
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: data});
             })        
         }
@@ -149,7 +149,7 @@ class ChatGroup extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         this.render();
         scrollMessageGroupToBottom();
-        chatSocket.update();
+        chatMG.update();
 
         return true;        
     }
