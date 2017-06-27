@@ -12,13 +12,12 @@ module.exports = server => {
 
         socket.on('new_message', data => {
             const chatRoomId = data.chatRoomId;
-            const message    =    data.message;
+            const message    = data.message;
 
             roomMD.addMessage(chatRoomId, message, (err, result) => {
                 if(!err){
                     roomMD.findChatRoomById(chatRoomId, (er, rs) => {
                         if(!er){
-                            console.log("New message");
                             io.sockets.emit(`/receive/message/${chatRoomId}`, rs);
                         }
                     })

@@ -24,7 +24,13 @@ class ChatGroup extends Component {
         chatSocket.acessRom(chatId, (err, result) => {
             console.log("Chat data: " + result);
             if(!err){
+                console.log(`Messages value ${result} `);
+
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
+                dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatId});
+            }else{
+                alert(`Ban khong duoc phep `);
+                window.location.href = '/';
             }
         })
     }
@@ -94,7 +100,6 @@ class ChatGroup extends Component {
             const roomId     = this.props.match.params.roomId;
             if(typeof parseInt(roomId) === `number`){
                 console.log(`Room id is ${roomId}`);
-                dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: roomId});
                 this.accessRoom(roomId);
             }
         }
@@ -113,7 +118,6 @@ class ChatGroup extends Component {
         return (
             <div className={className()} id="chat-group">
                 <div className="header-bar">
-                    {console.log(this.props.chatUserName)}
                     <p className="chat-group-show-name">
                         {this.props.chatUserName} 
                     </p>

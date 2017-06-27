@@ -9,7 +9,11 @@ class UserItem extends Component {
         chatMG.acessRom(chatId, (err, result) => {
             console.log("Chat data: " + result);
             if(!err){
+                dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatId});
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
+            }else{
+                alert(`Ban khong duoc phep `);
+                window.location.href = '/';
             }
         })
     }
@@ -18,7 +22,7 @@ class UserItem extends Component {
         const {dispatch}    = this.props;
         const screenVersion = this.props.screenVersion; 
         if(screenVersion === `desktop`){
-            dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatRoomId});
+            this.accessRoom(chatRoomId);
         }else{
             window.location.href = `/chat/${chatRoomId}`;
         }
@@ -38,19 +42,18 @@ class UserItem extends Component {
                     chatMG.checkChatRoomId(this.props.data.id + this.props.clientId, (er, bo) => {
                         if(!er){
                             if(!bo){
-                                this.changeChatRoomId(this.props.clientId + this.props.data.id);
+                                // this.changeChatRoomId(this.props.clientId + this.props.data.id);
                                 // dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.clientId + this.props.data.id});
                                 chatMG.newRoom(this.props.clientId, this.props.data.id);
+                                dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: this.props.clientId + this.props.data.id});
                             }else{
                                 // dispatch({type: 'CHANGE_CHAT_ROOM_ID', value: this.props.data.id + this.props.clientId});
                                 this.changeChatRoomId(this.props.data.id + this.props.clientId);
-                                this.accessRoom(this.props.data.id + this.props.clientId);
                             }
                         }
                     })
                 }else{
                     this.changeChatRoomId(this.props.clientId + this.props.data.id);
-                    this.accessRoom(this.props.clientId + this.props.data.id);
                 }
             }
         })

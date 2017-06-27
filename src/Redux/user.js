@@ -4,7 +4,7 @@ const usersList        = [];
 const clientIdReducer = (state = -1, action) => {
     switch(action.type){
         case 'CHANGE_CLIENT_ID':
-            console.log(`Change client id ${action.value}`)
+            // console.log(`Change client id ${action.value}`)
             return action.value;
         default: 
             return state;
@@ -14,7 +14,7 @@ const clientIdReducer = (state = -1, action) => {
 const clientInfoReducer = (state = "", action) => {
     switch(action.type){
         case 'CHANGE_CLIENT_INFO':
-            console.log(`Change client info ${action.value}`)
+            // console.log(`Change client info ${action.value}`)
             return action.value;
         default: 
             return state;

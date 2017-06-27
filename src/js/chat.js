@@ -1,13 +1,45 @@
 import io from 'socket.io-client'; 
 import $  from 'jquery';
-const socket = io.connect(`http://localhost:3000/`);
+
+var timeRequestCheckAccess = 0;
+var isAccessRoom = false;
+var socket = io.connect(`http://localhost:3000/`);
 
 class chat{
-    sendMessage(chatRoomId, message){
+    checkAccessRoom(chatRoomId, fn){
         if(chatRoomId){
-            console.log(JSON.stringify({chatRoomId: chatRoomId, message: message}));
-            socket.emit(`new_message`, {chatRoomId: chatRoomId, message: message});
+            if(timeRequestCheckAccess === 0){
+                $.ajax({
+                    url: `/check/access/chat-room/${chatRoomId}`, type: `POST`,
+                    success: data => {
+                        if(data.err) return fn(false);
+                        if(data.result === false) return fn(false);
+
+                        isAccessRoom = true;                        
+                        
+                        return fn(true);
+                    },
+                    error: err => fn(false)
+                })
+
+                timeRequestCheckAccess ++;
+            }else{
+                if(isAccessRoom === false) {return fn(false)}
+                return fn(true);
+            }
+        }else{
+            return ;
         }
+    }
+
+    sendMessage(chatRoomId, message){
+        this.checkAccessRoom(chatRoomId, isAccess => {
+            if(isAccess){
+                socket.emit(`new_message`, {chatRoomId: chatRoomId, message: message});
+            }else{
+                alert('ban khong duoc phep');
+            }
+        })
     }
 
     newRoom(clientId, chatId){
@@ -48,16 +80,22 @@ class chat{
     }
 
     acessRom(chatRoomId, fn){
-        $.ajax({
-            url: `/get/chat-room-info/${chatRoomId}`, type: `POST`,
-            success: data => {
-                console.log(data);
+        this.checkAccessRoom(chatRoomId, isAccess => {
+            if(isAccess){
+                $.ajax({
+                    url: `/get/chat-room-info/${chatRoomId}`, type: `POST`,
+                    success: data => {
+                        console.log(data);
 
-                fn(data.err, data.result);
-            },
-            error: err =>{
-                console.log(err);
-                fn(err, null)
+                        fn(data.err, data.result);
+                    },
+                    error: err =>{
+                        console.log(err);
+                        fn(err, null)
+                    }
+                })
+            }else{
+                fn("Not access", null);
             }
         })
     }

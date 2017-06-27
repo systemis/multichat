@@ -1,7 +1,6 @@
 const chatRoomInfoReducer = (state = "", action) => {
     switch(action.type){
         case `CHANGE_CHAT_ROOM_INFO`:
-            console.log(`Change chat room info: ${JSON.stringify(action.value)}`);
             return action.value;
         default: 
             return action;
@@ -11,7 +10,6 @@ const chatRoomInfoReducer = (state = "", action) => {
 const chatRoomIdReducer = (state = "", action) => {
     switch(action.type){
         case "CHANGE_CHAT_ROOM_ID":
-            console.log(`Change chat room id ${action.value}`);
             return action.value;
         default:
             return state;
@@ -31,7 +29,6 @@ const chatIdReducer = (state = -1, action) => {
 const chatUserNameReducer = (state = "", action) => {
     switch(action.type){
         case "CHANGE_CHAT_USER_NAME":
-            console.log("Change chat user name: " + action.value);
             return action.value;
         default:
             return state;

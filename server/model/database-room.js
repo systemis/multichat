@@ -26,9 +26,6 @@ class RomMD{
             if(err) return fn(err, "");
             if(result.length <= 0) return fn("Khong co du lieu", "");
 
-            console.log(id);
-            console.log(result);
-
             var messages = JSON.parse(result[0].messages);
             
             messages.push(message);
