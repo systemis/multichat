@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
+import $                    from 'jquery';
 import MessageItem          from './message-item.js'
 import {connect}            from 'react-redux';
 import chatSocket           from '../../js/chat.js';
 import './Style/chat-group-style.css';
+
+const runTime = () => {
+    $(document).ready(function(){
+        const messagesGroup = document.getElementById('show-messages-group');
+        if(messagesGroup){
+            messagesGroup.scrollTop = messagesGroup.scrollHeight;
+        }
+    })
+}
 
 class ChatGroup extends Component {
     constructor(props) {
@@ -24,8 +34,6 @@ class ChatGroup extends Component {
             const messages = this.props.chatRoomInfo.messages;
             const dom = [];
             messages.map((message, index) => {
-                console.log(message);
-
                 var className = {
                     messageName: '',
                     showAvatar: ''
@@ -117,7 +125,9 @@ class ChatGroup extends Component {
                         </li>
                     </ul>
                 </div>
-                <div className="show-message">
+                <div 
+                    className="show-message"
+                    id="show-messages-group">
                     {
                         this.showMessages().map((r, index) => {
                             return r;
@@ -142,8 +152,13 @@ class ChatGroup extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         this.render();
+        runTime();
 
         return true;        
+    }
+
+    componentDidMount() {
+        runTime();
     }
 }
 
