@@ -74,7 +74,7 @@ $boder: 1px solid darkgray;
 
             & .show-message-value{
                 width: 95%;
-                float: left;
+                float: right;
                 padding-left: 10px;
                 & p{
                     float: left;
@@ -91,15 +91,30 @@ $boder: 1px solid darkgray;
             &.right{
                 & .show-user-avatar{
                     float: right;
+                    display: none;
+                    width: 0;
                 }
 
                 & .show-message-value{
+                    padding-right: 5px;
+                    width: 100%;
+
                     & p{
                         float: right;
                         padding-right: 10px;
                     }
                 }
             }
+
+            // &.not-show-avatar{
+            //     & .show-user-avatar{
+                    
+            //     }
+
+            //     & .show-message-value{
+                    
+            //     }
+            // }
         }
     }
         

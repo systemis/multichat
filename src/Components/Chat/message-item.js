@@ -4,9 +4,9 @@ class AMessageItem extends Component {
     render() {
         return (
             <div className={`message-item row ${this.props.className.messageName}`}>
-                <div className="show-user-avatar">
+                <div className={`show-user-avatar`}>
                     <img 
-                        className={this.props.showAvatar} 
+                        className={this.props.className.showAvatar} 
                         src={this.props.avatar} 
                         alt="Send avatar" />
                 </div>

@@ -36,11 +36,12 @@ class ChatGroup extends Component {
             messages.map((message, index) => {
                 var className = {
                     messageName: '',
+                    showAvatarGroup: '',
                     showAvatar: ''
                 };
 
                 if(message.sendId === this.props.clientId){
-                    className.messageName = 'right';
+                    className.messageName     = 'right';
                 }
 
                 if(index !== 0){
