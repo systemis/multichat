@@ -99,6 +99,11 @@ class chat{
             }
         })
     }
+
+    update(){
+        timeRequestCheckAccess = 0;
+        isAccessRoom = false;
+    }
 }
 
 export default new chat();

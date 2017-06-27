@@ -19,15 +19,12 @@ class ChatGroup extends Component {
         super(props);
     }
     
-    accessRoom(chatId){
+    accessRoom(chatRoomId){
         var {dispatch} = this.props;
-        chatSocket.acessRom(chatId, (err, result) => {
-            console.log("Chat data: " + result);
+        chatSocket.acessRom(chatRoomId, (err, result) => {
             if(!err){
-                console.log(`Messages value ${result} `);
-
+                dispatch({type: `CHANGE_CHAT_ROOM_ID`  , value: chatRoomId});
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
-                dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatId});
             }else{
                 alert(`Ban khong duoc phep `);
                 window.location.href = '/';
@@ -36,6 +33,7 @@ class ChatGroup extends Component {
     }
 
     showMessages(){
+        console.log(this.props.chatRoomInfo);
         if(this.props.chatRoomInfo.users){
             const messages = this.props.chatRoomInfo.messages;
             const dom = [];
@@ -95,14 +93,7 @@ class ChatGroup extends Component {
     }
 
     componentWillMount() {
-        if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
-            const {dispatch} = this.props;
-            const roomId     = this.props.match.params.roomId;
-            if(typeof parseInt(roomId) === `number`){
-                console.log(`Room id is ${roomId}`);
-                this.accessRoom(roomId);
-            }
-        }
+        
     }
 
     render() {
@@ -134,8 +125,8 @@ class ChatGroup extends Component {
                     className="show-message"
                     id="show-messages-group">
                     {
-                        this.showMessages().map((r, index) => {
-                            return r;
+                        this.showMessages().map((item, index) => {
+                            return item;
                         })
                     }
                 </div>
@@ -158,12 +149,22 @@ class ChatGroup extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         this.render();
         runTime();
+        chatSocket.update();
 
         return true;        
     }
 
     componentDidMount() {
         runTime();
+
+        if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
+            const {dispatch} = this.props;
+            const roomId     = this.props.match.params.roomId;
+            if(typeof parseInt(roomId) === `number`){
+                console.log(`Room id is ${roomId}`);
+                this.accessRoom(roomId);
+            }
+        }
     }
 }
 
@@ -173,8 +174,8 @@ export default connect((state) => {
         clientId: state.clientId, 
         clientInfo: state.clientInfo, 
         chatRoomId: state.chatRoomId, 
-        chatRoomInfo: state.chatRoomInfo,
         chatId: state.chatId,
-        chatUserName: state.chatUserName
+        chatUserName: state.chatUserName,
+        chatRoomInfo: state.chatRoomInfo,
     }
 })(ChatGroup);

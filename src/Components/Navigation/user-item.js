@@ -41,26 +41,36 @@ class UserItem extends Component {
         dispatch({type: 'CHANGE_CHAT_USER_NAME', value: this.props.data.name});
 
         chatMG.checkChatRoomId(this.props.clientId + this.props.data.id, (err, bool) => {
-            if(!err){
-                if(!bool){
-                    chatMG.checkChatRoomId(this.props.data.id + this.props.clientId, (er, bo) => {
-                        if(!er){
-                            if(!bo){
-                                chatMG.newRoom(this.props.clientId, this.props.data.id);
-                                if(this.props.screenVersion === 'desktop'){
-                                    dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: this.props.clientId + this.props.data.id});
-                                }else{
-                                    window.location.href = `/chat/${this.props.clientId + this.props.data.id}`
-                                }
-                            }else{
-                                this.changeChatRoomId(this.props.data.id + this.props.clientId);
-                            }
-                        }
-                    })
-                }else{
-                    this.changeChatRoomId(this.props.clientId + this.props.data.id);
-                }
+            if(err){
+                console.log(err);
+                // alert(`Have some error. Try again, please`);
+                alert(err);
+                return window.location.href = '/home';
             }
+
+            if(bool){
+                return this.changeChatRoomId(this.props.clientId + this.props.data.id);
+            }
+            
+            chatMG.checkChatRoomId(this.props.data.id + this.props.clientId, (er, bo) => {
+                if(er){
+                    console.log(er);
+                    alert(er);
+                    return window.location.href = '/home';
+                }
+
+                if(bo){
+                    return this.changeChatRoomId(this.props.data.id + this.props.clientId);
+                }
+
+                chatMG.newRoom(this.props.clientId, this.props.data.id);
+                const chatRoomId = this.props.clientId + this.props.data.id;
+                if(this.props.screenVersion === 'desktop'){
+                    dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatRoomId});
+                }else{
+                    window.location.href = `/chat/${chatRoomId}`
+                }
+            })
         })
     }
 
