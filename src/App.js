@@ -60,17 +60,6 @@ class App extends Component {
     })
   }
 
-  getUserList(){
-    const {dispatch} = this.props;
-    userMG.getUserList((err, result) => {
-      if(err){
-        return console.log("Co loi xay ra, vui long thu lai sau ");
-      }
-
-      return dispatch({type: `CHANGE_USER_LIST`, value: result});
-    })
-  }
-
   router(){
     if(this.props.screenVersion === 'desktop'){
       return (
@@ -105,7 +94,6 @@ class App extends Component {
   componentDidMount() {
     const sefl = this;
     this.getClientInfo();
-    this.getUserList();
     window.onresize = () => {
       const width = $(window).width();
       const oldW  = this.state.screenWidth;

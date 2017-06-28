@@ -44,13 +44,15 @@ class userMG {
         })
     }
 
-    getUserList(fn){
+    searchUser(key, fn){
         $.ajax({
-            url: '/get/user-list', type: 'POST', 
+            url: `/find/users-by-name/${key}`, type: `POST`,
             success: data => {
+                console.log(`Error when search user by username ${data.err}`);
+
                 return fn(data.err, data.result);
             },
-            error: err => fn(true, "")
+            error: err => fn(err, null)
         })
     }
 }

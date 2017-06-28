@@ -26,22 +26,20 @@ module.exports = (app) => {
         })    
     })
 
-    app.post('/get/user-list', (req, res) => {
+    app.post(`/find/users-by-name/:name`, (req, res) => {
+        const userName = req.params.name.toLowerCase();
         if(req.isAuthenticated()){
             userDM.getUserlist((err, result) => {
-                if(err === false){
-                    for(var i = 0; i < result.length; i++){
-                        if(result[i].id === req.user.id){
-                            delete result[i];
-                        }
+                if(err) return res.send({err: 'Error', result: null});
 
-                        if(i === result.length - 1){
-                            res.send({err: false, result: result});
-                        }
+                var finalResult = [];
+                for(var i = 0; i < result.length; i++){
+                    if(result[i].name.toLowerCase().indexOf(userName) >= 0 && result[i].id !== req.user.id){
+                        finalResult.push(result[i]);
                     }
-                }else{
-                    res.send({err: true, result: "Error"});
                 }
+
+                return res.send({err: null, result: finalResult});
             })
         }
     })

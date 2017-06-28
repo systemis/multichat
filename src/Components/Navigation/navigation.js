@@ -4,6 +4,7 @@ import $                    from 'jquery';
 import SearchGroup          from './search-group.js';
 import SearchView           from './search-view.js';
 import UsersView            from './users-view';
+import userMG               from '../../js/user.js';
 
 // Image for test ui 
 import avatar1              from '../../Image/test_avatar_men.jpg';
@@ -37,21 +38,22 @@ class Navigation extends Component {
 
     searchEvent(value){
         const searchValue = value;
-        const userList    = this.props.userList;
         if(value){
             this.setState({isSearching: true})
             this.setState({doneSearching: false});
             var result = [];
-            for(var i = 0; i < userList.length; i++){
-                if(userList[i] !== null){
-                    if(userList[i].name.indexOf(value) >= 0){
-                        result.push(userList[i]);
-                    }
-                }
-            }
 
-            this.setState({searchUser: result});
-            this.setState({doneSearching: true});
+            userMG.searchUser(value, (err, _result) => {
+                if(err) {
+                    alert(`Have some error, try again`);
+                    result = [];
+                }else{
+                    result = _result;
+                }
+
+                this.setState({searchUser: result});
+                this.setState({doneSearching: true});
+            })
         }else{
             this.setState({isSearching: false})
         }
@@ -136,4 +138,9 @@ class Navigation extends Component {
     }
 }
 
-export default connect((state) => {return {screenVersion: state.screenVersion, userList: state.userList}})(Navigation);
+export default connect((state) => {
+    return {
+        screenVersion: state.screenVersion, 
+        userList: state.userList
+    }
+})(Navigation);
