@@ -25,7 +25,7 @@ var onlineUser = [];
 
 // setup pages router
 require('./server/app/auth.js')(app, onlineUser);
-require('./server/socket/socket-manager.js')(onlineUser); // Custom chat 
+require('./server/socket/socket-manager.js')(server, onlineUser); // Custom chat 
 require('./server/app/chat.js')(app);
 require('./server/app/user.js')(app);
 require('./server/router.js')(app);

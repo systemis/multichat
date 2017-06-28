@@ -12,6 +12,8 @@ class socketManager {
     }
 
     disConnect(userId){
+        console.log(`Offlining `);
+
         socket.emit(`offLine`, {userId: userId});
     }
 }
