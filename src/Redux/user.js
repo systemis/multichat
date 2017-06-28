@@ -26,9 +26,9 @@ const userInfoReducer = (state = {}, action) => {
     }
 }
 
-const userListReducer = (state = [], action) => {
+const usersListReducer = (state = [], action) => {
     switch(action.type){
-        case `CHANGE_USER_LIST`:
+        case `CHANGE_USERS_LIST`:
             return action.value;
         default: 
             return state;
@@ -39,5 +39,5 @@ export default {
     clientIdReducer   : clientIdReducer, 
     clientInfoReducer : clientInfoReducer, 
     userInfoReducer   : userInfoReducer, 
-    userListReducer   : userListReducer
+    usersListReducer  : usersListReducer
 };

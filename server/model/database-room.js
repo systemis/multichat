@@ -43,7 +43,7 @@ class RomMD{
         connection.query(`SELECT * FROM ${tablename} WHERE id = ?`, [chatRoomId], (err, result) => {
             if(err) return fn(err, "");
             if(result.length <= 0) {
-                return fn("Room khong tim thay", "");
+                return fn("NOT_REGISTER", "");
             }
 
             result[0].users    = JSON.parse(result[0].users);

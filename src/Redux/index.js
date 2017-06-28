@@ -44,7 +44,7 @@ const reducer = redux.combineReducers({
     chatRoomInfo: chatReducer.chatRoomInfoReducer,
     chatId: chatReducer.chatIdReducer,
     chatUserName: chatReducer.chatUserNameReducer,
-    userList: userReducer.userListReducer,
+    usersList: userReducer.usersListReducer,
     isAding: isAdingReducer
 })
 

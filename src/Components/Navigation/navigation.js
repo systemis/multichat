@@ -51,6 +51,9 @@ class Navigation extends Component {
                     result = _result;
                 }
 
+
+                console.log(result);
+                
                 this.setState({searchUser: result});
                 this.setState({doneSearching: true});
             })
@@ -92,7 +95,7 @@ class Navigation extends Component {
                 )
             }
         }else{
-            return <UsersView data={this.state.defaultUser}/>
+            return <UsersView data={this.props.usersList}/>
         }
     }
 
@@ -141,6 +144,6 @@ class Navigation extends Component {
 export default connect((state) => {
     return {
         screenVersion: state.screenVersion, 
-        userList: state.userList
+        usersList: state.usersList
     }
 })(Navigation);

@@ -51,7 +51,8 @@ class userMG {
             url: `/find/users-by-name/${key}`, type: `POST`,
             success: data => {
                 console.log(`Error when search user by username ${data.err}`);
-
+                console.log(data.result);
+                
                 return fn(data.err, data.result);
             },
             error: err => fn(err, null)
@@ -80,6 +81,16 @@ class userMG {
                 fn(data.err, data.result);
             },
             error: fn(null, [])
+        })
+    }
+
+    addFriend(clientId, friendId){
+        $.ajax({
+            url: `/add/friend`, type: `POST`, data: {clientId, friendId},
+            success: data => {
+                console.log(`Add friend is ${JSON.stringify(data)}`);
+            },
+            error: err => console.log(`Add friend fault `)
         })
     }
 }

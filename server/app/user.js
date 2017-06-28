@@ -40,39 +40,41 @@ module.exports = (app) => {
                     }
                 }
 
+                console.log(err);
+                console.log(finalResult);
                 return res.send({err: null, result: finalResult});
             })
         }
     })
 
+    app.post(`/add/friend`, (req, res) => {
+        const clientId = req.body.clientId;
+        const friendId = req.body.friendId;
+
+        userDM.addFriend(clientId, friendId, (err, result) => {
+            userDM.addFriend(friendId, clientId, (_err, _result) => {
+                return res.send({_err, _result}); 
+            });
+        })
+    })
+
     app.post('/get/users/list/:clientId', (req, res) => {
         var clientId  = req.params.clientId;
         var usersList = [];
-        userDM.getRoomsRequested((err, roomsRequested) => {
-            if(err) return res.send({err: err, result: null});
 
-            roomsRequested.map((roomId, index) => {
-                roomMD.findChatRoomById(roomId, (err, result) => {
-                    if(err) return ;
+        userDM.getFriends(clientId, (err, result) => {
+            result.map((userId, index) => {
+                userDM.findUserById(userId, (err, userItem) => {
+                    if(!err && userItem !== 'NOT_REGISTER'){
+                        usersList.push(userItem);
+                    }
 
-                    result.users.map((userId, dex) => {
-                        if(userId !== clientId){
-                            userDM.findUserById(userId, (errUserById, userItem) => {
-                                if(errUserById) return ;
-                                if(userItem === 'NOT_REGISTER') return ;
-
-                                usersList.push(userItem);
-                            })
-                        }
-                    })
+                    if(index === result.length - 1){
+                        console.log(usersList)
+                        return res.send({err: null, result: usersList});
+                    }
                 })
-
-                if(index === roomsRequested.length - 1){
-                    console.log(usersList);
-
-                    return res.send({err: null, result: usersList});
-                }
-            })
+            }) 
         })
     })
 

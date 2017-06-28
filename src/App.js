@@ -62,8 +62,10 @@ class App extends Component {
   }
 
   getUsersList(clientId){
+      const {dispatch} = this.props;
       if(clientId !== -1){
         userMG.getUserLists(clientId, (err, result) => {
+          dispatch({type: `CHANGE_USERS_LIST`, value: result});
           console.log(`List: ${JSON.stringify(result)}`);
         })
       }

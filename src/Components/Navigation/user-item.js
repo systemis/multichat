@@ -56,7 +56,8 @@ class UserItem extends Component {
                 }
 
                 // Add new room in database 
-                chatMG.newRoom(this.props.clientId, this.props.data.id);
+                chatMG.newRoom  (this.props.clientId, this.props.data.id);
+                userMG.addFriend(this.props.clientId, this.props.data.id);
 
                 const chatRoomId = this.props.clientId + this.props.data.id;
                 if(this.props.screenVersion === 'desktop'){

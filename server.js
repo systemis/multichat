@@ -38,4 +38,4 @@ server.listen(3000, () => {
 });
 
 
-setInterval(() => console.log(onlineUser), 3000);
+// setInterval(() => console.log(onlineUser), 3000);

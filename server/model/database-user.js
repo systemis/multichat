@@ -2,7 +2,7 @@ const connection = require('../config/database.js');
 const tableName  = "UserData";
 class UserMD {
     constructor(){
-        connection.query("CREATE TABLE `UserData` ( `id` VARCHAR(200) NOT NULL , `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , `rooms_request` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci", (err, result) => {
+        connection.query("CREATE TABLE `UserData` ( `id` VARCHAR(200) NOT NULL , `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , `rooms_request` TEXT NULL , `friends` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci", (err, result) => {
             if(err) {
                 return console.log("Create user table fail");
             }
@@ -20,6 +20,7 @@ class UserMD {
                 if(bool){
                     this.checkAlreadyExistsEmail(bundle.email, rs => {
                         bundle.rooms_request = JSON.stringify([]);
+                        bundle.friends       = JSON.stringify([]);
                         if(bundle.avatar === null || !bundle.avatar){
                             bundle.avatar = 'https://www.ihh.org.tr/resource/svg/user-shape.svg';
                         }
@@ -132,6 +133,7 @@ class UserMD {
             if(err) return fn(result, null);
             if(result === 'NOT_REGISTER') return fn(null, "NOT_REGISTER");
 
+            result.rooms_request = JSON.parse(result.rooms_request);
             return fn(null, result.rooms_request);
         })
     }
@@ -161,6 +163,35 @@ class UserMD {
             }else{
                 return fn(null, 'success');
             } 
+        })
+    }
+
+    addFriend(userId, friendId, fn){
+        this.findUserById(userId, (err, result) => {
+            if(!err && result !== 'NOT_REGISTER'){
+                var friends = JSON.parse(result.friends);
+                if(friends.indexOf(friendId) < 0){
+                    friends.push(friendId);
+                }
+
+                friends = JSON.stringify(friends);
+
+                connection.query(`UPDATE ${tableName} SET friends = ? WHERE id = ?`, [friends, userId], (err, result) => {
+                    return fn(null, 'success');
+                })
+            }
+        })
+    }
+
+    getFriends(userId, fn){
+        console.log(userId);
+        
+        this.findUserById(userId, (err, result) => {
+            if(!err && result !== 'NOT_REGISTER'){
+                return fn(null, JSON.parse(result.friends));
+            }else{
+                return fn("Error", null);
+            }
         })
     }
 
