@@ -70,6 +70,18 @@ class userMG {
             }
         })
     }
+
+    getUserLists(clientId, fn){
+        $.ajax({
+            url: `/get/users/list/${clientId}`, type: `POST`,
+            success: data => {
+                console.log(data);
+
+                fn(data.err, data.result);
+            },
+            error: fn(null, [])
+        })
+    }
 }
 
 export default new userMG();

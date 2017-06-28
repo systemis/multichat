@@ -58,6 +58,15 @@ class App extends Component {
         dispatch({type: "CHANGE_USER_INFO", value: result});
       }
     })
+
+  }
+
+  getUsersList(clientId){
+      if(clientId !== -1){
+        userMG.getUserLists(clientId, (err, result) => {
+          console.log(`List: ${JSON.stringify(result)}`);
+        })
+      }
   }
 
   router(){
@@ -94,6 +103,7 @@ class App extends Component {
   componentDidMount() {
     const sefl = this;
     this.getClientInfo();
+    this.getUsersList(this.props.clientId);
     window.onresize = () => {
       const width = $(window).width();
       const oldW  = this.state.screenWidth;
@@ -112,12 +122,14 @@ class App extends Component {
     }
 
     this.render();
+    this.getUsersList(nextProps.clientId);
     return true;
   }
 }
 
 export default connect((state) => {
   return {
+    clientId: state.clientId,
     screenVersion: state.screenVersion
   };
 })(App);

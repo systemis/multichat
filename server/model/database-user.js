@@ -127,6 +127,15 @@ class UserMD {
         })
     }
 
+    getRoomsRequested(userId, fn){
+        this.findUserById(userId, (err, result) => {
+            if(err) return fn(result, null);
+            if(result === 'NOT_REGISTER') return fn(null, "NOT_REGISTER");
+
+            return fn(null, result.rooms_request);
+        })
+    }
+
     addToRomsRequest(userId, roomId, fn){
         connection.query(`SELECT * FROM ${tableName} WHERE id = ?`, [userId], (err, result) => {
             if(err){

@@ -34,21 +34,9 @@ module.exports = (server, onlineUser) => {
 
         socket.on(`offLine`, data => {
             const userId = data.userId;
-            console.log(data);
             console.log(`Disconnect server from ${userId}`);
-            console.log(onlineUser.indexOf(userId));
 
-            var _o = onlineUser;
-            delete _o[_o.indexOf(userId)];
-            onlineUser = [];
-
-            for(var i = 0; i < _o.length; i++){
-                if(_o[i] !== ''){
-                    onlineUser.push(_o[i]);
-                }
-            }
-            
-            console.log(onlineUser)
+            onlineUser = onlineUser.splice(onlineUser.indexOf(userId), 1);
         })
     })
 };

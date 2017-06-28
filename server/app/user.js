@@ -1,6 +1,7 @@
 module.exports = (app) => {
     var path   = require('path');
     var userDM = require('../model/database-user.js');
+    var roomMD = require('../model/database-room.js');
 
     app.post('/get/client-info', (req, res) => {
         if(!req.isAuthenticated()){
@@ -42,6 +43,37 @@ module.exports = (app) => {
                 return res.send({err: null, result: finalResult});
             })
         }
+    })
+
+    app.post('/get/users/list/:clientId', (req, res) => {
+        var clientId  = req.params.clientId;
+        var usersList = [];
+        userDM.getRoomsRequested((err, roomsRequested) => {
+            if(err) return res.send({err: err, result: null});
+
+            roomsRequested.map((roomId, index) => {
+                roomMD.findChatRoomById(roomId, (err, result) => {
+                    if(err) return ;
+
+                    result.users.map((userId, dex) => {
+                        if(userId !== clientId){
+                            userDM.findUserById(userId, (errUserById, userItem) => {
+                                if(errUserById) return ;
+                                if(userItem === 'NOT_REGISTER') return ;
+
+                                usersList.push(userItem);
+                            })
+                        }
+                    })
+                })
+
+                if(index === roomsRequested.length - 1){
+                    console.log(usersList);
+
+                    return res.send({err: null, result: usersList});
+                }
+            })
+        })
     })
 
     app.post('/save/message', (req, res) => {
