@@ -1,4 +1,6 @@
-const $ = require('jquery');
+import $                    from 'jquery';
+import socketMG             from './socket.js';
+
 class userMG {
     register(name, email, password, fn){
         $.ajax({
@@ -53,6 +55,19 @@ class userMG {
                 return fn(data.err, data.result);
             },
             error: err => fn(err, null)
+        })
+    }
+
+    disConnect(userId){
+        console.log(`Client id: ${userId}`);
+        console.log(`You're logouting server`);
+        $.ajax({
+            url: `/logout`, type: `GET`, 
+            success: data => {
+                socketMG.disConnect(userId);
+
+                window.location.href = '/sign-in';
+            }
         })
     }
 }

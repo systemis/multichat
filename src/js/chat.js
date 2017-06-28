@@ -1,9 +1,8 @@
-import io from 'socket.io-client'; 
-import $  from 'jquery';
+import $        from 'jquery';
+import socketMG from './socket.js';
 
 var timeRequestCheckAccess = 0;
 var isAccessRoom = false;
-var socket = io.connect(`http://localhost:3000/`);
 
 class chat{
     checkAccessRoom(chatRoomId, fn){
@@ -35,7 +34,7 @@ class chat{
     sendMessage(chatRoomId, message){
         this.checkAccessRoom(chatRoomId, isAccess => {
             if(isAccess){
-                socket.emit(`new_message`, {chatRoomId: chatRoomId, message: message});
+                socketMG.sendMessage(chatRoomId, message);
             }else{
                 alert(`Bạn không được phép truy cập, vui kiểm tra lại sau !`);
             }
@@ -62,9 +61,7 @@ class chat{
     }
 
     receiveMessage(chatRomId, fn){
-        socket.on(`/receive/message/${chatRomId}`, data => {
-            fn(data);
-        })
+        socketMG.receiveMessage(chatRomId, fn);
     }
 
     checkChatRoomId(chatRomId, fn){

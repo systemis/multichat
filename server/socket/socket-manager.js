@@ -1,4 +1,4 @@
-module.exports = server => {
+module.exports = (server, onlineUser) => {
     var io     = require('socket.io')(server);
     var roomMD = require('../model/database-room.js');
     io.on('connect', socket => {
@@ -25,6 +25,19 @@ module.exports = server => {
                     console.log(err);
                 }
             })
+        })
+
+        socket.on(`online`, data => {
+            console.log(data);
+            console.log(`User have id is ${data.userId} have just online`);
+        })
+
+        socket.on(`offLine`, data => {
+            const {userId} = data;
+            console.log(data);
+            console.log(`Disconnect server from ${userId}`);
+
+            onlineUser = onlineUser.slice(onlineUser.indexOf(userId));
         })
     })
 };

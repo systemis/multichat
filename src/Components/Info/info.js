@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect}            from 'react-redux';
+import userMG               from '../../js/user.js';
 import testAvatar           from '../../Image/test_avatar_men.jpg';
 import './Style/info-group-style.css';
 
@@ -24,7 +25,13 @@ class InfoGroup extends Component {
                             <li className="dropdown-header">Dropdown header 1</li>
                             <li><a href="#">HTML</a></li>
                             <li><a href="#">CSS</a></li>
-                            <li><a href="/logout">Log out</a></li>
+                            <li>
+                                <a>
+                                    <span onClick={() => userMG.disConnect(this.props.clientId)}>
+                                        Log out
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -71,5 +78,9 @@ class InfoGroup extends Component {
 }
 
 export default connect((state) => {
-    return {screenVersion: state.screenVersion, userInfo: state.userInfo};
+    return {
+        clientId: state.clientId, 
+        screenVersion: state.screenVersion, 
+        userInfo: state.userInfo
+    };
 })(InfoGroup);

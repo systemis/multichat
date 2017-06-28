@@ -1,4 +1,4 @@
-module.exports = (app) => {
+module.exports = (app, onlineUsers) => {
     var passport      = require('passport');
     var passportfb    = require('passport-facebook');
     var passportLocal = require('passport-local');
@@ -63,7 +63,12 @@ module.exports = (app) => {
     )) 
 
     passport.serializeUser((user, done) => {
-        console.log(user);
+        console.log("user");
+
+        onlineUsers.push(user.id);
+
+        console.log(onlineUsers);
+        
         done(null, user);
     })
     passport.deserializeUser((user, done) => {
@@ -98,4 +103,11 @@ module.exports = (app) => {
     app.get('/login-facebook', passport.authenticate('facebook', {
         failureRedirect: '/sign-in', successRedirect: '/home'
     }));
+
+
+    app.get('/logout', (req, res) => {
+        console.log('logout');
+        req.logout();
+        res.send("");
+    })
 }

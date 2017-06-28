@@ -21,9 +21,11 @@ app.use(expresssession( {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("build"));
 
+var onlineUser = [];
+
 // setup pages router
-require('./server/app/login.js')(app);
-require('./server/socket/chat-socket.js')(server); // Custom chat 
+require('./server/app/auth.js')(app, onlineUser);
+require('./server/socket/socket-manager.js')(onlineUser); // Custom chat 
 require('./server/app/chat.js')(app);
 require('./server/app/user.js')(app);
 require('./server/router.js')(app);
@@ -34,3 +36,6 @@ server.listen(3000, () => {
     // userDm.dropTable((err, result) => {})
     // roomDm.dropTable((err, result) => {})
 });
+
+
+setInterval(() => console.log(onlineUser), 3000);
