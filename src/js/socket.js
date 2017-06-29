@@ -16,6 +16,12 @@ class socketManager {
 
         socket.emit(`offLine`, {userId: userId});
     }
+
+    checkOnline(userId, fn){
+        socket.on(`check_online_user/${userId}`, isOnline => {
+            fn(isOnline);
+        })
+    }
 }
 
 export default new socketManager();

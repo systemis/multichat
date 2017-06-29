@@ -93,6 +93,16 @@ class userMG {
             error: err => console.log(`Add friend fault `)
         })
     }
+
+    checkUserOnline(userId, fn){
+        $.ajax({
+            url: `/check/user/online/${userId}`, type: `POST`,
+            success: isOnline => {
+                fn(isOnline);
+            },
+            error: err => fn(false)
+        })
+    }
 }
 
 export default new userMG();

@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import {connect}            from 'react-redux';
 import userMG               from '../../js/user.js';
 import chatMG               from '../../js/chat.js';
+import socketMG             from '../../js/socket.js';
 
 class UserItem extends Component {
+    constructor(props){
+        super(props);
+        this.state = {isOnline: false}
+    }
+
     accessRoom(chatId){
         const {dispatch} = this.props;
         chatMG.acessRom(chatId, (err, result) => {
@@ -85,6 +91,17 @@ class UserItem extends Component {
                 </div>
             </div>
         );
+    }
+
+    
+    componentWillMount() {
+        userMG.checkUserOnline(this.props.data.id, isOnline => {
+            console.log(`Is online: ${isOnline}`);
+        })        
+
+        socketMG.checkOnline(this.props.data.id, isOnline => {
+            console.log(`Is online: ${isOnline}`);
+        })
     }
 }
 

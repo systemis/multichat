@@ -1,4 +1,4 @@
-module.exports = (app) => {
+module.exports = (app, onlineUser) => {
     var path   = require('path');
     var userDM = require('../model/database-user.js');
     var roomMD = require('../model/database-room.js');
@@ -76,6 +76,15 @@ module.exports = (app) => {
                 })
             }) 
         })
+    })
+
+    app.post(`/check/user/online/:userId`, (req, res) => {
+        const userId = req.params.userId;
+        console.log(onlineUser);
+        console.log(userId);
+
+        if(onlineUser.indexOf(userId) < 0) return res.send(false);
+        return res.send(true);
     })
 
     app.post('/save/message', (req, res) => {

@@ -1,10 +1,9 @@
-module.exports = (app, onlineUsers) => {
-    var passport      = require('passport');
-    var passportfb    = require('passport-facebook');
-    var passportLocal = require('passport-local');
-    var userDM        = require('../model/database-user.js');
-    var path          = require('path');
-
+module.exports = (server, app, onlineUsers) => {
+    const passport      = require('passport');
+    const passportfb    = require('passport-facebook');
+    const passportLocal = require('passport-local');
+    const userDM        = require('../model/database-user.js');
+    const path          = require('path');
     
     app.use(passport.initialize());
     app.use(passport.session());
@@ -63,12 +62,10 @@ module.exports = (app, onlineUsers) => {
     )) 
 
     passport.serializeUser((user, done) => {
-        console.log("user");
-
         onlineUsers.push(user.id);
-
+        console.log("user");
         console.log(onlineUsers);
-        
+
         done(null, user);
     })
     passport.deserializeUser((user, done) => {
@@ -107,6 +104,7 @@ module.exports = (app, onlineUsers) => {
 
     app.get('/logout', (req, res) => {
         console.log('logout');
+
         req.logout();
         res.send("");
     })
