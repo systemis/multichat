@@ -33,7 +33,6 @@ class ChatGroup extends Component {
     }
 
     showMessages(){
-        console.log(this.props.chatRoomInfo);
         if(this.props.chatRoomInfo.users){
             const messages = this.props.chatRoomInfo.messages;
             const dom = [];

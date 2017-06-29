@@ -39,6 +39,10 @@
         text-align: center;
         padding: 0;
         margin: 0; }
+        #info-group .show-info .show-simple-info .show-name-andress .show-name .fa.fa-pencil, #info-group .show-info .show-simple-info .show-name-andress .show-andress .fa.fa-pencil {
+          padding: 0 0 0 10px; }
+          #info-group .show-info .show-simple-info .show-name-andress .show-name .fa.fa-pencil:hover, #info-group .show-info .show-simple-info .show-name-andress .show-andress .fa.fa-pencil:hover {
+            color: darkred; }
       #info-group .show-info .show-simple-info .show-name-andress .show-name {
         font-size: 18px;
         font-weight: bold; }

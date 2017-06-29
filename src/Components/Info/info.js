@@ -10,6 +10,18 @@ class InfoGroup extends Component {
         this.state = {isChange: false}
     }
 
+    editBtn(){
+        if(!this.state.isChange){
+            return ;
+        }
+
+        return (
+            <span 
+                className="fa fa-pencil" 
+                aria-hidden="true" />
+        )
+    }
+
     render() {
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
@@ -25,7 +37,9 @@ class InfoGroup extends Component {
                             onClick={() => {
                                 let {dispatch}   = this.props;
                                 let {clientInfo} = this.props;
+                                let {clientId}   = this.props;
                                 dispatch({type: 'CHANGE_USER_INFO', value: clientInfo});
+                                dispatch({type: 'CHANGE_CHAT_ID'  ,  value: clientId})
                             }}>
                                 {this.props.clientInfo.name}
                             <span className="caret" />
@@ -52,7 +66,11 @@ class InfoGroup extends Component {
                             </p>
                         </div>
                         <div className="show-name-andress">
-                            <p className="show-name"   > {this.props.userInfo.name} </p>
+                            <p 
+                                className="show-name"> 
+                                {this.props.userInfo.name} 
+                                {this.editBtn()}
+                            </p>
                             <p className="show-andress"> {this.props.userInfo.name} </p>
                         </div>
                     </div>
@@ -85,14 +103,12 @@ class InfoGroup extends Component {
         );
     }
 
-    shouldComponentUpdate(nextProps) {
-        console.log(nextProps);
-        console.log(nextProps.id);
-
-        userMG.checkIsClient(nextProps.userInfo.id, isClient => {
-            console.log(`Change info is ${isClient}`);
-            this.setState({isChange: isClient});
-        })
+    shouldComponentUpdate(nextProps, nextState) {
+        if(this.props.chatId !== nextProps.chatId){
+            userMG.checkIsClient(nextProps.chatId, isClient => {
+                this.setState({isChange: isClient});
+            })
+        }
 
         this.render();
         return true;        
@@ -101,8 +117,10 @@ class InfoGroup extends Component {
 
 export default connect((state) => {
     return {
+        clientId: state.clientId, 
         clientInfo: state.clientInfo,
         screenVersion: state.screenVersion, 
-        userInfo: state.userInfo
+        userInfo: state.userInfo,
+        chatId: state.chatId
     };
 })(InfoGroup);
