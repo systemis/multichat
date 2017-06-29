@@ -188,7 +188,18 @@ class UserMD {
     }
 
     updateUserInfo(userId, bundle, fn){
+        console.log(bundle);
+        console.log(userId);
+        connection.query(`UPDATE ${tableName} SET name = ?, andress = ?, phone = ?, birthday = ?, gender = ?, language = ? WHERE id = ?`, 
+        [bundle.name, bundle.andress, bundle.phone, bundle.birthday, bundle.gender, bundle.language, userId], 
+        (err, result) => {
+            if(err){
+                console.log(err);
+                return fn(err, null);
+            }
 
+            return fn(null, 'success');
+        })
     }
 
     dropTable(fn){

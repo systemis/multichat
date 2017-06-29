@@ -3,13 +3,6 @@ module.exports = (app, onlineUser) => {
     var userDM = require('../model/database-user.js');
     var roomMD = require('../model/database-room.js');
 
-    app.post('/get/client-info', (req, res) => {
-        if(!req.isAuthenticated()){
-            return res.send("NOT_LOGIN");
-        }else{
-            return res.send(req.user)
-        }
-    })
 
     app.post('/get/user-info/:id', (req, res) => {
         const idFind = req.params.id;
@@ -107,7 +100,22 @@ module.exports = (app, onlineUser) => {
         if(req.isAuthenticated()){
             const userId      = req.user.id;
             const infoUpdated = req.body.infoUpdated;
-            console.log(infoUpdated);
+            userDM.updateUserInfo(userId, infoUpdated, (err, result) => {
+                return res.send(result);
+            })
+        }
+    })
+
+
+    app.post('/get/client-info', (req, res) => {
+        if(!req.isAuthenticated()){
+            return res.send("NOT_LOGIN");
+        }else{
+            userDM.findUserById(req.user.id, (err, result) => {
+                if(!err && result !== 'NOT_REGISTER'){
+                    return res.send(result)
+                }
+            })
         }
     })
 }

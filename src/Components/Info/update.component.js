@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import userMG               from '../../js/user.js';
 
 class UpdateComponent extends Component {
+    setValue(){
+        document.getElementById('update-user-name-field').value     = this.props.data.name;
+        document.getElementById('update-user-andress-field').value  = this.props.data.andress;
+        document.getElementById('update-user-phone-field').value    = this.props.data.number;
+        document.getElementById('update-user-birtday-field').value  = this.props.data.birthday;
+        document.getElementById('update-user-gender-field').value   = this.props.data.gender;
+        document.getElementById('update-user-language-field').value = this.props.data.language;
+    }
+
     update_handler(){
         const nameUpdated     = document.getElementById('update-user-name-field').value;
         const andressUpdated  = document.getElementById('update-user-andress-field').value;
@@ -15,13 +24,13 @@ class UpdateComponent extends Component {
                 name: nameUpdated, 
                 andress: andressUpdated,
                 phone: phoneUpdated,
-                birtday: birtdayUpdated,
+                birthday: birtdayUpdated,
                 gender: genderUpdated,
                 language: languageUpdated
             };
 
             userMG.updateClientInfo(updateInfo, result => {
-                console.log(result);
+                window.location.reload();
             })
         }else{
             alert(`Mot so thong tin con thieu`);
@@ -36,28 +45,25 @@ class UpdateComponent extends Component {
                     className="update-info-field"
                     id="update-user-name-field"
                     placeholder="Type user name here"
-                    value={this.props.data.name}/>
+                    onChange={() => {return true}}/>
                 <br />
                 <input 
                     type="text"
                     className="update-info-field"
                     id="update-user-andress-field"
-                    placeholder="Type user andress here"
-                    value={this.props.data.andress}/>
+                    placeholder="Type user andress here"/>
                 <br />
                 <input 
                     type="number"
                     className="update-info-field"
                     id="update-user-phone-field"
-                    placeholder="Type user phone here"
-                    value={this.props.data.phone}/>
+                    placeholder="Type user phone here"/>
                 <br />
                 <input 
                     type="text"
                     className="update-info-field"
                     id="update-user-birtday-field"
-                    placeholder="Type user birthday here"
-                    value={this.props.data.birthday}/>
+                    placeholder="Type user birthday here"/>
                 <br />
                 <select 
                     name="update-info-gender-field" 
@@ -70,8 +76,7 @@ class UpdateComponent extends Component {
                     type="text"
                     className="update-info-field"
                     id="update-user-language-field"
-                    placeholder="Type user name here"
-                    value={this.props.data.language}/>
+                    placeholder="Type user name here"/>
                 <input 
                     type="button" 
                     className="btn btn-danger"
@@ -84,6 +89,10 @@ class UpdateComponent extends Component {
                     onClick={() => this.props.backIndexScreen()}/>
             </div>
         );
+    }
+
+    componentDidMount() {
+        this.setValue();        
     }
 }
 
