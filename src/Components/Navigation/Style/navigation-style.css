@@ -64,6 +64,10 @@
             padding-right: 20px;
             padding-left: 20px;
             border-radius: 50%; }
+            #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img.online {
+              border: 1px solid yellowgreen; }
+            #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img.none-online {
+              border: none; }
             @media screen and (min-width: 1300px) {
               #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
                 height: 54.31px;

@@ -78,6 +78,15 @@
                             padding-right: 20px;
                             padding-left: 20px;
                             border-radius: 50%;
+
+                            &.online{
+                                border: 1px solid yellowgreen;
+                            }
+
+                            &.none-online{
+                                border: none;
+                            }
+
                             @media screen and (min-width: 1300px){
                                 height: 54.31px;
                                 padding-left: 0;

@@ -62,7 +62,10 @@ module.exports = (server, app, onlineUsers) => {
     )) 
 
     passport.serializeUser((user, done) => {
-        onlineUsers.push(user.id);
+        if(onlineUsers.indexOf(user.id) < 0){
+             onlineUsers.push(user.id);
+        }
+        
         console.log("user");
         console.log(onlineUsers);
 

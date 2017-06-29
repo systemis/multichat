@@ -7,7 +7,7 @@ import socketMG             from '../../js/socket.js';
 class UserItem extends Component {
     constructor(props){
         super(props);
-        this.state = {isOnline: false}
+        this.state = {isOnline: "none-online"}
     }
 
     accessRoom(chatId){
@@ -76,13 +76,16 @@ class UserItem extends Component {
     }
 
     render() {
+        console.log(this.state.isOnline);
         return (
             <div 
                 className="user-item row" 
                 onClick={() => this.clickItemEvent()}>
                 <div className="col-md-3 col-sm-3 col-xs-3 show-image">
                     <div className="child">
-                        <img src={this.props.data.avatar} />
+                        <img 
+                            className={this.state.isOnline}
+                            src={this.props.data.avatar}/>
                     </div>
                 </div>
                 <div className="col-md-9 col-sm-9 col-xs-9 show-user-info">
@@ -96,12 +99,29 @@ class UserItem extends Component {
     
     componentWillMount() {
         userMG.checkUserOnline(this.props.data.id, isOnline => {
-            console.log(`Is online: ${isOnline}`);
+            console.log(isOnline);
+            if(isOnline){
+                return this.setState({isOnline: 'online'});
+            }
+
+            return this.setState({isOnline: 'none-online'});
         })        
 
         socketMG.checkOnline(this.props.data.id, isOnline => {
-            console.log(`Is online: ${isOnline}`);
+            console.log(isOnline);
+            if(isOnline){
+                return this.setState({isOnline: 'online'});
+            }
+
+            return this.setState({isOnline: 'none-online'});
         })
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log(nextState);
+        this.render();        
+
+        return true;
     }
 }
 
