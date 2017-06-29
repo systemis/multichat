@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect}            from 'react-redux';
+import UpdateGroup          from './update.component.js';
 import userMG               from '../../js/user.js';
 import testAvatar           from '../../Image/test_avatar_men.jpg';
 import './Style/info-group-style.css';
@@ -7,7 +8,12 @@ import './Style/info-group-style.css';
 class InfoGroup extends Component {
     constructor(props){
         super(props);
-        this.state = {isChange: false}
+        this.state = {isChange: false, indexShowMainLayout: 0}
+        this.backIndexScreen = this.backIndexScreen.bind(this);
+    }
+
+    backIndexScreen(){
+        this.setState({indexShowMainLayout: 0});
     }
 
     editBtn(){
@@ -18,7 +24,47 @@ class InfoGroup extends Component {
         return (
             <span 
                 className="fa fa-pencil" 
-                aria-hidden="true" />
+                aria-hidden="true"
+                onClick={() => {
+                    this.setState({indexShowMainLayout: 1});
+                }}/>
+        )
+    }
+
+    mainLayout_showinfo(){
+        if(this.state.indexShowMainLayout > 0){
+            return (
+                <UpdateGroup 
+                    data={this.props.userInfo} 
+                    backIndexScreen={this.backIndexScreen}/>
+            )
+        }
+
+        return(
+            <div className="show-default-info">
+                <table className="table-show-user-default-info">
+                    <tr> 
+                        <td className="show-title">Nick name:</td>
+                        <td className="show-value">{this.props.userInfo.name}</td>
+                    </tr>
+                    <tr> 
+                        <td className="show-title">Tel:</td>
+                        <td className="show-value">{this.props.userInfo.phone}</td>
+                    </tr>
+                    <tr> 
+                        <td className="show-title">Date of birth:</td>
+                        <td className="show-value">{new Date().toLocaleDateString()}</td>
+                    </tr>
+                    <tr> 
+                        <td className="show-title">Gender</td>
+                        <td className="show-value">{this.props.userInfo.gender}</td>
+                    </tr>
+                    <tr> 
+                        <td className="show-title">Language</td>
+                        <td className="show-value">{this.props.userInfo.language}</td>
+                    </tr>
+                </table>
+            </div>
         )
     }
 
@@ -74,30 +120,7 @@ class InfoGroup extends Component {
                             <p className="show-andress"> {this.props.userInfo.name} </p>
                         </div>
                     </div>
-                    <div className="show-default-info">
-                        <table className="table-show-user-default-info">
-                            <tr> 
-                                <td className="show-title">Nick name:</td>
-                                <td className="show-value">{this.props.userInfo.name}</td>
-                            </tr>
-                            <tr> 
-                                <td className="show-title">Tel:</td>
-                                <td className="show-value">{this.props.userInfo.phone}</td>
-                            </tr>
-                            <tr> 
-                                <td className="show-title">Date of birth:</td>
-                                <td className="show-value">{new Date().toLocaleDateString()}</td>
-                            </tr>
-                            <tr> 
-                                <td className="show-title">Gender</td>
-                                <td className="show-value">{this.props.userInfo.gender}</td>
-                            </tr>
-                            <tr> 
-                                <td className="show-title">Language</td>
-                                <td className="show-value">{this.props.userInfo.language}</td>
-                            </tr>
-                        </table>
-                    </div>
+                    {this.mainLayout_showinfo()}
                 </div>
             </div>
         );

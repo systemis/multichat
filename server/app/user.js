@@ -102,4 +102,12 @@ module.exports = (app, onlineUser) => {
 
         return res.send(false);
     })
+
+    app.post(`/update/client-info`, (req, res) => {
+        if(req.isAuthenticated()){
+            const userId      = req.user.id;
+            const infoUpdated = req.body.infoUpdated;
+            console.log(infoUpdated);
+        }
+    })
 }

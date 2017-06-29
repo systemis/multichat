@@ -113,6 +113,16 @@ class userMG {
             error: err => fn(false)
         })
     }
+
+    updateClientInfo(infoUpdated, fn){
+        $.ajax({
+            url: `/update/client-info`, type: `POST`, data: {infoUpdated: infoUpdated},
+            success: data => {
+                fn(data)
+            },
+            error: err => fn("Error")
+        })
+    }
 }
 
 export default new userMG();
