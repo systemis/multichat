@@ -76,7 +76,6 @@ class UserItem extends Component {
     }
 
     render() {
-        console.log(this.state.isOnline);
         return (
             <div 
                 className="user-item row" 
@@ -98,29 +97,23 @@ class UserItem extends Component {
 
     
     componentWillMount() {
-        userMG.checkUserOnline(this.props.data.id, isOnline => {
-            console.log(isOnline);
+        const update_online_status = (isOnline) => {
             if(isOnline){
                 return this.setState({isOnline: 'online'});
             }
-
             return this.setState({isOnline: 'none-online'});
+        }
+
+        userMG.checkUserOnline(this.props.data.id, isOnline => {
+            update_online_status(isOnline);
         })        
 
         socketMG.checkOnline(this.props.data.id, isOnline => {
-            console.log(isOnline);
-            if(isOnline){
-                return this.setState({isOnline: 'online'});
-            }
-
-            return this.setState({isOnline: 'none-online'});
+            update_online_status(isOnline);
         })
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(nextState);
-        this.render();        
-
         return true;
     }
 }

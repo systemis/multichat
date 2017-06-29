@@ -33,6 +33,12 @@ $border: 1px solid #e5e5e5;
             & .dropdown-menu{
                 right: 15px;
                 top: 40px;
+                & li{
+                    & a{
+                    & span{
+                        display: block
+                    }}
+                }
             }
         }
     }

@@ -36,16 +36,16 @@ const chatId = (state = -1, action) => {
 }
 
 const reducer = redux.combineReducers({
-    screenVersion: screenVersionReducer,
-    clientId: userReducer.clientIdReducer,
-    clientInfo: userReducer.clientInfoReducer,
-    userInfo: userReducer.userInfoReducer,
-    chatRoomId: chatReducer.chatRoomIdReducer,
-    chatRoomInfo: chatReducer.chatRoomInfoReducer,
-    chatId: chatReducer.chatIdReducer,
-    chatUserName: chatReducer.chatUserNameReducer,
-    usersList: userReducer.usersListReducer,
-    isAding: isAdingReducer
+    screenVersion : screenVersionReducer,
+    clientId      : userReducer.clientIdReducer,
+    clientInfo    : userReducer.clientInfoReducer,
+    userInfo      : userReducer.userInfoReducer,
+    chatRoomId    : chatReducer.chatRoomIdReducer,
+    chatRoomInfo  : chatReducer.chatRoomInfoReducer,
+    chatId        : chatReducer.chatIdReducer,
+    chatUserName  : chatReducer.chatUserNameReducer,
+    usersList     : userReducer.usersListReducer,
+    isAding       : isAdingReducer
 })
 
 const store = redux.createStore(reducer, redux.compose(

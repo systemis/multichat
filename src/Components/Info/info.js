@@ -6,7 +6,6 @@ import './Style/info-group-style.css';
 
 class InfoGroup extends Component {
     render() {
-        // Class name to custom ui with desktop and mobile version .
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
                 return 'desktop';
@@ -18,7 +17,7 @@ class InfoGroup extends Component {
                         <span 
                             className="show-client-name dropdown-toggle"
                             data-toggle="dropdown">
-                            {this.props.userInfo.name}
+                            {this.props.clientInfo.name}
                             <span className="caret" />
                         </span>
                         <ul className="dropdown-menu">
@@ -80,6 +79,7 @@ class InfoGroup extends Component {
 export default connect((state) => {
     return {
         clientId: state.clientId, 
+        clientInfo: state.clientInfo,
         screenVersion: state.screenVersion, 
         userInfo: state.userInfo
     };
