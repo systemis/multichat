@@ -40,8 +40,6 @@ module.exports = (app, onlineUser) => {
                     }
                 }
 
-                console.log(err);
-                console.log(finalResult);
                 return res.send({err: null, result: finalResult});
             })
         }
@@ -70,7 +68,6 @@ module.exports = (app, onlineUser) => {
                     }
 
                     if(index === result.length - 1){
-                        console.log(usersList)
                         return res.send({err: null, result: usersList});
                     }
                 })
@@ -80,8 +77,6 @@ module.exports = (app, onlineUser) => {
 
     app.post(`/check/user/online/:userId`, (req, res) => {
         const userId = req.params.userId;
-        console.log(onlineUser);
-        console.log(userId);
 
         if(onlineUser.indexOf(userId) < 0) return res.send(false);
         return res.send(true);
@@ -93,5 +88,18 @@ module.exports = (app, onlineUser) => {
             message.receiveId = message.sendId;
             message.sendId    = clientId;
         }
+    })
+
+    app.post(`/check/client/:clientId`, (req, res) => {
+        const clientId = req.params.clientId;
+
+        console.log(req.user.id);
+        console.log(clientId);
+
+        if(clientId === req.user.id){
+            return res.send(true);
+        }
+
+        return res.send(false);
     })
 }

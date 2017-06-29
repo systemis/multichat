@@ -50,9 +50,7 @@ class App extends Component {
   getClientInfo(){
     const {dispatch} = this.props;
     userMG.getClientInfo((err, result) => {
-      if(err) {
-        console.log(result);
-      }else{
+      if(!err) {
         dispatch({type: "CHANGE_CLIENT_ID", value: result.id});
         dispatch({type: "CHANGE_CLIENT_INFO", value: result});
         dispatch({type: "CHANGE_USER_INFO", value: result});
@@ -66,7 +64,6 @@ class App extends Component {
       if(clientId !== -1){
         userMG.getUserLists(clientId, (err, result) => {
           dispatch({type: `CHANGE_USERS_LIST`, value: result});
-          console.log(`List: ${JSON.stringify(result)}`);
         })
       }
   }

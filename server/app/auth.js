@@ -65,10 +65,6 @@ module.exports = (server, app, onlineUsers) => {
         if(onlineUsers.indexOf(user.id) < 0){
              onlineUsers.push(user.id);
         }
-        
-        console.log("user");
-        console.log(onlineUsers);
-
         done(null, user);
     })
     passport.deserializeUser((user, done) => {
@@ -82,7 +78,6 @@ module.exports = (server, app, onlineUsers) => {
 
     app.post('/sign-up', (req, res) => {
         userDM.newUser(req.body, (err, result, user) => {
-            console.log("Co nguoi dang dang ky bang email");
             console.log(req.body);
             if(err){
                 switch(result){

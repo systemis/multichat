@@ -12,7 +12,6 @@ class UserMD {
     }
 
     newUser(bundle, fn){
-        // set default avatar 
         var b = true;
         do{
             bundle.id = Math.random().toString().replace(".", "");
@@ -28,7 +27,6 @@ class UserMD {
                         if(rs){
                             connection.query("INSERT INTO " + tableName + " SET ?", bundle, (err, result, field) => {
                                 if(err){
-                                    console.log(err);
                                     return fn(true, err, null);
                                 }
 
@@ -43,24 +41,6 @@ class UserMD {
                 }
             })
         }while(b === false);
-    }
-
-    checkLogin(email, password, fn){
-        connection.query("SELECT * FROM " + tableName + " WHERE email = ?", [email], (err, result, field) => {
-            if(err) {
-                return fn(true, JSON.stringify(result));
-            }
-
-            if(result.length > 0){
-                if(password === result[0].password){
-                    return fn(true, "OK", result[0]);
-                }else{
-                    return fn(true, "CORRECT", null);
-                }
-            }else{
-                return fn(true, "NOT_REGISTER", null);
-            }
-        })
     }
 
     findUserById(id, fn){
@@ -82,11 +62,71 @@ class UserMD {
         })
     }
 
+    addToRomsRequest(userId, roomId, fn){
+        connection.query(`SELECT * FROM ${tableName} WHERE id = ?`, [userId], (err, result) => {
+            if(err){
+                return fn(err, "");
+            }
+
+            if(result.length <= 0) return fn("Error", "");
+
+            var rooms_requested = JSON.parse(result[0].rooms_request);
+
+            if(rooms_requested.indexOf(roomId) < 0){
+                rooms_requested.push(roomId);
+                rooms_requested     = JSON.stringify(rooms_requested);
+                connection.query(`UPDATE ${tableName} SET rooms_request = ? WHERE id = ?`, [rooms_requested, userId], (er, rs) => {
+                    if(er) {
+                        return fn(er, "");
+                    }
+                    
+                    return fn(null, "success");
+                })
+            }else{
+                return fn(null, 'success');
+            } 
+        })
+    }
+
+    addFriend(userId, friendId, fn){
+        this.findUserById(userId, (err, result) => {
+            if(!err && result !== 'NOT_REGISTER'){
+                var friends = JSON.parse(result.friends);
+                if(friends.indexOf(friendId) < 0){
+                    friends.push(friendId);
+                }
+
+                friends = JSON.stringify(friends);
+
+                connection.query(`UPDATE ${tableName} SET friends = ? WHERE id = ?`, [friends, userId], (err, result) => {
+                    return fn(null, 'success');
+                })
+            }
+        })
+    }
+
+    checkLogin(email, password, fn){
+        connection.query("SELECT * FROM " + tableName + " WHERE email = ?", [email], (err, result, field) => {
+            if(err) {
+                return fn(true, JSON.stringify(result));
+            }
+
+            if(result.length > 0){
+                if(password === result[0].password){
+                    return fn(true, "OK", result[0]);
+                }else{
+                    return fn(true, "CORRECT", null);
+                }
+            }else{
+                return fn(true, "NOT_REGISTER", null);
+            }
+        })
+    }
+
     checkAlreadyExistsEmail(email, fn){
         connection.query("SELECT * FROM " + tableName, (err, result) => {
             var rs = true;
             if(err){
-                console.log("Select table faile");
                 return console.log(err);
             }
 
@@ -104,7 +144,6 @@ class UserMD {
         connection.query("SELECT * FROM " + tableName, (err, result) => {
             var rs = true;
             if(err){
-                console.log("Select table faile");
                 return console.log(err);
             }
 
@@ -138,54 +177,7 @@ class UserMD {
         })
     }
 
-    addToRomsRequest(userId, roomId, fn){
-        connection.query(`SELECT * FROM ${tableName} WHERE id = ?`, [userId], (err, result) => {
-            if(err){
-                console.log(err);
-                return fn(err, "");
-            }
-
-            if(result.length <= 0) return fn("Error", "");
-
-            var rooms_requested = JSON.parse(result[0].rooms_request);
-
-            if(rooms_requested.indexOf(roomId) < 0){
-                rooms_requested.push(roomId);
-                rooms_requested     = JSON.stringify(rooms_requested);
-                connection.query(`UPDATE ${tableName} SET rooms_request = ? WHERE id = ?`, [rooms_requested, userId], (er, rs) => {
-                    if(er) {
-                        console.log(er);
-                        return fn(er, "");
-                    }
-                    
-                    return fn(null, "success");
-                })
-            }else{
-                return fn(null, 'success');
-            } 
-        })
-    }
-
-    addFriend(userId, friendId, fn){
-        this.findUserById(userId, (err, result) => {
-            if(!err && result !== 'NOT_REGISTER'){
-                var friends = JSON.parse(result.friends);
-                if(friends.indexOf(friendId) < 0){
-                    friends.push(friendId);
-                }
-
-                friends = JSON.stringify(friends);
-
-                connection.query(`UPDATE ${tableName} SET friends = ? WHERE id = ?`, [friends, userId], (err, result) => {
-                    return fn(null, 'success');
-                })
-            }
-        })
-    }
-
     getFriends(userId, fn){
-        console.log(userId);
-        
         this.findUserById(userId, (err, result) => {
             if(!err && result !== 'NOT_REGISTER'){
                 return fn(null, JSON.parse(result.friends));
@@ -195,10 +187,14 @@ class UserMD {
         })
     }
 
+    updateUserInfo(userId, bundle, fn){
+
+    }
+
     dropTable(fn){
         connection.query("DROP TABLE " + tableName, (err, result) => {
             if(err){
-                console.log("Drop table faile");
+                console.log("Drop table fautl");
                 return fn(err, 'err');
             }
 

@@ -21,6 +21,8 @@
     #info-group .header-bar .dropdown .dropdown-menu {
       right: 15px;
       top: 40px; }
+      #info-group .header-bar .dropdown .dropdown-menu li a span {
+        display: block; }
   #info-group .show-info .show-simple-info {
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e5e5; }

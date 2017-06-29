@@ -5,6 +5,11 @@ import testAvatar           from '../../Image/test_avatar_men.jpg';
 import './Style/info-group-style.css';
 
 class InfoGroup extends Component {
+    constructor(props){
+        super(props);
+        this.state = {isChange: false}
+    }
+
     render() {
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
@@ -16,8 +21,13 @@ class InfoGroup extends Component {
                     <div className="dropdown">
                         <span 
                             className="show-client-name dropdown-toggle"
-                            data-toggle="dropdown">
-                            {this.props.clientInfo.name}
+                            data-toggle="dropdown"
+                            onClick={() => {
+                                let {dispatch}   = this.props;
+                                let {clientInfo} = this.props;
+                                dispatch({type: 'CHANGE_USER_INFO', value: clientInfo});
+                            }}>
+                                {this.props.clientInfo.name}
                             <span className="caret" />
                         </span>
                         <ul className="dropdown-menu">
@@ -74,11 +84,23 @@ class InfoGroup extends Component {
             </div>
         );
     }
+
+    shouldComponentUpdate(nextProps) {
+        console.log(nextProps);
+        console.log(nextProps.id);
+
+        userMG.checkIsClient(nextProps.userInfo.id, isClient => {
+            console.log(`Change info is ${isClient}`);
+            this.setState({isChange: isClient});
+        })
+
+        this.render();
+        return true;        
+    }
 }
 
 export default connect((state) => {
     return {
-        clientId: state.clientId, 
         clientInfo: state.clientInfo,
         screenVersion: state.screenVersion, 
         userInfo: state.userInfo

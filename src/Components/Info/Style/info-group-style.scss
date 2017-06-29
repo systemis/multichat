@@ -34,10 +34,9 @@ $border: 1px solid #e5e5e5;
                 right: 15px;
                 top: 40px;
                 & li{
-                    & a{
-                    & span{
+                    & a span{
                         display: block
-                    }}
+                    }
                 }
             }
         }

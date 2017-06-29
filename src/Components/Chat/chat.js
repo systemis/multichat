@@ -76,6 +76,7 @@ class ChatGroup extends Component {
         const aMessage     = {
             sendId: this.props.clientId,
             sendAvatar: this.props.clientInfo.avatar,
+            date: new Date().toDateString(),
             message: message
         }
 
@@ -90,10 +91,6 @@ class ChatGroup extends Component {
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: data});
             })        
         }
-    }
-
-    componentWillMount() {
-        
     }
 
     render() {

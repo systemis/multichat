@@ -29,10 +29,11 @@ app.use(express.static("build"));
 
 socketMG.mainHandler();
 
-// setup pages router
 require('./server/app/auth.js')(server, app, onlineUsers);
 require('./server/app/chat.js')(app);
 require('./server/app/user.js')(app, onlineUsers);
+
+// setup pages router
 require('./server/router.js')(app);
 
 
