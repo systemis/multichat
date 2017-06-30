@@ -92,30 +92,30 @@ module.exports = (app, onlineUser) => {
         var bundle = [];
         
 
-        // userDM.getRoomsRequested(clientId, (err, rs) => {
-        //     if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
+        userDM.getRoomsRequested(clientId, (err, rs) => {
+            if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
 
-        //     rs.map((chatId, index)=> {
-        //         roomMD.findChatRoomById(chatId, (error, result) => {
-        //             if(!error){
-        //                 const userId = result.users.filter(u => {return u !== clientId}).join('');
-        //                 console.log(userId);
-        //                 userDM.checkAlreadyExistsId(userId, (error2, result2) => {
-        //                     if(!error2 && result2 !== 'NOT_REGISTER' && result.messages.length > 0){
-        //                         bundle.push({
-        //                             userId: userId, 
-        //                             lastMessage: result.messages[result.messages.length - 1]
-        //                         })
-        //                     }
+            rs.map((chatId, index)=> {
+                roomMD.findChatRoomById(chatId, (error, result) => {
+                    if(!error){
+                        const userId = result.users.filter(u => {return u !== clientId}).join('');
+                        console.log(userId);
+                        userDM.checkAlreadyExistsId(userId, (error2, result2) => {
+                            if(!error2 && result2 !== 'NOT_REGISTER' && result.messages.length > 0){
+                                bundle.push({
+                                    userId: userId, 
+                                    lastMessage: result.messages[result.messages.length - 1]
+                                })
+                            }
                             
-        //                     if(index === rs.length - 1){
-        //                         sortUserList(req, res, bundle);
-        //                     }
-        //                 })
-        //             }
-        //         })
-        //     })
-        // })
+                            if(index === rs.length - 1){
+                                sortUserList(req, res, bundle);
+                            }
+                        })
+                    }
+                })
+            })
+        })
 
         userDM.getFriends(clientId, (err, result) => {
             result.map((userId, index) => {
