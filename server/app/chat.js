@@ -21,7 +21,9 @@ module.exports = (app) => {
 
     app.post(`/check/chat-rom/:id`, (req, res) => {
         const chatRoomId = req.params.id;
+        console.log(chatRoomId);
         roomMD.checkAlreadyId(chatRoomId, (err, bool) => {
+            console.log(bool);
             return res.send({err, bool});
         })
     })

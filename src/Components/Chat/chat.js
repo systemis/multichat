@@ -70,12 +70,13 @@ class ChatGroup extends Component {
 
     // Back-end api .
     sendMessage(){
+        console.log(new Date().toLocaleString());
         const messageField = document.getElementById('input-message');
         const message      = messageField.value;
         const aMessage     = {
             sendId: this.props.clientId,
             sendAvatar: this.props.clientInfo.avatar,
-            date: new Date().toDateString(),
+            date: new Date().toLocaleString(),
             message: message
         }
 

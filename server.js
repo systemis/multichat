@@ -39,4 +39,16 @@ require('./server/router.js')(app);
 server.listen(3000, () => {
     // userDm.dropTable((err, result) => {})
     // roomDm.dropTable((err, result) => {})
+
+
+        // var dm  = ['dd', 'de'] ;
+        // var dm2 = dm.filter((value) => {
+        //     return value !== 'de';
+        // })
+
+        // console.log(dm2.join(''));
+        const t1 = "2017-6-30 20:38:07";
+        const t2 = "2017-6-30 20:38:18";
+        // console.log(Date.parse("30-6-2017 20:45:16") > Date.parse("30-6-2017 20:42:20"))
+        console.log(new Date().toLocaleString())
 });

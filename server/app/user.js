@@ -66,9 +66,56 @@ module.exports = (app, onlineUser) => {
         })
     })
 
+    function sortUserList(req, res, bundle){
+        for(var i = 0; i < bundle.length; i++){
+            console.log(bundle[i].lastMessage.date.replace(',', ''))
+            var date1 = Date.parse(bundle[i].lastMessage.date.replace(',', ''));
+            for(var j = 0; j < bundle.length; j++){
+                var date2 = Date.parse(bundle[j].lastMessage.date.replace(',', ''));
+                console.log(date1 < date2);
+                if(date1 < date2){
+                    console.log('Okk');
+                    const ml = bundle[i];
+                    bundle[i] = bundle[j];
+                    bunlde[j] = ml;
+                }
+            }
+        }
+
+        console.log(bundle);
+    }
+
     app.post('/get/users/list/:clientId', (req, res) => {
         var clientId  = req.params.clientId;
         var usersList = [];
+
+        var bundle = [];
+        
+
+        // userDM.getRoomsRequested(clientId, (err, rs) => {
+        //     if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
+
+        //     rs.map((chatId, index)=> {
+        //         roomMD.findChatRoomById(chatId, (error, result) => {
+        //             if(!error){
+        //                 const userId = result.users.filter(u => {return u !== clientId}).join('');
+        //                 console.log(userId);
+        //                 userDM.checkAlreadyExistsId(userId, (error2, result2) => {
+        //                     if(!error2 && result2 !== 'NOT_REGISTER' && result.messages.length > 0){
+        //                         bundle.push({
+        //                             userId: userId, 
+        //                             lastMessage: result.messages[result.messages.length - 1]
+        //                         })
+        //                     }
+                            
+        //                     if(index === rs.length - 1){
+        //                         sortUserList(req, res, bundle);
+        //                     }
+        //                 })
+        //             }
+        //         })
+        //     })
+        // })
 
         userDM.getFriends(clientId, (err, result) => {
             result.map((userId, index) => {

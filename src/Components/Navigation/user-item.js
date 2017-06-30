@@ -41,6 +41,8 @@ class UserItem extends Component {
         dispatch({type: "CHANGE_USER_INFO", value: this.props.data});
         dispatch({type: 'CHANGE_CHAT_USER_NAME', value: this.props.data.name});
 
+        console.log(this.props.clientId + this.props.data.id);
+        console.log(this.props.data.id);
         chatMG.checkChatRoomId(this.props.clientId + this.props.data.id, (err, bool) => {
             if(err){
                 alert(`Have some error, try again please!`);

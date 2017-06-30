@@ -59,7 +59,7 @@ class RomMD{
             if(result.length <= 0) return fn(null, false);
 
             for(var i = 0; i < result.length; i++){
-                if(result[0].id === chatRoomId){
+                if(result[i].id === chatRoomId){
                     return fn(null, true);
                 }
             }

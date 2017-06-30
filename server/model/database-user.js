@@ -169,8 +169,8 @@ class UserMD {
 
     getRoomsRequested(userId, fn){
         this.findUserById(userId, (err, result) => {
-            if(err) return fn(result, null);
-            if(result === 'NOT_REGISTER') return fn(null, "NOT_REGISTER");
+            if(err) return fn(err, null);
+            if(result === 'NOT_REGISTER') return fn( "NOT_REGISTER", null);
 
             result.rooms_request = JSON.parse(result.rooms_request);
             return fn(null, result.rooms_request);
