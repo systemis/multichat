@@ -80,14 +80,14 @@ class UserItem extends Component {
             <div 
                 className="user-item row" 
                 onClick={() => this.clickItemEvent()}>
-                <div className="col-md-3 col-sm-3 col-xs-3 show-image">
+                <div className="show-image">
                     <div className="child">
                         <img 
                             className={this.state.isOnline}
                             src={this.props.data.avatar}/>
                     </div>
                 </div>
-                <div className="col-md-9 col-sm-9 col-xs-9 show-user-info">
+                <div className="show-user-info">
                     <p className="show-name">{this.props.data.name}</p>
                     <p className="status">{this.props.data.status}</p>
                 </div>

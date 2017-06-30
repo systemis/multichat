@@ -49,9 +49,13 @@
         float: left; }
         #chat-group .show-message .message-item .show-user-avatar img {
           width: 100%;
+          height: 30px;
           border-radius: 50%; }
           #chat-group .show-message .message-item .show-user-avatar img.hiden {
             display: none; }
+          @media screen and (max-width: 991px) {
+            #chat-group .show-message .message-item .show-user-avatar img {
+              height: 50px; } }
       #chat-group .show-message .message-item .show-message-value {
         width: 95%;
         float: right;

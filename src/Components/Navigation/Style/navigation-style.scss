@@ -69,6 +69,8 @@
                 padding: 10px 0;
                 & .show-image{
                     @include flex();
+                    float: left;
+                    width: 30%;
                     & .child{
                         padding-left: 15px;
                         padding-right: 15px;
@@ -109,6 +111,8 @@
                 }
                 & .show-user-info{
                     @include flex();
+                    float: left;
+                    width: 70%;
                     padding-top: 10px;
                     & .show-name{
                         line-height: 0;
@@ -125,8 +129,31 @@
                         }
                     }
                 }
+                
                 &:hover{
                     background: red;
+                }
+
+                @media screen and (max-width: 991px) {
+                    & .show-image{
+                        width: 20%;
+                        & .child img{
+                            height: 100px;
+                        }
+                    }
+
+                    & .show-status{
+                        width: 80%;
+                    }
+                    @media screen and (max-width: 768px) {
+                        & .show-image{
+                            width: 30%;
+                        }   
+
+                        & .show-status{
+                            width: 70%
+                        }
+                    }
                 }
             }
             &.desktop{

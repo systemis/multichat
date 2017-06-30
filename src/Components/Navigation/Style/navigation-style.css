@@ -54,7 +54,9 @@
       padding: 10px 0; }
       #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image {
         margin: 0;
-        padding: 0; }
+        padding: 0;
+        float: left;
+        width: 30%; }
         #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child {
           padding-left: 15px;
           padding-right: 15px; }
@@ -85,6 +87,8 @@
       #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-user-info {
         margin: 0;
         padding: 0;
+        float: left;
+        width: 70%;
         padding-top: 10px; }
         #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-user-info .show-name {
           line-height: 0; }
@@ -98,6 +102,19 @@
 
       #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item:hover {
         background: red; }
+      @media screen and (max-width: 991px) {
+        #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image {
+          width: 20%; }
+          #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
+            height: 100px; }
+        #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-status {
+          width: 80%; } }
+@media screen and (max-width: 991px) and (max-width: 768px) {
+  #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image {
+    width: 30%; }
+  #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-status {
+    width: 70%; } }
+
     #navigation-show-user-online .row #navigation-show-user-online-main-navi.desktop {
       width: 90%; }
       #navigation-show-user-online .row #navigation-show-user-online-main-navi.desktop.hiden {

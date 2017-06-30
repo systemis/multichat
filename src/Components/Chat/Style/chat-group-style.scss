@@ -65,9 +65,13 @@ $boder: 1px solid darkgray;
                 float: left;
                 & img{
                     width: 100%;
+                    height: 30px;
                     border-radius: 50%;
                     &.hiden{
                         display: none;
+                    }
+                    @media screen and (max-width: 991px){
+                        height: 50px;
                     }
                 }
             }
