@@ -202,6 +202,14 @@ class UserMD {
         })
     }
 
+    updateAvatar(userId, imgLink, fn){
+        connection.query(`UPDATE ${tableName} SET avatar = ? WHERE id = ?`, [imgLink, userId], (err, result) => {
+            if (err )return fn(err, null);
+
+            return fn(null, 'success');
+        })
+    }
+
     dropTable(fn){
         connection.query("DROP TABLE " + tableName, (err, result) => {
             if(err){

@@ -28,11 +28,18 @@
     border-bottom: 1px solid #e5e5e5; }
     #info-group .show-info .show-simple-info .show-avatar p {
       text-align: center;
-      margin-top: 30px; }
+      margin-top: 30px;
+      position: relative; }
       #info-group .show-info .show-simple-info .show-avatar p img {
         width: 150px;
         height: 150px;
         border-radius: 50%; }
+      #info-group .show-info .show-simple-info .show-avatar p #upload-avatar-field {
+        padding-top: 10px;
+        width: 66px;
+        position: absolute;
+        left: 40%;
+        bottom: 10px; }
     #info-group .show-info .show-simple-info .show-name-andress {
       margin-top: 20px; }
       #info-group .show-info .show-simple-info .show-name-andress .show-name, #info-group .show-info .show-simple-info .show-name-andress .show-andress {

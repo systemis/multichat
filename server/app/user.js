@@ -1,8 +1,25 @@
 module.exports = (app, onlineUser) => {
-    var path   = require('path');
-    var userDM = require('../model/database-user.js');
-    var roomMD = require('../model/database-room.js');
+    var path          = require('path');
+    var fs            = require('fs');
+    var imgurUploader = require('imgur-uploader');
+    var multer        = require('multer');
+    var userDM        = require('../model/database-user.js');
+    var roomMD        = require('../model/database-room.js');
 
+    var _imageName = ""
+
+    var storage    = multer.diskStorage({
+        destination: (req, file, done) => {
+            done(null, path.resolve(__dirname, '../public'));
+        },
+
+        filename: (req, file, done) => {
+            _imageName = `./server/public/${file.originalname}`;
+            done(false, file.originalname)
+        }
+    })
+
+    var upload  = multer({storage: storage}).single('image');
 
     app.post('/get/user-info/:id', (req, res) => {
         const idFind = req.params.id;
@@ -115,6 +132,25 @@ module.exports = (app, onlineUser) => {
                 if(!err && result !== 'NOT_REGISTER'){
                     return res.send(result)
                 }
+            })
+        }
+    })
+
+    app.post(`/update/user/avatar`, (req, res) => {
+        if(req.isAuthenticated()){
+            upload(req, res, err => {
+                if(err) return res.send('Error');
+
+                setTimeout(() => {
+                    imgurUploader(fs.readFileSync(_imageName), {title: 'product'}).then(data => {
+                        fs.unlink(_imageName);
+                        userDM.updateAvatar(req.user.id, data.link, (err, result) => {
+                            if(err) return res.send("Error");
+
+                            return res.redirect('/');
+                        })
+                    })
+                }, 500);
             })
         }
     })

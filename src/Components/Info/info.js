@@ -3,6 +3,7 @@ import {connect}            from 'react-redux';
 import UpdateGroup          from './update.component.js';
 import userMG               from '../../js/user.js';
 import testAvatar           from '../../Image/test_avatar_men.jpg';
+import $                    from 'jquery';
 import './Style/info-group-style.css';
 
 class InfoGroup extends Component {
@@ -29,6 +30,28 @@ class InfoGroup extends Component {
                     this.setState({indexShowMainLayout: 1});
                 }}/>
         )
+    }
+
+    changeAvatarGroup(){
+        if(this.state.isChange){
+            return (
+                <form 
+                    id="form-update-user-avatar"
+                    action="/update/user/avatar"
+                    method="POST"
+                    encType="multipart/form-data">
+                    <input 
+                        type="file" 
+                        name="image" 
+                        id="upload-avatar-field" 
+                        onChange={() => {
+                            document.getElementById('form-update-user-avatar').submit();
+                        }}/>
+                </form>
+            )
+        }
+
+        return ; 
     }
 
     mainLayout_showinfo(){
@@ -109,6 +132,7 @@ class InfoGroup extends Component {
                         <div className="show-avatar">
                             <p>
                                 <img src={this.props.userInfo.avatar} alt="User Avatar " />
+                                {this.changeAvatarGroup()}
                             </p>
                         </div>
                         <div className="show-name-andress">

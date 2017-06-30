@@ -49,10 +49,20 @@ $border: 1px solid #e5e5e5;
                 & p{
                     text-align: center;
                     margin-top: 30px;
+                    position: relative;
                     & img{
                         width: 150px;
                         height: 150px;
                         border-radius: 50%;
+                    }
+
+
+                    #upload-avatar-field{
+                        padding-top: 10px;
+                        width: 66px;
+                        position: absolute;
+                        left: 40%;
+                        bottom: 10px;
                     }
                 }
             }
