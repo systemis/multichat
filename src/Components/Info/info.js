@@ -75,6 +75,10 @@ class InfoGroup extends Component {
                         <td className="show-value">{this.props.userInfo.phone}</td>
                     </tr>
                     <tr> 
+                        <td className="show-title">Andress</td>
+                        <td className="show-value">{this.props.userInfo.andress}</td>
+                    </tr>
+                    <tr> 
                         <td className="show-title">Date of birth:</td>
                         <td className="show-value">{new Date().toLocaleDateString()}</td>
                     </tr>
@@ -141,7 +145,9 @@ class InfoGroup extends Component {
                                 {this.props.userInfo.name} 
                                 {this.editBtn()}
                             </p>
-                            <p className="show-andress"> {this.props.userInfo.name} </p>
+                            <p className="show-andress"> 
+                                {this.props.userInfo.status} 
+                            </p>
                         </div>
                     </div>
                     {this.mainLayout_showinfo()}

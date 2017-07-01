@@ -2,7 +2,7 @@ const connection = require('../config/database.js');
 const tableName  = "UserData";
 class UserMD {
     constructor(){
-        connection.query("CREATE TABLE `UserData` ( `id` VARCHAR(200) NOT NULL , `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , `rooms_request` TEXT NULL , `friends` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci", (err, result) => {
+        connection.query("CREATE TABLE `UserData` ( `id` VARCHAR(200) NOT NULL , `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , `rooms_request` TEXT NULL , `friends` TEXT NULL , `status` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci", (err, result) => {
             if(err) {
                 return console.log("Create user table fail");
             }
@@ -190,8 +190,8 @@ class UserMD {
     updateUserInfo(userId, bundle, fn){
         console.log(bundle);
         console.log(userId);
-        connection.query(`UPDATE ${tableName} SET name = ?, andress = ?, phone = ?, birthday = ?, gender = ?, language = ? WHERE id = ?`, 
-        [bundle.name, bundle.andress, bundle.phone, bundle.birthday, bundle.gender, bundle.language, userId], 
+        connection.query(`UPDATE ${tableName} SET name = ?, andress = ?, phone = ?, birthday = ?, gender = ?, language = ?, status = ? WHERE id = ?`, 
+        [bundle.name, bundle.andress, bundle.phone, bundle.birthday, bundle.gender, bundle.language, bundle.status, userId], 
         (err, result) => {
             if(err){
                 console.log(err);

@@ -44,24 +44,29 @@ class socketMG{
 
             socket.on(`offLine`, data => {
                 const userId = data.userId;
-                console.log(`Disconnect server from ${userId}`);
 
-                onlineUsers = onlineUsers.splice(onlineUsers.indexOf(userId), 1);
+                onlineUsers.splice(onlineUsers.indexOf(userId), 1);
+                lastUserOn  = onlineUsers[onlineUsers.length - 1];
+
+                console.log(`Online users id offLine: ${JSON.stringify(onlineUsers)}`);
+                console.log(`Online users id offLine: ${lastUserOn}`);
+
                 io.sockets.emit(`check_online_user/${userId}`, false);
             })
 
             setInterval(() => {
-                const lT = onlineUsers.length - 1;
+                const lT     = onlineUsers.length - 1;
                 const userId = onlineUsers[lT];
-                if(onlineUsers[lT] !== lastUserOn){
-                    console.log(onlineUsers);
+
+                if(userId !== lastUserOn){
                     console.log(userId);
+                    console.log('New online user');
 
                     io.sockets.emit(`check_online_user/${userId}`, true);
 
                     lastUserOn = onlineUsers[lT];
                 }
-            }, 1000)
+            }, 5000)
         })
     }
 }

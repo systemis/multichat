@@ -1,4 +1,4 @@
-module.exports = (app, onlineUser) => {
+module.exports = (app, onlineUsers) => {
     var path          = require('path');
     var fs            = require('fs');
     var imgurUploader = require('imgur-uploader');
@@ -92,30 +92,30 @@ module.exports = (app, onlineUser) => {
         var bundle = [];
         
 
-        userDM.getRoomsRequested(clientId, (err, rs) => {
-            if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
+        // userDM.getRoomsRequested(clientId, (err, rs) => {
+        //     if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
 
-            rs.map((chatId, index)=> {
-                roomMD.findChatRoomById(chatId, (error, result) => {
-                    if(!error){
-                        const userId = result.users.filter(u => {return u !== clientId}).join('');
-                        console.log(userId);
-                        userDM.checkAlreadyExistsId(userId, (error2, result2) => {
-                            if(!error2 && result2 !== 'NOT_REGISTER' && result.messages.length > 0){
-                                bundle.push({
-                                    userId: userId, 
-                                    lastMessage: result.messages[result.messages.length - 1]
-                                })
-                            }
+        //     rs.map((chatId, index)=> {
+        //         roomMD.findChatRoomById(chatId, (error, result) => {
+        //             if(!error){
+        //                 const userId = result.users.filter(u => {return u !== clientId}).join('');
+        //                 console.log(userId);
+        //                 userDM.checkAlreadyExistsId(userId, (error2, result2) => {
+        //                     if(!error2 && result2 !== 'NOT_REGISTER' && result.messages.length > 0){
+        //                         bundle.push({
+        //                             userId: userId, 
+        //                             lastMessage: result.messages[result.messages.length - 1]
+        //                         })
+        //                     }
                             
-                            if(index === rs.length - 1){
-                                sortUserList(req, res, bundle);
-                            }
-                        })
-                    }
-                })
-            })
-        })
+        //                     if(index === rs.length - 1){
+        //                         sortUserList(req, res, bundle);
+        //                     }
+        //                 })
+        //             }
+        //         })
+        //     })
+        // })
 
         userDM.getFriends(clientId, (err, result) => {
             result.map((userId, index) => {
@@ -134,8 +134,9 @@ module.exports = (app, onlineUser) => {
 
     app.post(`/check/user/online/:userId`, (req, res) => {
         const userId = req.params.userId;
+        console.log(`Online users id: ${JSON.stringify(onlineUsers)}`);
 
-        if(onlineUser.indexOf(userId) < 0) return res.send(false);
+        if(onlineUsers.indexOf(userId) < 0) return res.send(false);
         return res.send(true);
     })
 

@@ -107,10 +107,12 @@ class UserItem extends Component {
         }
 
         userMG.checkUserOnline(this.props.data.id, isOnline => {
+            console.log(`Check user online client: ${isOnline}`);
             update_online_status(isOnline);
         })        
 
         socketMG.checkOnline(this.props.data.id, isOnline => {
+            console.log(`Check user online client socket: ${isOnline}`);
             update_online_status(isOnline);
         })
     }
