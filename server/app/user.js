@@ -107,7 +107,7 @@ module.exports = (app, onlineUsers) => {
         userDM.getRoomsRequested(clientId, (err, rs) => {
             if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
 
-            rs.map((chatId, index)=> {
+            rs.map((chatId, index) => {
                 roomMD.findChatRoomById(chatId, (error, result) => {
                     if(!error){
                         const userId = result.users.filter(u => {return u !== clientId}).join('');
@@ -132,20 +132,6 @@ module.exports = (app, onlineUsers) => {
                 })
             })
         })
-
-        // userDM.getFriends(clientId, (err, result) => {
-        //     result.map((userId, index) => {
-        //         userDM.findUserById(userId, (err, userItem) => {
-        //             if(!err && userItem !== 'NOT_REGISTER'){
-        //                 usersList.push(userItem);
-        //             }
-
-        //             if(index === result.length - 1){
-        //                 return res.send({err: null, result: usersList});
-        //             }
-        //         })
-        //     }) 
-        // })
     })
 
     app.post(`/check/user/online/:userId`, (req, res) => {
