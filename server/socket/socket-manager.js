@@ -24,6 +24,8 @@ class socketMG{
                 const chatRoomId = data.chatRoomId;
                 const message    = data.message;
 
+                message.date     = new Date().toLocaleString(); 
+
                 roomMD.addMessage(chatRoomId, message, (err, result) => {
                     if(!err){
                         roomMD.findChatRoomById(chatRoomId, (er, rs) => {

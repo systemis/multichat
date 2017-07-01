@@ -76,6 +76,7 @@ class userMG {
         $.ajax({
             url: `/get/users/list/${clientId}`, type: `POST`,
             success: data => {
+                console.log(data);
                 fn(data.err, data.result);
             },
             error: fn(null, [])

@@ -1,6 +1,7 @@
 import $        from 'jquery';
 import socketMG from './socket.js';
 
+// Use for check is access to room by id where user want to access room. USAGE: easy and fast  
 var timeRequestCheckAccess = 0;
 var isAccessRoom = false;
 

@@ -66,70 +66,86 @@ module.exports = (app, onlineUsers) => {
         })
     })
 
-    function sortUserList(req, res, bundle){
+    function sortUserList(bundle, fn){
+        var usersList = [];
         for(var i = 0; i < bundle.length; i++){
-            console.log(bundle[i].lastMessage.date.replace(',', ''))
-            var date1 = Date.parse(bundle[i].lastMessage.date.replace(',', ''));
+            var date1 = Date.parse(bundle[i].lastMessage.date);
             for(var j = 0; j < bundle.length; j++){
-                var date2 = Date.parse(bundle[j].lastMessage.date.replace(',', ''));
-                console.log(date1 < date2);
-                if(date1 < date2){
+                var date2 = Date.parse(bundle[j].lastMessage.date);
+                if(date1 > date2){
                     console.log('Okk');
-                    const ml = bundle[i];
+                    console.log(bundle[i].lastMessage.date);
+                    console.log(bundle[j].lastMessage.date);
+
+                    const ss  = bundle[i];
                     bundle[i] = bundle[j];
-                    bunlde[j] = ml;
+                    bundle[j] = ss;
+                }
+
+                if(j === bundle.length - 1 && i === j){
+                    // console.log(bundle);
+                    bundle.map((userItem, index) => {
+                        userDM.findUserById(userItem.userId, (err, result) => {
+                            if(!err && result !== "NOT_REGISTER"){
+                                usersList.push(result);
+                            }
+
+                            if(index === bundle.length - 1){
+                                fn(usersList);
+                            }
+                        })
+                    })
                 }
             }
         }
-
-        console.log(bundle);
     }
 
     app.post('/get/users/list/:clientId', (req, res) => {
         var clientId  = req.params.clientId;
-        var usersList = [];
+        var bundle    = [];
 
-        var bundle = [];
-        
+        userDM.getRoomsRequested(clientId, (err, rs) => {
+            if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
 
-        // userDM.getRoomsRequested(clientId, (err, rs) => {
-        //     if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
-
-        //     rs.map((chatId, index)=> {
-        //         roomMD.findChatRoomById(chatId, (error, result) => {
-        //             if(!error){
-        //                 const userId = result.users.filter(u => {return u !== clientId}).join('');
-        //                 console.log(userId);
-        //                 userDM.checkAlreadyExistsId(userId, (error2, result2) => {
-        //                     if(!error2 && result2 !== 'NOT_REGISTER' && result.messages.length > 0){
-        //                         bundle.push({
-        //                             userId: userId, 
-        //                             lastMessage: result.messages[result.messages.length - 1]
-        //                         })
-        //                     }
+            rs.map((chatId, index)=> {
+                roomMD.findChatRoomById(chatId, (error, result) => {
+                    if(!error){
+                        const userId = result.users.filter(u => {return u !== clientId}).join('');
+                        console.log(userId);
+                        userDM.checkAlreadyExistsId(userId, (error2, result2) => {
+                            if(!error2 && result2 !== 'NOT_REGISTER' && result.messages.length > 0){
+                                bundle.push({
+                                    userId: userId, 
+                                    lastMessage: result.messages[result.messages.length - 1]
+                                })
+                            }
                             
-        //                     if(index === rs.length - 1){
-        //                         sortUserList(req, res, bundle);
-        //                     }
-        //                 })
-        //             }
-        //         })
-        //     })
-        // })
+                            if(index === rs.length - 1){
+                                sortUserList(bundle, usersList => {
+                                    console.log(usersList);
 
-        userDM.getFriends(clientId, (err, result) => {
-            result.map((userId, index) => {
-                userDM.findUserById(userId, (err, userItem) => {
-                    if(!err && userItem !== 'NOT_REGISTER'){
-                        usersList.push(userItem);
-                    }
-
-                    if(index === result.length - 1){
-                        return res.send({err: null, result: usersList});
+                                    return res.send({err: null, result: usersList});
+                                });
+                            }
+                        })
                     }
                 })
-            }) 
+            })
         })
+
+        // userDM.getFriends(clientId, (err, result) => {
+        //     result.map((userId, index) => {
+        //         userDM.findUserById(userId, (err, userItem) => {
+        //             if(!err && userItem !== 'NOT_REGISTER'){
+        //                 usersList.push(userItem);
+        //             }
+
+        //             if(index === result.length - 1){
+        //                 return res.send({err: null, result: usersList});
+        //             }
+        //         })
+        //     }) 
+        // })
     })
 
     app.post(`/check/user/online/:userId`, (req, res) => {

@@ -76,7 +76,6 @@ class ChatGroup extends Component {
         const aMessage     = {
             sendId: this.props.clientId,
             sendAvatar: this.props.clientInfo.avatar,
-            date: new Date().toLocaleString(),
             message: message
         }
 
