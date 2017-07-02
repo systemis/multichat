@@ -4,7 +4,7 @@
 - Font-end technology: React.js, Redux.js, Jquery, Bootstrap, Sass, Socket.io-client
 - Back-end technology: Node.js, Express, Passport.js, Imgur api, Socket.io
 
-## App developing on [Heroku]('https://chattogether.herokuapp.com/');
+## App developing on [Heroku]('https://chattogether.herokuapp.com/')
 
 ## Setup:    
 - `npm install` to install packages is used in app
