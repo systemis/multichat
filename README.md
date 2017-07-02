@@ -12,7 +12,7 @@
 - `nodemon server` to run app
 
 ## About developer:
-- Created and developed by [Systemis]('systemis-blog.herokuapp.com')
+- Created and developed by [Systemis]('https://systemis-blog.herokuapp.com')
 
 
 ## Notes:
