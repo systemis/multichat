@@ -2,20 +2,20 @@ module.exports = (app) => {
     const path         = require('path');
     const authenRoute2  = (req, res) => {
         console.log(req.isAuthenticated());
-        if(req.isAuthenticated() !== true){
+        if(!req.isAuthenticated()){
             return res.sendFile(path.resolve(__dirname, "..", "build/index.html"));
         }
-
+        
         return res.redirect('/home');
     }
 
     const authenRoute  = (req, res) => {
-        console.log(req.isAuthenticated());
+        console.log("check is auth 1" + req.isAuthenticated());
         if(req.isAuthenticated()){
             return res.sendFile(path.resolve(__dirname, "..", "build/index.html"));
+        }else{
+            return res.redirect('/sign-in');
         }
-
-        return res.redirect('/sign-in');
     }
 
     // desktop version screen 

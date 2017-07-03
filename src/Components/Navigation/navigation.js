@@ -90,12 +90,24 @@ class Navigation extends Component {
                     <h3 
                         className="progessbar" 
                         style={{textAlign: 'center'}}> 
-                            Dang tai du lieu 
+                            Loading...
                     </h3>
                 )
             }
         }else{
-            return <UsersView data={this.props.usersList}/>
+            console.log(this.props.usersList);
+            
+            if(this.props.usersList && this.props.usersList.length > 0){
+                return <UsersView data={this.props.usersList}/>
+            }
+            
+            return (
+                <h3 
+                    className="progessbar" 
+                    style={{textAlign: 'center'}}> 
+                        Loading... 
+                </h3>
+            )
         }
     }
 

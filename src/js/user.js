@@ -14,6 +14,16 @@ class userMG {
     }
 
 
+    searchUser(key, fn){
+        $.ajax({
+            url: `/find/users-by-name/${key}`, type: `POST`,
+            success: data => {
+                return fn(data.err, data.result);
+            },
+            error: err => fn(err, null)
+        })
+    }
+
     getClientInfo(fn){
         $.ajax({
             url: `/get/client-info`, type: `POST`,
@@ -46,32 +56,6 @@ class userMG {
         })
     }
 
-    searchUser(key, fn){
-        $.ajax({
-            url: `/find/users-by-name/${key}`, type: `POST`,
-            success: data => {
-                // console.log(`Error when search user by username ${data.err}`);
-                // console.log(data.result);
-                
-                return fn(data.err, data.result);
-            },
-            error: err => fn(err, null)
-        })
-    }
-
-    disConnect(userId){
-        console.log(`Client id: ${userId}`);
-        console.log(`You're logouting server`);
-        $.ajax({
-            url: `/logout`, type: `GET`, 
-            success: data => {
-                socketMG.disConnect(userId);
-
-                window.location.href = '/sign-in';
-            }
-        })
-    }
-
     getUserLists(clientId, fn){
         $.ajax({
             url: `/get/users/list/${clientId}`, type: `POST`,
@@ -83,16 +67,6 @@ class userMG {
         })
     }
 
-    checkIsClient(clientId, fn){
-        $.ajax({
-            url: `/check/client/${clientId}`, type: `POST`,
-            success: isClient => {
-                fn(isClient)
-            },
-            error: err => fn(false)
-        })
-    }
-
     addFriend(clientId, friendId){
         $.ajax({
             url: `/add/friend`, type: `POST`, data: {clientId, friendId},
@@ -100,6 +74,16 @@ class userMG {
                 // console.log(`Add friend is ${JSON.stringify(data)}`);
             },
             error: err => console.log(`Add friend fault `)
+        })
+    }
+
+    checkIsClient(clientId, fn){
+        $.ajax({
+            url: `/check/client/${clientId}`, type: `POST`,
+            success: isClient => {
+                fn(isClient)
+            },
+            error: err => fn(false)
         })
     }
 
@@ -120,6 +104,17 @@ class userMG {
                 fn(data)
             },
             error: err => fn("Error")
+        })
+    }
+
+    disConnect(userId){
+        $.ajax({
+            url: `/logout`, type: `GET`, 
+            success: data => {
+                socketMG.disConnect(userId);
+
+                window.location.href = '/sign-in';
+            }
         })
     }
 }

@@ -33,7 +33,7 @@ module.exports = (server, app, onlineUsers) => {
         {
             clientID: '167157813823645',
             clientSecret: '38a2f71294d8e6148b3146d1b0ecc782',
-            callbackURL: 'http://localhost:3000/login-facebook',
+            callbackURL: 'https://chattogether.herokuapp.com/login-facebook',
             profileFields: ['email', 'gender', 'locale', 'displayName', 'photos', 'birthday']
         },
         function(accessToken, refreshToken, profile, done){

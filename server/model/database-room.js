@@ -2,7 +2,7 @@ const connection = require('../config/database.js');
 const tablename  = `RoomsData`;
 class RomMD{
     constructor(){
-        connection.query("CREATE TABLE `RoomsData` ( `id` VARCHAR(200) NOT NULL , `users` TEXT NOT NULL , `messages` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci", (err, reult) => {
+        connection.query("CREATE TABLE IF NOT EXISTS `RoomsData` ( `id` VARCHAR(200) NOT NULL , `users` TEXT NOT NULL , `messages` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci", (err, reult) => {
             if(err) return console.log(`Create table ${tablename} failure`);
 
             console.log(`Create table ${tablename} success`);
@@ -45,6 +45,10 @@ class RomMD{
             if(result.length <= 0) {
                 return fn("NOT_REGISTER", "");
             }
+
+            console.log(result[0].users);
+            console.log(result[0].message);
+            console.log(err);
 
             result[0].users    = JSON.parse(result[0].users);
             result[0].messages = JSON.parse(result[0].messages);

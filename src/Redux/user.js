@@ -26,7 +26,7 @@ const userInfoReducer = (state = {}, action) => {
     }
 }
 
-const usersListReducer = (state = [], action) => {
+const usersListReducer = (state = "", action) => {
     switch(action.type){
         case `CHANGE_USERS_LIST`:
             return action.value;

@@ -17,8 +17,11 @@ import './App.css';
 const handlingHref = () => {
   if($(window).width() > 991){
     if(window.location.href.indexOf('/chat') >= 0 || window.location.href.indexOf('/info') >= 0){
-      window.location.href = '/';
-    }}}
+      window.location.href = '/home';
+    }
+  }
+}
+
 const DieuHuong = React.createClass({
   render(){
     return (
@@ -35,7 +38,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    handlingHref();
+    // handlingHref();
     this.setState({screenWidth: $(window).width()});
     if($(window).width() <= 991){
       this.changeScreenVersion('mobile');
@@ -73,15 +76,15 @@ class App extends Component {
     if(this.props.screenVersion === 'desktop'){
       return (
         <div>
-          <Route exact path="/home" component={HomePage} />
+          <Route path="/home" component={HomePage} />
         </div>
       )
     }else{
       return (
         <div>
-          <Route exact path="/home" component={Navigation} />
-          <Route path="/chat/:roomId"   component={ChatGroup} />
-          <Route path="/info"   component={InfoGroup} />
+          <Route path="/home"   component={Navigation} />
+          <Route path="/chat/:roomId" component={ChatGroup} />
+          <Route path="/info"         component={InfoGroup} />
         </div>
       )
     }
@@ -91,7 +94,7 @@ class App extends Component {
     return (
       <Router>
         <div id="App">
-          <Route exact path="/" component={DieuHuong} />
+          <Route exact path="/"   component={DieuHuong} />
           {this.router()}
           <Route path="/sign-in" component={SignInPage} />
           <Route path="/sign-up" component={SignUpPage} />
@@ -114,7 +117,7 @@ class App extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    handlingHref();
+    // handlingHref();
     if(nextState.screenWidth > 991){
       this.changeScreenVersion("desktop");
     }else{

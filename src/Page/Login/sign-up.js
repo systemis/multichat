@@ -8,6 +8,7 @@ class SignUpPage extends Component {
         return (
             <div className="sign-up-page">
                 <div className="sign-up-group">
+                    <h1 className="title-app"> Chat together </h1>
                     <h3 className="title"> Sign up </h3>
                     <form id="register-form">
                         <input

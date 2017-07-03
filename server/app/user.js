@@ -10,11 +10,11 @@ module.exports = (app, onlineUsers) => {
 
     var storage    = multer.diskStorage({
         destination: (req, file, done) => {
-            done(null, path.resolve(__dirname, '../public'));
+            done(null, path.resolve(__dirname, '../../public'));
         },
 
         filename: (req, file, done) => {
-            _imageName = `./server/public/${file.originalname}`;
+            _imageName = `./public/${file.originalname}`;
             done(false, file.originalname)
         }
     })
@@ -41,6 +41,8 @@ module.exports = (app, onlineUsers) => {
         const userName = req.params.name.toLowerCase();
         if(req.isAuthenticated()){
             userDM.getUserlist((err, result) => {
+                console.log(`Error when search user ${err}`);
+
                 if(err) return res.send({err: 'Error', result: null});
 
                 var finalResult = [];
@@ -189,18 +191,22 @@ module.exports = (app, onlineUsers) => {
     app.post(`/update/user/avatar`, (req, res) => {
         if(req.isAuthenticated()){
             upload(req, res, err => {
-                if(err) return res.send('Error');
+                if(err) {
+                    console.log(`Error when upload pic ${err}`);
+                    return res.send('Error');
+                }
 
-                setTimeout(() => {
                     imgurUploader(fs.readFileSync(_imageName), {title: 'product'}).then(data => {
-                        fs.unlink(_imageName);
+                        // fs.unlink(_imageName);
                         userDM.updateAvatar(req.user.id, data.link, (err, result) => {
-                            if(err) return res.send("Error");
+                            if(err){
+                                console.log(`Error when upload pic database ${err}`);
+                                return res.send("Error");  
+                            } 
 
                             return res.redirect('/');
                         })
                     })
-                }, 500);
             })
         }
     })

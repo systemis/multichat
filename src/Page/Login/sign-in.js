@@ -7,6 +7,7 @@ class SignInPage extends Component {
         return (
             <div className="sign-in-page">
                 <div className="sign-in-group">
+                    <h1 className="title-app"> Chat together </h1>
                     <h3 className="title"> Sign in </h3>
                     <form 
                         action="/sign-in" 
@@ -30,12 +31,12 @@ class SignInPage extends Component {
                             value="Login"/>
                     </form>
                     <br/>
-                    <a href="/sign-up"> Sign Up </a>
-                    <br/>
                     <a href="/auth/fb" className="login-with-face">
                         <span> Login with  </span>
                         <i className="fa fa-facebook" />
                     </a>
+                    <a href="/sign-up" className="sign-up-btn"> Sign Up </a>
+                    <br/>
                 </div>
             </div>
         );

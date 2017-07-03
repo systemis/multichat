@@ -7,10 +7,7 @@ class socketMG{
         io          = require('socket.io')(server);
         lastUserOn  = _onlineUsers[_onlineUsers.length - 1]
         onlineUsers  = _onlineUsers
-    }
-
-    mainHandler(){
-        console.log(`lastUserOn: ${lastUserOn}`);
+        
         io.on('connect', socket => {
             socket.on(`get_messages`, chatRoomId => {
                 roomMD.findChatRoomById(chatRoomId, (err, result) => {
@@ -26,6 +23,7 @@ class socketMG{
 
                 message.date     = new Date().toLocaleString(); 
 
+                console.log('new message');
                 roomMD.addMessage(chatRoomId, message, (err, result) => {
                     if(!err){
                         roomMD.findChatRoomById(chatRoomId, (er, rs) => {
@@ -37,11 +35,6 @@ class socketMG{
                         console.log(err);
                     }
                 })
-            })
-
-            socket.on(`online`, data => {
-                console.log(data);
-                console.log(`User have id is ${data.userId} have just online`);
             })
 
             socket.on(`offLine`, data => {

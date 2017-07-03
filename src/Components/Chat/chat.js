@@ -17,6 +17,7 @@ const scrollMessageGroupToBottom = () => {
 class ChatGroup extends Component {
     constructor(props) {
         super(props);
+        this.state = {users: "", messages: ""};
     }
     
     accessRoom(chatRoomId){
@@ -32,10 +33,22 @@ class ChatGroup extends Component {
         })
     }
 
+    getMessages(){
+        const messages = this.props.chatRoomInfo.messages;
+        const users    = this.props.chatRoomInfo.users;
+        
+        if(!messages) { return; }
+        if(users.length >= 0 && JSON.stringify(users) === this.state.users) {return; };
+
+        this.setState({messages: messages});
+        this.setState({users: JSON.stringify(users)});
+    }
+
     showMessages(){
-        if(this.props.chatRoomInfo.users){
-            const messages = this.props.chatRoomInfo.messages;
-            const dom = [];
+        var messages = this.state.messages;
+        var dom      = [];
+
+        if(messages){
             messages.map((message, index) => {
                 var className = {
                     messageName: '',
@@ -70,13 +83,22 @@ class ChatGroup extends Component {
 
     // Back-end api .
     sendMessage(){
-        console.log(new Date().toLocaleString());
+        const {dispatch}   = this.props;
         const messageField = document.getElementById('input-message');
         const message      = messageField.value;
         const aMessage     = {
             sendId: this.props.clientId,
             sendAvatar: this.props.clientInfo.avatar,
             message: message
+        }
+        
+        if(!aMessage) {return;}
+
+        if(this.state.messages){
+            console.log('New message at client not socket');
+            const newMessages = this.state.messages;
+            newMessages.push(aMessage);
+            this.setState({messages: newMessages});
         }
 
         chatMG.sendMessage(this.props.chatRoomId, aMessage);
@@ -95,6 +117,7 @@ class ChatGroup extends Component {
     render() {
         // Receive message
         this.receiveMessage();
+        this.getMessages();
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
                 return 'desktop';
@@ -151,6 +174,7 @@ class ChatGroup extends Component {
     }
 
     componentDidMount() {
+        this.getMessages();
         scrollMessageGroupToBottom();
 
         if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
