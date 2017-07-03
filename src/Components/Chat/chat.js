@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import $                    from 'jquery';
 import MessageItem          from './message-item.js'
 import {connect}            from 'react-redux';
-import chatMG           from '../../js/chat.js';
+import chatMG               from '../../js/chat.js';
+import sound                from '../../accest/sound.mp3';
 import './Style/chat-group-style.css';
 
 const scrollMessageGroupToBottom = () => {
@@ -117,6 +118,11 @@ class ChatGroup extends Component {
             nMSs.push(aNMS);
             
             this.setState({messages: data.messages});
+            
+            // play sound 
+            if(data.messages[data.messages.length - 1].sendId !== this.props.clientId){
+                 new Audio(sound).play();
+            }
         })        
     }
 
