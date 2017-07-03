@@ -133,6 +133,7 @@
                 &:hover{
                     background: red;
                 }
+                &.active{background: red;}
 
                 @media screen and (max-width: 991px) {
                     & .show-image{
@@ -145,6 +146,7 @@
                     & .show-status{
                         width: 80%;
                     }
+
                     @media screen and (max-width: 768px) {
                         & .show-image{
                             width: 30%;

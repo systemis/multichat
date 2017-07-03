@@ -102,6 +102,8 @@
 
       #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item:hover {
         background: red; }
+      #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item.active {
+        background: red; }
       @media screen and (max-width: 991px) {
         #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image {
           width: 20%; }

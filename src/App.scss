@@ -1,20 +1,42 @@
-#App{
-    font-family: "nyt-cheltenham",georgia,"times new roman",times,serif;
-    padding: 0;
-    @mixin flex(){
-        margin: 0;
-        padding: 0;
-    }
-    & .row{
-        @include flex();
+#main-layout{
+    @mixin character-layout-together(){
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0; 
+        left: 0;
     }
 
-    & .title-app{
-        position: absolute;
+    & #App{
+        @include character-layout-together();
+        font-family: "nyt-cheltenham",georgia,"times new roman",times,serif;
+        padding: 0;
+        @mixin flex(){
+            margin: 0;
+            padding: 0;
+        }
+        & .row{
+            @include flex();
+        }
+
+        & .title-app{
+            position: absolute;
+            text-align: center;
+            color: white;
+            top: -100px;
+            right: 0;
+            left: 0;
+        }
+    }
+
+    & #handler-screen{
+        @include character-layout-together();
+    }
+
+    ._progress{
+        position: relative;
+        top: 45%;
         text-align: center;
-        color: white;
-        top: -100px;
-        right: 0;
-        left: 0;
+        font-family: 'Times New Roman', Times, serif;
     }
 }

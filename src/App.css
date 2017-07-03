@@ -1,15 +1,31 @@
-#App {
+#main-layout #App {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   font-family: "nyt-cheltenham",georgia,"times new roman",times,serif;
   padding: 0; }
-  #App .row {
+  #main-layout #App .row {
     margin: 0;
     padding: 0; }
-  #App .title-app {
+  #main-layout #App .title-app {
     position: absolute;
     text-align: center;
     color: white;
     top: -100px;
     right: 0;
     left: 0; }
+#main-layout #handler-screen {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+#main-layout ._progress {
+  position: relative;
+  top: 45%;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif; }
 
 /*# sourceMappingURL=App.css.map */

@@ -96,16 +96,16 @@ class ChatGroup extends Component {
             message: message
         }
         
-        if(!aMessage) {return;}
+        if(message) {
+            chatMG.sendMessage(this.props.chatRoomId, aMessage);
+            messageField.value = "";
 
-        chatMG.sendMessage(this.props.chatRoomId, aMessage);
-        messageField.value = "";
-
-        if(this.state.messages instanceof Array){
-            console.log('New message at client not socket');
-            const newMessages = this.state.messages;
-            newMessages.push(aMessage);
-            this.setState({messages: newMessages});
+            if(this.state.messages instanceof Array){
+                console.log('New message at client not socket');
+                const newMessages = this.state.messages;
+                newMessages.push(aMessage);
+                this.setState({messages: newMessages});
+            }
         }
     }
 
@@ -117,10 +117,10 @@ class ChatGroup extends Component {
             var nMSs = this.state.messages;
             nMSs.push(aNMS);
             
-            this.setState({messages: data.messages});
             
             // play sound 
             if(data.messages[data.messages.length - 1].sendId !== this.props.clientId){
+                this.setState({messages: data.messages});
                  new Audio(sound).play();
             }
         })        
