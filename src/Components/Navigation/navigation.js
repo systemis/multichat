@@ -11,22 +11,20 @@ import avatar1              from '../../Image/test_avatar_men.jpg';
 import avatar2              from '../../Image/test_avatar_women.jpg';
 import './Style/navigation-style.css';
 
+const ProgressBar = (props) => {
+    return(
+        <h3 
+            className="progessbar" 
+            style={{textAlign: 'center'}}> 
+                Loading... 
+        </h3>
+    )
+}   
+
 class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            defaultUser: [
-                {
-                    name: 'Zoich Johny', 
-                    status: 'I like code ...', 
-                    avatar: avatar1
-                },
-                {
-                    name: 'Wana waston', 
-                    status: 'I like coffe I like coffe I like coffe I like coffe ...', 
-                    avatar: avatar2
-                },
-            ],
             searchUser: [],
             isSearching: false,
             doneSearching: false
@@ -53,7 +51,6 @@ class Navigation extends Component {
 
 
                 console.log(result);
-                
                 this.setState({searchUser: result});
                 this.setState({doneSearching: true});
             })
@@ -83,31 +80,17 @@ class Navigation extends Component {
                 if(this.state.searchUser.length > 0){
                     return <SearchView data={this.state.searchUser}/>
                 }else{
-                    return <h3 style={{textAlign: 'center'}}> Khong co du lieu </h3>
+                    return <h3 style={{textAlign: 'center'}}> Not data </h3>
                 }
             }else{
-                return(
-                    <h3 
-                        className="progessbar" 
-                        style={{textAlign: 'center'}}> 
-                            Loading...
-                    </h3>
-                )
+                return <ProgressBar />
             }
         }else{
-            console.log(this.props.usersList);
-            
             if(this.props.usersList && this.props.usersList.length > 0){
                 return <UsersView data={this.props.usersList}/>
             }
             
-            return (
-                <h3 
-                    className="progessbar" 
-                    style={{textAlign: 'center'}}> 
-                        Loading... 
-                </h3>
-            )
+            return <ProgressBar />
         }
     }
 

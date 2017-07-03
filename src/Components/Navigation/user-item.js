@@ -70,6 +70,14 @@ class UserItem extends Component {
                 const chatRoomId = this.props.clientId + this.props.data.id;
                 if(this.props.screenVersion === 'desktop'){
                     dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatRoomId});
+                    dispatch({
+                        type: `CHANGE_CHAT_ROOM_INFO`, 
+                        value: {id: chatRoomId, 
+                                user: [this.props.clientId, this.props.data.id], 
+                                messages: []
+                            }
+                        }
+                    );
                 }else{
                     window.location.href = `/chat/${chatRoomId}`
                 }

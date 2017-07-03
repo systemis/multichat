@@ -18,6 +18,10 @@ class ChatGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {users: "", messages: ""};
+
+        this.receiveMessage = this.receiveMessage.bind(this);
+
+        this.receiveMessage();
     }
     
     accessRoom(chatRoomId){
@@ -37,11 +41,10 @@ class ChatGroup extends Component {
         const messages = this.props.chatRoomInfo.messages;
         const users    = this.props.chatRoomInfo.users;
         
-        if(!messages) { return; }
-        if(users.length >= 0 && JSON.stringify(users) === this.state.users) {return; };
-
-        this.setState({messages: messages});
-        this.setState({users: JSON.stringify(users)});
+        if(users && users.length >= 0 && JSON.stringify(users) !== this.state.users) {
+            this.setState({messages: messages});
+            this.setState({users: JSON.stringify(users)});
+        };
     }
 
     showMessages(){
@@ -94,29 +97,31 @@ class ChatGroup extends Component {
         
         if(!aMessage) {return;}
 
-        if(this.state.messages){
+        chatMG.sendMessage(this.props.chatRoomId, aMessage);
+        messageField.value = "";
+
+        if(this.state.messages instanceof Array){
             console.log('New message at client not socket');
             const newMessages = this.state.messages;
             newMessages.push(aMessage);
             this.setState({messages: newMessages});
         }
-
-        chatMG.sendMessage(this.props.chatRoomId, aMessage);
-        messageField.value = "";
     }
 
-    receiveMessage(){
+    receiveMessage(chatRoomId){
         var {dispatch} = this.props;
-        if(this.props.chatRoomId){
-            chatMG.receiveMessage(this.props.chatRoomId, (data) => {
-                dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: data});
-            })        
-        }
+        chatMG.receiveMessage(chatRoomId, (data) => {
+            dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: data});
+            var aNMS = data.messages[data.messages.length - 1];
+            var nMSs = this.state.messages;
+            nMSs.push(aNMS);
+            
+            this.setState({messages: data.messages});
+        })        
     }
 
     render() {
         // Receive message
-        this.receiveMessage();
         this.getMessages();
         const className = () => {
             if(this.props.screenVersion === 'desktop'){
@@ -150,22 +155,28 @@ class ChatGroup extends Component {
                     }
                 </div>
                 <div className="group-send-message">
-                    <i className="fa fa-paperclip"> </i>
-                    <input 
-                        type="text"
-                        id="input-message"
-                        placeholder="Type your message ..." />
-                    <i 
-                        className="fa fa-paper-plane" 
-                        aria-hidden="true"
-                        onClick={() => this.sendMessage()}>
-                    </i>
+                    <form id="message-field-send" style={{width: '100%', height: '100%'}}>
+                        <i className="fa fa-paperclip"> </i>
+                        <input 
+                            type="text"
+                            id="input-message"
+                            placeholder="Type your message ..." />
+                        <span
+                            className="fa fa-paper-plane" 
+                            aria-hidden="true"
+                            onClick={() => this.sendMessage()}>
+                        </span>
+                    </form>
                 </div>
             </div>
         );
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+        if(nextProps.chatRoomId !== this.props.chatRoomId){
+            this.receiveMessage(nextProps.chatRoomId);
+        }
+        
         this.render();
         scrollMessageGroupToBottom();
         chatMG.update();
@@ -176,6 +187,11 @@ class ChatGroup extends Component {
     componentDidMount() {
         this.getMessages();
         scrollMessageGroupToBottom();
+
+        document.getElementById("message-field-send").addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.sendMessage();
+        })
 
         if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
             const {dispatch} = this.props;
