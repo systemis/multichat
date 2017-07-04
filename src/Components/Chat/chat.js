@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import $                    from 'jquery';
 import MessageItem          from './message-item.js'
 import {connect}            from 'react-redux';
 import chatMG               from '../../js/chat.js';
@@ -7,22 +6,20 @@ import sound                from '../../accest/sound.mp3';
 import './Style/chat-group-style.css';
 
 const scrollMessageGroupToBottom = () => {
-    $(document).ready(function(){
+    window.document.onload = () => {
         const messagesGroup = document.getElementById('show-messages-group');
         if(messagesGroup){
             messagesGroup.scrollTop = messagesGroup.scrollHeight;
         }
-    })
+    }
 }
 
 class ChatGroup extends Component {
     constructor(props) {
         super(props);
-        this.state = {users: "", messages: ""};
+        this.state = {users: [], messages: []};
 
         this.receiveMessage = this.receiveMessage.bind(this);
-
-        this.receiveMessage();
     }
     
     accessRoom(chatRoomId){
@@ -32,7 +29,7 @@ class ChatGroup extends Component {
                 dispatch({type: `CHANGE_CHAT_ROOM_ID`  , value: chatRoomId});
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
             }else{
-                alert(`Ban khong duoc phep `);
+                alert(`Have something wrong, please try again !`);
                 window.location.href = '/';
             }
         })
@@ -42,21 +39,20 @@ class ChatGroup extends Component {
         const messages = this.props.chatRoomInfo.messages;
         const users    = this.props.chatRoomInfo.users;
         
-        if(users && users.length >= 0 && JSON.stringify(users) !== this.state.users) {
+        if(JSON.stringify(users) !== this.state.users) {
             this.setState({messages: messages});
             this.setState({users: JSON.stringify(users)});
         };
     }
 
     showMessages(){
-        var messages = this.state.messages;
-        var dom      = [];
+        var messages        = this.state.messages;
+        var messagesListDom = [];
 
         if(messages){
             messages.map((message, index) => {
                 var className = {
                     messageName: '',
-                    showAvatarGroup: '',
                     showAvatar: ''
                 };
 
@@ -70,7 +66,7 @@ class ChatGroup extends Component {
                     }
                 }
 
-                dom.push((
+                messagesListDom.push((
                     <MessageItem 
                         key={index} 
                         message={message.message} 
@@ -79,10 +75,17 @@ class ChatGroup extends Component {
                 ));
             })
 
-            return dom;
+            return messagesListDom;
         }else{
             return [];
         }
+    }
+
+    setActionForChatForm(){
+        document.getElementById("message-field-send").addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.sendMessage();
+        })
     }
 
     // Back-end api .
@@ -97,15 +100,12 @@ class ChatGroup extends Component {
         }
         
         if(message) {
+            const newMessages = this.state.messages;
+            newMessages.push(aMessage);
+
+            this.setState({messages: newMessages});
             chatMG.sendMessage(this.props.chatRoomId, aMessage);
             messageField.value = "";
-
-            if(this.state.messages instanceof Array){
-                console.log('New message at client not socket');
-                const newMessages = this.state.messages;
-                newMessages.push(aMessage);
-                this.setState({messages: newMessages});
-            }
         }
     }
 
@@ -119,8 +119,8 @@ class ChatGroup extends Component {
             
             
             // play sound 
+            this.setState({messages: data.messages});
             if(data.messages[data.messages.length - 1].sendId !== this.props.clientId){
-                this.setState({messages: data.messages});
                  new Audio(sound).play();
             }
         })        
@@ -182,23 +182,21 @@ class ChatGroup extends Component {
         if(nextProps.chatRoomId !== this.props.chatRoomId){
             this.receiveMessage(nextProps.chatRoomId);
         }
-        
-        this.render();
+
         scrollMessageGroupToBottom();
+        this.render();
         chatMG.update();
 
         return true;        
     }
 
     componentDidMount() {
-        this.getMessages();
         scrollMessageGroupToBottom();
+        this.setActionForChatForm();
+        this.getMessages();
 
-        document.getElementById("message-field-send").addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.sendMessage();
-        })
 
+        // get roomId when user use mobile version 
         if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
             const {dispatch} = this.props;
             const roomId     = this.props.match.params.roomId;

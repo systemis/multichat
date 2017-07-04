@@ -5,6 +5,10 @@ import userMG               from '../../js/user.js';
 import chatMG               from '../../js/chat.js';
 import socketMG             from '../../js/socket.js';
 
+function renderHandlerScreen(value){
+    document.getElementById('handler-screen').style.display = value;
+}
+
 class UserItem extends Component {
     constructor(props){
         super(props);
@@ -17,7 +21,7 @@ class UserItem extends Component {
             if(!err){
                 dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatId});
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
-                document.getElementById('handler-screen').style.display = 'none';
+                renderHandlerScreen('none');
             }else{
                 alert(`Bạn không được phép truy cập, vui kiểm tra lại sau !`);
                 window.location.href = '/';
@@ -47,14 +51,12 @@ class UserItem extends Component {
         console.log(this.props.data.id);
 
         
-        // const a = document.getElementsByClassName('user-item'); a.map(item => item.classList.remove('active'));
-        var add = document.getElementsByClassName('user-item');
-        for(var i = 0; i < add.length; i++){
-            add[i].classList.remove('active');
+        var usersListDom = document.getElementsByClassName('user-item');
+        for(var i = 0; i < usersListDom.length; i++){
+            usersListDom[i].classList.remove('active');
         }
-        
-        document.getElementById('handler-screen').style.display = 'block';
         document.getElementById(this.state.itemClassName).classList.add('active');
+        renderHandlerScreen('block');
 
         chatMG.checkChatRoomId(this.props.clientId + this.props.data.id, (err, bool) => {
             if(err){
@@ -92,7 +94,7 @@ class UserItem extends Component {
                         }
                     );
 
-                    document.getElementById('handler-screen').style.display = 'none';
+                    renderHandlerScreen('none');
                 }else{
                     window.location.href = `/chat/${chatRoomId}`
                 }
