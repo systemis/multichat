@@ -70,14 +70,29 @@
               border: 1px solid yellowgreen; }
             #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img.none-online {
               border: none; }
+            @media screen and (min-width: 1650px) {
+              #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
+                height: 75px; } }
+            @media screen and (min-width: 1600px) {
+              #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
+                height: 70px; } }
+            @media screen and (min-width: 1500px) {
+              #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
+                height: 66px; } }
+            @media screen and (min-width: 1400px) {
+              #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
+                height: 65px; } }
             @media screen and (min-width: 1300px) {
               #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
-                height: 54.31px;
+                height: 60px;
                 padding-left: 0;
                 padding-right: 0; } }
+            @media screen and (min-width: 991px) {
+              #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
+                height: 43px; } }
 @media screen and (max-width: 1300px) and (min-width: 991px) {
   #navigation-show-user-online .row #navigation-show-user-online-main-navi .user-item .show-image .child img {
-    height: 35px;
+    height: 50px;
     padding: 0; } }
 
             @media screen and (max-width: 551px) {

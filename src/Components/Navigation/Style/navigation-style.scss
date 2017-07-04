@@ -88,16 +88,33 @@
                             &.none-online{
                                 border: none;
                             }
-
+                            
+                            @media screen and (min-width: 1650px){
+                                height: 75px;   
+                            }
+                            @media screen and (min-width: 1600px){
+                                height: 70px;
+                            }
+                            @media screen and (min-width: 1500px){
+                                height: 66px;
+                            }
+                            
+                            @media screen and (min-width: 1400px){
+                                height: 65px;
+                            }
                             @media screen and (min-width: 1300px){
-                                height: 54.31px;
+                                height: 60px;
                                 padding-left: 0;
                                 padding-right: 0;
                             }
 
+                            @media screen and (min-width: 991px){
+                                height: 43px;    
+                            }
+
                             @media screen and (max-width: 1300px) {
                                 @media screen and (min-width: 991px){
-                                    height: 35px;
+                                    height: 50px;
                                     padding: 0;
                                 }
                             }

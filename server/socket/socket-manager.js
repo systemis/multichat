@@ -23,8 +23,6 @@ class socketMG{
 
                 message.date     = new Date().toLocaleString(); 
 
-                console.log('new message');
-                console.log('new message');
                 roomMD.addMessage(chatRoomId, message, (err, result) => {
                     if(!err){
                         roomMD.findChatRoomById(chatRoomId, (er, rs) => {
