@@ -145,8 +145,6 @@ class UserItem extends Component {
     }
 
     componentDidMount() {
-        const width = $(`#${this.state.itemClassName} > img`).css('width');
-        $(`#${this.state.itemClassName} > img`).css({'height': width});
     }   
     
     shouldComponentUpdate(nextProps, nextState) {
