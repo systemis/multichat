@@ -16,7 +16,6 @@ class ChatGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {users: [], messages: []};
-        this.receiveMessage = this.receiveMessage.bind(this);
     }
     
     accessRoom(chatRoomId){
@@ -35,7 +34,7 @@ class ChatGroup extends Component {
     getMessages(){
         const messages = this.props.chatRoomInfo.messages;
         const users    = this.props.chatRoomInfo.users;
-        
+
         if(JSON.stringify(users) !== this.state.users) {
             this.setState({messages: messages});
             this.setState({users: JSON.stringify(users)});
@@ -110,12 +109,11 @@ class ChatGroup extends Component {
         var {dispatch} = this.props;
         var sefl       = this;
         chatMG.receiveMessage(chatRoomId, (data) => {
-            var aNMS = data;
             var nMSs = sefl.state.messages;
-            nMSs.push(aNMS);
 
             // play sound 
             if(data.sendId !== this.props.clientId){
+                nMSs.push(data);
                 sefl.setState({messages: nMSs});
                 new Audio(sound).play();
             }
@@ -189,8 +187,6 @@ class ChatGroup extends Component {
     componentDidMount() {
         scrollMessageGroupToBottom();
         this.setActionForChatForm();
-        this.getMessages();
-
 
         // get roomId when user use mobile version 
         if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
