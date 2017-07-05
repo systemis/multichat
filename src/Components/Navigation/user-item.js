@@ -143,9 +143,6 @@ class UserItem extends Component {
             </div>
         );
     }
-
-    componentDidMount() {
-    }   
     
     shouldComponentUpdate(nextProps, nextState) {
         return true;

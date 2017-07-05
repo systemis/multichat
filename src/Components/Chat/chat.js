@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import MessageItem          from './message-item.js'
 import {connect}            from 'react-redux';
+import $                    from 'jquery';
 import chatMG               from '../../js/chat.js';
 import sound                from '../../accest/sound.mp3';
 import './Style/chat-group-style.css';
 
 const scrollMessageGroupToBottom = () => {
-    window.document.onload = () => {
-        const messagesGroup = document.getElementById('show-messages-group');
-        if(messagesGroup){
-            messagesGroup.scrollTop = messagesGroup.scrollHeight;
-        }
-    }
+    $(document).ready(() => {
+        $('#show-messages-group').scrollTop($('#show-messages-group')[0].scrollHeight)
+    });
 }
 
 class ChatGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {users: [], messages: []};
-
         this.receiveMessage = this.receiveMessage.bind(this);
     }
     
@@ -111,17 +108,16 @@ class ChatGroup extends Component {
 
     receiveMessage(chatRoomId){
         var {dispatch} = this.props;
+        var sefl       = this;
         chatMG.receiveMessage(chatRoomId, (data) => {
-            dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: data});
-            var aNMS = data.messages[data.messages.length - 1];
-            var nMSs = this.state.messages;
+            var aNMS = data;
+            var nMSs = sefl.state.messages;
             nMSs.push(aNMS);
-            
-            
+
             // play sound 
-            this.setState({messages: data.messages});
-            if(data.messages[data.messages.length - 1].sendId !== this.props.clientId){
-                 new Audio(sound).play();
+            if(data.sendId !== this.props.clientId){
+                sefl.setState({messages: nMSs});
+                new Audio(sound).play();
             }
         })        
     }
@@ -183,8 +179,8 @@ class ChatGroup extends Component {
             this.receiveMessage(nextProps.chatRoomId);
         }
 
-        scrollMessageGroupToBottom();
         this.render();
+        scrollMessageGroupToBottom();
         chatMG.update();
 
         return true;        
