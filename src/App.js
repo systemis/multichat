@@ -15,7 +15,7 @@ import './App.css';
 
 
 const handlingHref = () => {
-  if($(window).width() > 991){
+  if($(window).width() > 768){
     if(window.location.href.indexOf('/chat') >= 0 || window.location.href.indexOf('/info') >= 0){
       window.location.href = '/home';
     }
@@ -40,7 +40,7 @@ class App extends Component {
   componentWillMount() {
     // handlingHref();
     this.setState({screenWidth: $(window).width()});
-    if($(window).width() <= 991){
+    if($(window).width() <= 768){
       this.changeScreenVersion('mobile');
     }
   }
@@ -110,7 +110,7 @@ class App extends Component {
     window.onresize = () => {
       const width = $(window).width();
       const oldW  = this.state.screenWidth;
-      if(width < 991 && oldW > 991 || width > 991 && oldW < 991){
+      if(width < 768 && oldW > 768 || width > 768 && oldW < 768){
         sefl.setState({screenWidth: width});
       }
     }
@@ -118,7 +118,7 @@ class App extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     // handlingHref();
-    if(nextState.screenWidth > 991){
+    if(nextState.screenWidth > 768){
       this.changeScreenVersion("desktop");
     }else{
       this.changeScreenVersion("mobile");

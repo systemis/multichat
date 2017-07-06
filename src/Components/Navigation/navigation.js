@@ -25,6 +25,7 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            test: [{id: '0920', avatar: avatar1, name: 'Jobs', status: 'Hello'}],
             searchUser: [],
             isSearching: false,
             doneSearching: false

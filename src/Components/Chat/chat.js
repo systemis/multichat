@@ -189,14 +189,14 @@ class ChatGroup extends Component {
         this.setActionForChatForm();
 
         // get roomId when user use mobile version 
-        if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
-            const {dispatch} = this.props;
-            const roomId     = this.props.match.params.roomId;
-            if(typeof parseInt(roomId) === `number`){
-                console.log(`Room id is ${roomId}`);
-                this.accessRoom(roomId);
-            }
-        }
+        // if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
+        //     const {dispatch} = this.props;
+        //     const roomId     = this.props.match.params.roomId;
+        //     if(typeof parseInt(roomId) === `number`){
+        //         console.log(`Room id is ${roomId}`);
+        //         this.accessRoom(roomId);
+        //     }
+        // }
     }
 }
 
