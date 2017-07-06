@@ -48,18 +48,16 @@
         width: 5%;
         float: left; }
         #chat-group .show-message .message-item .show-user-avatar img {
-          width: 100%;
+          width: 30px;
           height: 30px;
-          border-radius: 50%; }
+          border-radius: 50%;
+          margin-left: 3px; }
           #chat-group .show-message .message-item .show-user-avatar img.hiden {
             display: none; }
-          @media screen and (max-width: 991px) {
-            #chat-group .show-message .message-item .show-user-avatar img {
-              height: 50px; } }
       #chat-group .show-message .message-item .show-message-value {
         width: 95%;
         float: right;
-        padding-left: 10px; }
+        padding-left: 15px; }
         #chat-group .show-message .message-item .show-message-value p {
           float: left;
           background: #4080ff;
