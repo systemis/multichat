@@ -127,4 +127,13 @@ $border: 1px solid #e5e5e5;
             }
         }
     }
+
+    @media screen and (max-width: 768px){
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 40px;
+        overflow: scroll;
+    }
 }

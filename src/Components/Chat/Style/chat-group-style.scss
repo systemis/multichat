@@ -5,7 +5,7 @@
 @mixin character-group-big{
     height: 100vh;
 }
-$boder: 1px solid darkgray;
+$boder: 1px solid #e5e5e5;
 #chat-group{
     @include flex();
     height: 100vh;
@@ -109,16 +109,6 @@ $boder: 1px solid darkgray;
                     }
                 }
             }
-
-            // &.not-show-avatar{
-            //     & .show-user-avatar{
-                    
-            //     }
-
-            //     & .show-message-value{
-                    
-            //     }
-            // }
         }
     }
         
@@ -156,5 +146,26 @@ $boder: 1px solid darkgray;
                 padding-left: 20px;
             }
         }
+    }
+
+
+    & .b-group{
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        @media screen and (max-width: 768px){
+            bottom: 40px;
+        }
+    }
+
+    @media screen and (max-width: 768px){
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 40px;
+        overflow: scroll;
     }
 }

@@ -1,0 +1,43 @@
+.home-page-mobile{
+    $height-group: 40px;
+    @mixin flex(){
+        margin: 0;
+        padding: 0;
+    }
+    
+    & .bottom-bar{
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        height: $height-group;
+        border-top: 1px solid #e5e5e5;
+        & .row{
+            & .show-tools{
+                @include flex();
+                width: 100%;
+                height: $height-group;
+                list-style-type: none;
+                & .choose-screen-tab{
+                    float: left;
+                    width: 33.3333%;
+                    height: 100%;
+                    border-right: 1px solid #e5e5e5;
+                    & p{
+                        @include flex();
+                        text-align: center;
+                        line-height: 40px;
+                        & .fa{
+                            font-size: 30px;
+                            line-height: 40px;
+                        }
+
+                        &:hover{
+                            color: red;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

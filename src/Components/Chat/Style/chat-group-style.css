@@ -10,7 +10,7 @@
   #chat-group .header-bar {
     position: relative;
     height: 60px;
-    border-bottom: 1px solid darkgray; }
+    border-bottom: 1px solid #e5e5e5; }
     #chat-group .header-bar .chat-group-show-name {
       float: left;
       margin-left: 15px;
@@ -24,8 +24,8 @@
         height: 100%;
         padding-right: 20px;
         padding-left: 20px;
-        border-right: 1px solid darkgray;
-        border-left: 1px solid darkgray; }
+        border-right: 1px solid #e5e5e5;
+        border-left: 1px solid #e5e5e5; }
         #chat-group .header-bar .chat-group-list-tool li .fa {
           margin-top: 20px; }
         #chat-group .header-bar .chat-group-list-tool li:first-child {
@@ -109,5 +109,22 @@
       @media screen and (min-width: 991px) {
         #chat-group .group-send-message .fa-paper-plane {
           padding-left: 20px; } }
+  #chat-group .b-group {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0; }
+    @media screen and (max-width: 768px) {
+      #chat-group .b-group {
+        bottom: 40px; } }
+  @media screen and (max-width: 768px) {
+    #chat-group {
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 40px;
+      overflow: scroll; } }
 
 /*# sourceMappingURL=chat-group-style.css.map */

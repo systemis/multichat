@@ -17,11 +17,15 @@ class UserItem extends Component {
 
     accessRoom(chatId){
         const {dispatch} = this.props;
+        const screenVersion = this.props.screenVersion; 
         chatMG.acessRom(chatId, (err, result) => {
             if(!err){
                 dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatId});
                 dispatch({type: `CHANGE_CHAT_ROOM_INFO`, value: result});
                 renderHandlerScreen('none');
+                if(screenVersion !== 'desktop'){
+                    dispatch({type: 'CHANGE_INDEX_SHOW_SPM', value: 1});
+                }
             }else{
                 alert(`Bạn không được phép truy cập, vui kiểm tra lại sau !`);
                 window.location.href = '/';
@@ -30,14 +34,7 @@ class UserItem extends Component {
     }
 
     changeChatRoomId(chatRoomId){
-        const {dispatch}    = this.props;
-        const screenVersion = this.props.screenVersion; 
-
-        if(screenVersion === `desktop`){
-            this.accessRoom(chatRoomId);
-        }else{
-            window.location.href = `/chat/${chatRoomId}`;
-        }
+        this.accessRoom(chatRoomId);
     }
 
     clickItemEvent(){
@@ -47,10 +44,6 @@ class UserItem extends Component {
         dispatch({type: "CHANGE_USER_INFO", value: this.props.data});
         dispatch({type: 'CHANGE_CHAT_USER_NAME', value: this.props.data.name});
 
-        console.log(this.props.clientId + this.props.data.id);
-        console.log(this.props.data.id);
-
-        
         var usersListDom = document.getElementsByClassName('user-item');
         for(var i = 0; i < usersListDom.length; i++){
             usersListDom[i].classList.remove('active');
@@ -83,20 +76,19 @@ class UserItem extends Component {
                 userMG.addFriend(this.props.clientId, this.props.data.id);
 
                 const chatRoomId = this.props.clientId + this.props.data.id;
-                if(this.props.screenVersion === 'desktop'){
-                    dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatRoomId});
-                    dispatch({
-                        type: `CHANGE_CHAT_ROOM_INFO`, 
-                        value: {id: chatRoomId, 
-                                user: [this.props.clientId, this.props.data.id], 
-                                messages: []
-                            }
+                dispatch({type: `CHANGE_CHAT_ROOM_ID`, value: chatRoomId});
+                dispatch({
+                    type: `CHANGE_CHAT_ROOM_INFO`, 
+                    value: {id: chatRoomId, 
+                            user: [this.props.clientId, this.props.data.id], 
+                            messages: []
                         }
-                    );
+                    }
+                );
 
-                    renderHandlerScreen('none');
-                }else{
-                    window.location.href = `/chat/${chatRoomId}`
+                renderHandlerScreen('none');
+                if(this.props.screenVersion !== 'desktop'){
+                    this.props.dispatch({type: 'CHANGE_INDEX_SHOW_SPM', value: 1});
                 }
             })
         })
@@ -113,12 +105,10 @@ class UserItem extends Component {
         this.setState({itemClassName: `user_item_${this.props.data.id}`})
 
         userMG.checkUserOnline(this.props.data.id, isOnline => {
-            console.log(`Check user online client: ${isOnline}`);
             update_online_status(isOnline);
         })        
 
         socketMG.checkOnline(this.props.data.id, isOnline => {
-            console.log(`Check user online client socket: ${isOnline}`);
             update_online_status(isOnline);
         })
     }
@@ -144,10 +134,6 @@ class UserItem extends Component {
                 </div>
             </div>
         );
-    }
-    
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
     }
 }
 

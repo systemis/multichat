@@ -8,7 +8,9 @@ import './Style/chat-group-style.css';
 
 const scrollMessageGroupToBottom = () => {
     $(document).ready(() => {
-        $('#show-messages-group').scrollTop($('#show-messages-group')[0].scrollHeight)
+        // if(document.getElementById("#show-messages-group")){
+            $('#show-messages-group').scrollTop($('#show-messages-group')[0].scrollHeight)
+        // }
     });
 }
 
@@ -108,9 +110,11 @@ class ChatGroup extends Component {
     receiveMessage(chatRoomId){
         var {dispatch} = this.props;
         var sefl       = this;
+
+        console.log(chatRoomId);
         chatMG.receiveMessage(chatRoomId, (data) => {
             var nMSs = sefl.state.messages;
-
+            console.log('new message client ')
             // play sound 
             if(data.sendId !== this.props.clientId){
                 nMSs.push(data);
@@ -132,7 +136,8 @@ class ChatGroup extends Component {
 
         return (
             <div className={className()} id="chat-group">
-                <div className="header-bar">
+                <div className="b-group">
+                    <div className="header-bar">
                     <p className="chat-group-show-name">
                         {this.props.chatUserName} 
                     </p>
@@ -168,6 +173,7 @@ class ChatGroup extends Component {
                         </span>
                     </form>
                 </div>
+                </div>
             </div>
         );
     }
@@ -187,16 +193,9 @@ class ChatGroup extends Component {
     componentDidMount() {
         scrollMessageGroupToBottom();
         this.setActionForChatForm();
-
-        // get roomId when user use mobile version 
-        // if(window.location.href.indexOf('/chat/') > 0 && this.props.screenVersion !== 'desktop'){
-        //     const {dispatch} = this.props;
-        //     const roomId     = this.props.match.params.roomId;
-        //     if(typeof parseInt(roomId) === `number`){
-        //         console.log(`Room id is ${roomId}`);
-        //         this.accessRoom(roomId);
-        //     }
-        // }
+        if(this.props.screenVersion !== 'desktop' && this.props.chatRoomId){
+            this.receiveMessage(this.props.chatRoomId);
+        }
     }
 }
 

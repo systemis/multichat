@@ -87,6 +87,7 @@ class Navigation extends Component {
                 return <ProgressBar />
             }
         }else{
+            // return <UsersView data={this.state.test}/>
             if(this.props.usersList && this.props.usersList.length > 0){
                 return <UsersView data={this.props.usersList}/>
             }

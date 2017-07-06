@@ -4,11 +4,9 @@ import $                                            from 'jquery';
 import {connect}                                    from 'react-redux';
 
 import HomePage                                     from './Page/Home/home.js';
+import HomePageMobile                               from './Page/Home/home-mobile';
 import SignInPage                                   from './Page/Login/sign-in.js';
 import SignUpPage                                   from './Page/Login/sign-up.js';
-import Navigation                                   from './Components/Navigation/navigation.js';
-import InfoGroup                                    from './Components/Info/info.js';
-import ChatGroup                                    from './Components/Chat/chat.js';
 import userMG                                       from './js/user.js';
 import chatSocket                                   from './js/chat.js';
 import './App.css';
@@ -75,17 +73,11 @@ class App extends Component {
   router(){
     if(this.props.screenVersion === 'desktop'){
       return (
-        <div>
           <Route path="/home" component={HomePage} />
-        </div>
       )
     }else{
       return (
-        <div>
-          <Route path="/home"   component={Navigation} />
-          <Route path="/chat/:roomId" component={ChatGroup} />
-          <Route path="/info"         component={InfoGroup} />
-        </div>
+          <Route path="/home" component={HomePageMobile} />
       )
     }
   }

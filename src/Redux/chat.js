@@ -1,10 +1,10 @@
 import chatMG from '../js/chat.js';
-const chatRoomInfoReducer = (state = "", action) => {
+const chatRoomInfoReducer = (state = {}, action) => {
     switch(action.type){
         case `CHANGE_CHAT_ROOM_INFO`:
             return action.value;
         default: 
-            return action;
+            return state;
     }
 }
 
