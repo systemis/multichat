@@ -14,6 +14,14 @@ class socketManager {
         })
     }
 
+    receiveRequestRD(chatRoomId, fn){
+        socket.on(`send_request_rd_message${chatRoomId}`, value => fn(true));
+    }
+
+    sendRequestRD(chatRoomId){
+        socket.emit(`request_rd_message`, chatRoomId);
+    }
+
     disConnect(userId){
         console.log(`Offlining `);
         socket.emit(`offLine`, {userId: userId});

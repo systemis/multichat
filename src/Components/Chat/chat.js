@@ -17,7 +17,8 @@ const scrollMessageGroupToBottom = () => {
 class ChatGroup extends Component {
     constructor(props) {
         super(props);
-        this.state = {users: [], messages: []};
+        this.state       = {users: [], messages: []};
+        // this.sendMessage = this.sendMessage.bind(this);
     }
     
     accessRoom(chatRoomId){
@@ -82,7 +83,7 @@ class ChatGroup extends Component {
     setActionForChatForm(){
         document.getElementById("message-field-send").addEventListener('submit', (e) => {
             e.preventDefault();
-            this.sendMessage();
+            this.sendMessage().bind(this);
         })
     }
 
@@ -94,7 +95,8 @@ class ChatGroup extends Component {
         const aMessage     = {
             sendId: this.props.clientId,
             sendAvatar: this.props.clientInfo.avatar,
-            message: message
+            message: message,
+            rd: false
         }
         
         if(message) {
@@ -112,16 +114,29 @@ class ChatGroup extends Component {
         var sefl       = this;
 
         console.log(chatRoomId);
-        chatMG.receiveMessage(chatRoomId, (data) => {
+        chatMG.receiveMessage(chatRoomId, (newMessage) => {
             var nMSs = sefl.state.messages;
             console.log('new message client ')
             // play sound 
-            if(data.sendId !== this.props.clientId){
-                nMSs.push(data);
+            if(newMessage.sendId !== this.props.clientId){
+                newMessage.rd = true;
+                nMSs.push(newMessage);
                 sefl.setState({messages: nMSs});
+
+                chatMG.sendRequestRD(chatRoomId);
                 new Audio(sound).play();
             }
         })        
+    }
+
+    receiveRequesRD(chatRoomId){
+        var {dispatch} = this.props;
+
+        chatMG.receiveRequestRD(chatRoomId, value => {
+            if(this.state.messages[this.state.messages.length - 1].sendId === this.props.clientId){
+                alert('Readed');
+            }
+        })
     }
 
     render() {
@@ -169,7 +184,7 @@ class ChatGroup extends Component {
                         <span
                             className="fa fa-paper-plane" 
                             aria-hidden="true"
-                            onClick={() => this.sendMessage()}>
+                            onClick={() => this.sendMessage().bind(this)}>
                         </span>
                     </form>
                 </div>
@@ -181,6 +196,7 @@ class ChatGroup extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         if(nextProps.chatRoomId !== this.props.chatRoomId){
             this.receiveMessage(nextProps.chatRoomId);
+            this.receiveRequesRD(nextProps.chatRoomId);
         }
 
         this.render();
@@ -195,6 +211,7 @@ class ChatGroup extends Component {
         this.setActionForChatForm();
         if(this.props.screenVersion !== 'desktop' && this.props.chatRoomId){
             this.receiveMessage(this.props.chatRoomId);
+            this.receiveRequestRD(this.props.chatRoomId);
         }
     }
 }

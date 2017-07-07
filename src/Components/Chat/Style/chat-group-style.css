@@ -27,7 +27,8 @@
         border-right: 1px solid #e5e5e5;
         border-left: 1px solid #e5e5e5; }
         #chat-group .header-bar .chat-group-list-tool li .fa {
-          margin-top: 20px; }
+          margin-top: 20px;
+          font-size: 15px; }
         #chat-group .header-bar .chat-group-list-tool li:first-child {
           border: none; }
         #chat-group .header-bar .chat-group-list-tool li:hover {

@@ -82,6 +82,13 @@
       width: 100%;
       margin-bottom: 10px;
       padding: 5px 3px; }
+  #info-group .fa.fa-bell {
+    font-size: 15px;
+    position: absolute;
+    line-height: 60px;
+    margin: 0 15px; }
+    #info-group .fa.fa-bell:hover {
+      color: darkred; }
   @media screen and (max-width: 768px) {
     #info-group {
       position: absolute;

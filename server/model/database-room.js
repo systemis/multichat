@@ -46,10 +46,6 @@ class RomMD{
                 return fn("NOT_REGISTER", "");
             }
 
-            console.log(result[0].users);
-            console.log(result[0].message);
-            console.log(err);
-
             result[0].users    = JSON.parse(result[0].users);
             result[0].messages = JSON.parse(result[0].messages);
 

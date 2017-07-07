@@ -37,6 +37,13 @@ class socketMG{
                 })
             })
 
+            socket.on('request_rd_message', chatRoomId => {
+                io.sockets.emit(`send_request_rd_message${chatRoomId}`, true);
+                roomMD.findChatRoomById(chatRoomId, (err, rs) => {
+                    rs.messages[rs.messages.length - 1].rd = false;
+                })
+            })
+
             socket.on(`offLine`, data => {
                 const userId = data.userId;
 

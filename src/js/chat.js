@@ -65,6 +65,14 @@ class chat{
         socketMG.receiveMessage(chatRomId, fn);
     }
 
+    receiveRequestRD(chatRoomId, fn){
+        socketMG.receiveRequestRD(chatRoomId, fn);
+    }
+
+    sendRequestRD(chatRoomId){
+        socketMG.sendRequestRD(chatRoomId);
+    }
+
     checkChatRoomId(chatRomId, fn){
         $.ajax({
             url: `/check/chat-rom/${chatRomId}`, type: `POST`,

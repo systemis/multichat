@@ -104,6 +104,17 @@ class InfoGroup extends Component {
             <div className={className()} id="info-group">
                 <div className="header-bar">
                     <div className="dropdown">
+                        <span
+                            className="show-item-notifi dropdown-toggle"
+                            data-toggle="dropdown"> 
+                                <i className="fa fa-bell" /> 
+                        </span>
+                        <ul className="dropdown-menu">
+                            <li><a href="#">HTML</a></li>
+                        </ul>
+                    </div>
+
+                    <div className="dropdown">
                         <span 
                             className="show-client-name dropdown-toggle"
                             data-toggle="dropdown"
