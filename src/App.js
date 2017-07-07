@@ -2,23 +2,13 @@ import React, { Component }                         from 'react';
 import {BrowserRouter as Router, Route, hasHistory} from 'react-router-dom';
 import $                                            from 'jquery';
 import {connect}                                    from 'react-redux';
-
 import HomePage                                     from './Page/Home/home.js';
-import HomePageMobile                               from './Page/Home/home-mobile';
 import SignInPage                                   from './Page/Login/sign-in.js';
 import SignUpPage                                   from './Page/Login/sign-up.js';
 import userMG                                       from './js/user.js';
 import chatSocket                                   from './js/chat.js';
 import './App.css';
 
-
-const handlingHref = () => {
-  if($(window).width() > 768){
-    if(window.location.href.indexOf('/chat') >= 0 || window.location.href.indexOf('/info') >= 0){
-      window.location.href = '/home';
-    }
-  }
-}
 
 const DieuHuong = React.createClass({
   render(){
@@ -36,7 +26,6 @@ class App extends Component {
   }
 
   componentWillMount() {
-    // handlingHref();
     this.setState({screenWidth: $(window).width()});
     if($(window).width() <= 768){
       this.changeScreenVersion('mobile');
@@ -58,36 +47,24 @@ class App extends Component {
         dispatch({type: "CHANGE_USER_INFO", value: result});
       }
     })
-
   }
 
   getUsersList(clientId){
       const {dispatch} = this.props;
       if(clientId !== -1){
+        if(this.props.usersList) return;
         userMG.getUserLists(clientId, (err, result) => {
           dispatch({type: `CHANGE_USERS_LIST`, value: result});
         })
       }
   }
 
-  router(){
-    if(this.props.screenVersion === 'desktop'){
-      return (
-          <Route path="/home" component={HomePage} />
-      )
-    }else{
-      return (
-          <Route path="/home" component={HomePageMobile} />
-      )
-    }
-  }
-
   render() {
     return (
       <Router>
         <div id="App">
-          <Route exact path="/"   component={DieuHuong} />
-          {this.router()}
+          <Route exact path="/"  component={DieuHuong} />
+          <Route path="/home"    component={HomePage} />
           <Route path="/sign-in" component={SignInPage} />
           <Route path="/sign-up" component={SignUpPage} />
         </div>
@@ -109,7 +86,6 @@ class App extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    // handlingHref();
     if(nextState.screenWidth > 768){
       this.changeScreenVersion("desktop");
     }else{
@@ -125,6 +101,7 @@ class App extends Component {
 export default connect((state) => {
   return {
     clientId: state.clientId,
+    usersList: state.usersList,
     screenVersion: state.screenVersion
   };
 })(App);

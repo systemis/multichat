@@ -4,7 +4,8 @@
   left: 0;
   bottom: 0;
   height: 40px;
-  border-top: 1px solid #e5e5e5; }
+  border-top: 1px solid #e5e5e5;
+  display: none; }
   .home-page-mobile .bottom-bar .row .show-tools {
     margin: 0;
     padding: 0;
@@ -16,6 +17,8 @@
       width: 33.3333%;
       height: 100%;
       border-right: 1px solid #e5e5e5; }
+      .home-page-mobile .bottom-bar .row .show-tools .choose-screen-tab.active p {
+        color: darkred; }
       .home-page-mobile .bottom-bar .row .show-tools .choose-screen-tab p {
         margin: 0;
         padding: 0;
@@ -25,6 +28,9 @@
           font-size: 30px;
           line-height: 40px; }
         .home-page-mobile .bottom-bar .row .show-tools .choose-screen-tab p:hover {
-          color: red; }
+          color: darkred; }
+  @media screen and (max-width: 768px) {
+    .home-page-mobile .bottom-bar {
+      display: block; } }
 
 /*# sourceMappingURL=home-mobile.css.map */

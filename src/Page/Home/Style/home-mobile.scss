@@ -12,6 +12,7 @@
         bottom: 0;
         height: $height-group;
         border-top: 1px solid #e5e5e5;
+        display: none;
         & .row{
             & .show-tools{
                 @include flex();
@@ -23,6 +24,12 @@
                     width: 33.3333%;
                     height: 100%;
                     border-right: 1px solid #e5e5e5;
+                    &.active{
+                        & p{
+                            color: darkred;
+                        }
+                    }
+
                     & p{
                         @include flex();
                         text-align: center;
@@ -33,11 +40,15 @@
                         }
 
                         &:hover{
-                            color: red;
+                            color: darkred;
                         }
                     }
                 }
             }
+        }
+
+        @media screen and (max-width: 768px){
+            display: block;
         }
     }
 }
