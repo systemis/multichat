@@ -4,6 +4,7 @@ class UserMD {
     constructor(){
         connection.query("CREATE TABLE IF NOT EXISTS `UserData` ( `id` VARCHAR(200) NOT NULL , `name` TEXT NOT NULL , `email` TEXT NOT NULL , `password` TEXT NULL , `andress` TEXT NULL , `phone` TEXT NULL , `birthday` TEXT NULL , `gender` TEXT NULL , `language` TEXT NULL , `avatar` TEXT NULL , `rooms_request` TEXT NULL , `friends` TEXT NULL , `status` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci", (err, result) => {
             if(err) {
+                console.log(err);
                 return console.log("Create user table fail");
             }
 

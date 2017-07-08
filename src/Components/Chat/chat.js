@@ -18,7 +18,6 @@ class ChatGroup extends Component {
     constructor(props) {
         super(props);
         this.state       = {users: [], messages: []};
-        // this.sendMessage = this.sendMessage.bind(this);
     }
     
     accessRoom(chatRoomId){
@@ -38,7 +37,14 @@ class ChatGroup extends Component {
         const messages = this.props.chatRoomInfo.messages;
         const users    = this.props.chatRoomInfo.users;
 
-        if(JSON.stringify(users) !== this.state.users) {
+        if(users && JSON.stringify(users) !== this.state.users) {
+            if(messages.length > 0){
+                if(!messages[messages.length - 1].rd){
+                    messages[messages.length - 1].rd = true;
+                    chatMG.sendRequestRD(this.props.chatRoomId);
+                }
+            }
+
             this.setState({messages: messages});
             this.setState({users: JSON.stringify(users)});
         };
@@ -83,12 +89,13 @@ class ChatGroup extends Component {
     setActionForChatForm(){
         document.getElementById("message-field-send").addEventListener('submit', (e) => {
             e.preventDefault();
-            this.sendMessage().bind(this);
+            this.sendMessage();
         })
     }
 
     // Back-end api .
     sendMessage(){
+        const sefl         = this;
         const {dispatch}   = this.props;
         const messageField = document.getElementById('input-message');
         const message      = messageField.value;
@@ -100,10 +107,10 @@ class ChatGroup extends Component {
         }
         
         if(message) {
-            const newMessages = this.state.messages;
+            const newMessages = sefl.state.messages;
             newMessages.push(aMessage);
 
-            this.setState({messages: newMessages});
+            sefl.setState({messages: newMessages});
             chatMG.sendMessage(this.props.chatRoomId, aMessage);
             messageField.value = "";
         }
@@ -184,7 +191,7 @@ class ChatGroup extends Component {
                         <span
                             className="fa fa-paper-plane" 
                             aria-hidden="true"
-                            onClick={() => this.sendMessage().bind(this)}>
+                            onClick={() => this.sendMessage()}>
                         </span>
                     </form>
                 </div>

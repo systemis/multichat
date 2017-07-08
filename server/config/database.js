@@ -7,5 +7,4 @@ module.exports = mysql.createConnection({
     user: '',
     password: '',
     database: '',
-    // socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
 })
