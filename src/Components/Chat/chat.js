@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MessageItem          from './message-item.js'
+import socketMG             from '../../js/socket.js';
 import {connect}            from 'react-redux';
 import $                    from 'jquery';
 import chatMG               from '../../js/chat.js';
@@ -209,12 +210,13 @@ class ChatGroup extends Component {
         if(nextProps.chatRoomId !== this.props.chatRoomId){
             this.receiveMessage(nextProps.chatRoomId);
             this.receiveRequesRD(nextProps.chatRoomId);
+
+            if(this.props.chatRoomId) socketMG.removeListener(this.props.chatRoomId);
         }
 
         this.render();
         scrollMessageGroupToBottom();
         chatMG.update();
-
         return true;        
     }
 

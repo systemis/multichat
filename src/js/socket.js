@@ -1,7 +1,7 @@
 import io  from 'socket.io-client';
 const urlConnect1 = `http://localhost:3000/`;
 const urlConnect2 = `https://chattogether.herokuapp.com/`;
-const socket      = io.connect(urlConnect2);
+const socket      = io.connect(urlConnect1);
 
 class socketManager {
     sendMessage(chatRoomId, message){
@@ -31,6 +31,11 @@ class socketManager {
         socket.on(`check_online_user/${userId}`, isOnline => {
             fn(isOnline);
         })
+    }
+
+    removeListener(chatRoomId){
+        socket.removeListener(`/receive/message/${chatRoomId}`)
+        socket.removeListener(`send_request_rd_message${chatRoomId}`);
     }
 }
 

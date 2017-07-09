@@ -169,6 +169,7 @@ module.exports = (app, onlineUsers) => {
         if(req.isAuthenticated()){
             const userId      = req.user.id;
             const infoUpdated = req.body.infoUpdated;
+
             userDM.updateUserInfo(userId, infoUpdated, (err, result) => {
                 return res.send(result);
             })
@@ -196,17 +197,17 @@ module.exports = (app, onlineUsers) => {
                     return res.send('Error');
                 }
 
-                    imgurUploader(fs.readFileSync(_imageName), {title: 'product'}).then(data => {
-                        // fs.unlink(_imageName);
-                        userDM.updateAvatar(req.user.id, data.link, (err, result) => {
-                            if(err){
-                                console.log(`Error when upload pic database ${err}`);
-                                return res.send("Error");  
-                            } 
+                imgurUploader(fs.readFileSync(_imageName), {title: 'product'}).then(data => {
+                    // fs.unlink(_imageName);
+                    userDM.updateAvatar(req.user.id, data.link, (err, result) => {
+                        if(err){
+                            console.log(`Error when upload pic database ${err}`);
+                            return res.send("Error");  
+                        } 
 
-                            return res.redirect('/');
-                        })
+                        return res.redirect('/');
                     })
+                })
             })
         }
     })

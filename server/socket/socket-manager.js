@@ -1,3 +1,4 @@
+var userMD      = require('../model/database-user.js');
 var roomMD      = require('../model/database-room.js');
 var io          = "";
 var lastUserOn  = "";
@@ -7,40 +8,32 @@ class socketMG{
         io          = require('socket.io')(server);
         lastUserOn  = _onlineUsers[_onlineUsers.length - 1]
         onlineUsers  = _onlineUsers
-        
+                
         io.on('connect', socket => {
-            socket.on(`get_messages`, chatRoomId => {
-                roomMD.findChatRoomById(chatRoomId, (err, result) => {
-                    if(!err){
-                        io.sockets.emit(`/receive/message/${chatRoomId}`, result);
-                    }
-                })
-            })
-
             socket.on('new_message', data => {
                 const chatRoomId = data.chatRoomId;
                 const message    = data.message;
-
                 message.date     = new Date().toLocaleString(); 
+                console.log("dss");
+                roomMD.findChatRoomById(chatRoomId, (error, result) => {
+                    if(error) return;
+                    userMD.addNotification(result.users.filter(u => {return u !== message.sendId}), {type: 'message', message: message}, (err, rs) => {
+                        console.log(err);
+                        return;
+                    })
+                })
+
+                roomMD.addMessage(chatRoomId, message, (err, result) => {
+                    if(err) console.log(err);
+                })
 
                 io.sockets.emit(`/receive/message/${chatRoomId}`, message);
-                roomMD.addMessage(chatRoomId, message, (err, result) => {
-                    if(!err){
-                        roomMD.findChatRoomById(chatRoomId, (er, rs) => {
-                            if(!er){
-                                console.log('sending message');
-                            }
-                        })
-                    }else{
-                        console.log(err);
-                    }
-                })
             })
 
             socket.on('request_rd_message', chatRoomId => {
                 io.sockets.emit(`send_request_rd_message${chatRoomId}`, true);
-                roomMD.findChatRoomById(chatRoomId, (err, rs) => {
-                    rs.messages[rs.messages.length - 1].rd = false;
+                roomMD.updateRd(chatRoomId, (err, result) => {
+                    if(err) console.log(err);
                 })
             })
 
