@@ -59,7 +59,7 @@
         width: 95%;
         float: right;
         padding-left: 15px; }
-        #chat-group .show-message .message-item .show-message-value p {
+        #chat-group .show-message .message-item .show-message-value p.value {
           float: left;
           background: #4080ff;
           color: white;
@@ -75,9 +75,13 @@
       #chat-group .show-message .message-item.right .show-message-value {
         padding-right: 5px;
         width: 100%; }
-        #chat-group .show-message .message-item.right .show-message-value p {
+        #chat-group .show-message .message-item.right .show-message-value p.value {
           float: right;
           padding-right: 10px; }
+      #chat-group .show-message .message-item p.rd {
+        float: right;
+        margin-right: 10px;
+        line-height: 0; }
   #chat-group .group-send-message {
     position: absolute;
     background: #FBFCFD;

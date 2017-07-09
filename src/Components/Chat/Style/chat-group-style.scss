@@ -79,7 +79,7 @@ $boder: 1px solid #e5e5e5;
                 width: 95%;
                 float: right;
                 padding-left: 15px;
-                & p{
+                & p.value{
                     float: left;
                     background: #4080ff;
                     color: white;
@@ -102,11 +102,17 @@ $boder: 1px solid #e5e5e5;
                     padding-right: 5px;
                     width: 100%;
 
-                    & p{
+                    & p.value{
                         float: right;
                         padding-right: 10px;
                     }
                 }
+            }
+
+            & p.rd{
+                float: right;
+                margin-right: 10px;
+                line-height: 0;
             }
         }
     }

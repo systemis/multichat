@@ -8,9 +8,7 @@ import './Style/chat-group-style.css';
 
 const scrollMessageGroupToBottom = () => {
     $(document).ready(() => {
-        // if(document.getElementById("#show-messages-group")){
-            $('#show-messages-group').scrollTop($('#show-messages-group')[0].scrollHeight)
-        // }
+        $('#show-messages-group').scrollTop($('#show-messages-group')[0].scrollHeight)
     });
 }
 
@@ -34,8 +32,8 @@ class ChatGroup extends Component {
     }
 
     getMessages(){
-        const messages = this.props.chatRoomInfo.messages;
-        const users    = this.props.chatRoomInfo.users;
+        var messages = this.props.chatRoomInfo.messages;
+        var users    = this.props.chatRoomInfo.users;
 
         if(users && JSON.stringify(users) !== this.state.users) {
             if(messages.length > 0){
@@ -58,11 +56,15 @@ class ChatGroup extends Component {
             messages.map((message, index) => {
                 var className = {
                     messageName: '',
-                    showAvatar: ''
+                    showAvatar: '',
+                    rd: '',
                 };
 
                 if(message.sendId === this.props.clientId){
                     className.messageName     = 'right';
+                    if(index === messages.length - 1 && message.rd){
+                        className.rd = 'show-rd';
+                    }
                 }
 
                 if(index !== 0){
@@ -141,7 +143,10 @@ class ChatGroup extends Component {
 
         chatMG.receiveRequestRD(chatRoomId, value => {
             if(this.state.messages[this.state.messages.length - 1].sendId === this.props.clientId){
-                alert('Readed');
+                var messagesUD = this.state.messages;
+                messagesUD[messagesUD.length - 1].rd = true;
+                this.setState({messages: messagesUD});
+                console.log('Readed');
             }
         })
     }
