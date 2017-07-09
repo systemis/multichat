@@ -12,7 +12,7 @@ var mysql = require('mysql');
 
 module.exports = mysql.createConnection({
     connectionLimit: 100,
-    host: 'db4free.net',
+    host: '',
     port: 3306,
     user: '',
     password: '',

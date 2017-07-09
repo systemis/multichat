@@ -21,6 +21,7 @@ class UserMD {
                     this.checkAlreadyExistsEmail(bundle.email, rs => {
                         bundle.rooms_request = JSON.stringify([]);
                         bundle.friends       = JSON.stringify([]);
+                        bundle.notifications = JSON.stringify([]);
                         if(bundle.avatar === null || !bundle.avatar){
                             bundle.avatar = 'https://www.ihh.org.tr/resource/svg/user-shape.svg';
                         }
@@ -189,8 +190,6 @@ class UserMD {
     }
 
     updateUserInfo(userId, bundle, fn){
-        console.log(bundle);
-        console.log(userId);
         connection.query(`UPDATE ${tableName} SET name = ?, andress = ?, phone = ?, birthday = ?, gender = ?, language = ?, status = ? WHERE id = ?`, 
         [bundle.name, bundle.andress, bundle.phone, bundle.birthday, bundle.gender, bundle.language, bundle.status, userId], 
         (err, result) => {
@@ -213,7 +212,6 @@ class UserMD {
 
     addNotification(userId, notifi, fn){
         this.findUserById(userId, (err, result) => {
-            console.log("DD");
             if(err || result === 'NOT_REGISTER') return fn(err, null);
 
             var notifications = JSON.parse(result.notifications);
@@ -238,28 +236,32 @@ class UserMD {
             connection.query(`UPDATE ${tableName} SET notifications = ? WHERE id = ?`, [notifications, userId], (error, rs) => {
                 if(error) return fn(true, null);
 
-                console.log(rs);
                 return fn(null, 'success');
             })
         })
     }
 
-    addNotification(userId, notifiID, fn){
+    rvNotification(userId, sendId, fn){
         this.findUserById(userId, (err, rs) => {
-            if(err || result === 'NOT_REGISTER') return fn(true, null);
+            if(err || rs === 'NOT_REGISTER') return fn(true, null);
+            var notifications = JSON.parse(rs.notifications);
             
-            var notifications = JSON.parse(result.notifications);
             notifications.map((value, index) => {
-                if(value.id === notifiID){
-                    notifications.splice(index, 0);
-                    notifications = JSON.stringify(notifications);
+                if(value.message.sendId === sendId){
+                    notifications.splice(index, 1);
                 }
-            })
 
-            connection.query(`UPDATE ${tableName} SET notifications = ? WHERE id = ?`, [notifications, userId], (error, result) => {
-                if(error) return fn(true, null);
+                if(index === notifications.length - 1){
+                    if(value.message.sendId === sendId){
+                        notifications.splice(index, 1);
+                    }
 
-                return fn(null, 'success');
+                    notifications = JSON.stringify(notifications);
+                    connection.query(`UPDATE ${tableName} SET notifications = ? WHERE id = ?`, [notifications, userId], (error, result) => {
+                        if(error) return fn(true, null);
+                        return fn(null, 'success');
+                    })
+                }
             })
         })
     }

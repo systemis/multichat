@@ -24,11 +24,15 @@ class RomMD{
     addMessage(id, message, fn){
         this.findChatRoomById(id, (err, result) => {
             if(err) return fn(err, "");
-            var messages = JSON.parse(result.messages);
+            var messages = result.messages;
             messages.push(message);
             messages = JSON.stringify(messages);
+            console.log("Add new message");
             connection.query(`UPDATE ${tablename} SET messages = ? WHERE id = ?`, [messages, id], (er, rs) => {
-                if(er) return fn(er, "");
+                if(er) {
+                    console.log(er);
+                    return fn(er, "");
+                }
 
                 return fn(null, JSON.parse(messages));
             })
@@ -36,12 +40,12 @@ class RomMD{
     }
 
     updateRd(chatRoomId, fn){
-        connection.query(`UPDATE ${tablename} SET messages = ? WHERE id = ?`, [mess])
         this.findChatRoomById(chatRoomId, (error, result) => {
             if(error) return fn(error, null);
 
-            var messages = JSON.parse(result.messages);
+            var messages = result.messages;
             messages[messages.length - 1].rd = true;
+            messages = JSON.stringify(messages);
 
             connection.query(`UPDATE ${tablename} SET messages = ? WHERE id = ?`, [messages, chatRoomId], (er, rs) => {
                 if(er) return fn(er, "");

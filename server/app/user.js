@@ -198,7 +198,7 @@ module.exports = (app, onlineUsers) => {
                 }
 
                 imgurUploader(fs.readFileSync(_imageName), {title: 'product'}).then(data => {
-                    // fs.unlink(_imageName);
+                    fs.unlink(_imageName);
                     userDM.updateAvatar(req.user.id, data.link, (err, result) => {
                         if(err){
                             console.log(`Error when upload pic database ${err}`);
@@ -210,5 +210,15 @@ module.exports = (app, onlineUsers) => {
                 })
             })
         }
+    })
+
+    app.post(`/rv/notifi_m`, (req, res) => {
+        const userId = req.body.userId;
+        const sendId = req.body.sendId;
+
+        userDM.rvNotification(userId, sendId, (err, result) => {
+            if(err) console.log(err);
+            res.send({err, result});
+        })
     })
 }

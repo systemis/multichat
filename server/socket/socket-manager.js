@@ -14,7 +14,10 @@ class socketMG{
                 const chatRoomId = data.chatRoomId;
                 const message    = data.message;
                 message.date     = new Date().toLocaleString(); 
-                console.log("dss");
+                roomMD.addMessage(chatRoomId, message, (err, result) => {
+                    if(err) console.log(err);
+                })
+
                 roomMD.findChatRoomById(chatRoomId, (error, result) => {
                     if(error) return;
                     userMD.addNotification(result.users.filter(u => {return u !== message.sendId}), {type: 'message', message: message}, (err, rs) => {
@@ -23,18 +26,16 @@ class socketMG{
                     })
                 })
 
-                roomMD.addMessage(chatRoomId, message, (err, result) => {
-                    if(err) console.log(err);
-                })
-
                 io.sockets.emit(`/receive/message/${chatRoomId}`, message);
             })
 
             socket.on('request_rd_message', chatRoomId => {
                 io.sockets.emit(`send_request_rd_message${chatRoomId}`, true);
-                roomMD.updateRd(chatRoomId, (err, result) => {
-                    if(err) console.log(err);
-                })
+                setTimeout(() => {
+                    roomMD.updateRd(chatRoomId, (err, result) => {
+                        if(err) console.log(err);
+                    })
+                }, 2000);
             })
 
             socket.on(`offLine`, data => {

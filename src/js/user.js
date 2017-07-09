@@ -107,6 +107,14 @@ class userMG {
         })
     }
 
+    rvNotifi_M(userId, sendId){
+        $.ajax({
+            url: `/rv/notifi_m`, type: `POST`, data: {userId, sendId},
+            success: data => console.log(data),
+            error:   err  => console.log(err)
+        })
+    }
+
     disConnect(userId){
         $.ajax({
             url: `/logout`, type: `GET`, 

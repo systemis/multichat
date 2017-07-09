@@ -4,6 +4,7 @@ import socketMG             from '../../js/socket.js';
 import {connect}            from 'react-redux';
 import $                    from 'jquery';
 import chatMG               from '../../js/chat.js';
+import userMG               from '../../js/user.js';
 import sound                from '../../accest/sound.mp3';
 import './Style/chat-group-style.css';
 
@@ -38,6 +39,7 @@ class ChatGroup extends Component {
 
         if(users && JSON.stringify(users) !== this.state.users) {
             if(messages.length > 0){
+                userMG.rvNotifi_M(this.props.clientId, messages[messages.length - 1].sendId)
                 if(!messages[messages.length - 1].rd){
                     messages[messages.length - 1].rd = true;
                     chatMG.sendRequestRD(this.props.chatRoomId);
@@ -134,6 +136,7 @@ class ChatGroup extends Component {
                 sefl.setState({messages: nMSs});
 
                 chatMG.sendRequestRD(chatRoomId);
+                setTimeout(() => userMG.rvNotifi_M(this.props.clientId, newMessage.sendId), 2000);
                 new Audio(sound).play();
             }
         })        

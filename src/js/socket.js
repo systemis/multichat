@@ -1,7 +1,7 @@
 import io  from 'socket.io-client';
 const urlConnect1 = `http://localhost:3000/`;
 const urlConnect2 = `https://chattogether.herokuapp.com/`;
-const socket      = io.connect(urlConnect1);
+const socket      = io.connect(urlConnect2);
 
 class socketManager {
     sendMessage(chatRoomId, message){
