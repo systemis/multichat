@@ -101,6 +101,8 @@
         height: 30px; }
       #info-group #show-notifications-group ul li:hover {
         background: darkred; }
+  #info-group #show-notifications-group.active span.show-item-notifi {
+    color: darkred; }
   @media screen and (max-width: 768px) {
     #info-group {
       position: absolute;

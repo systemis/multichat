@@ -9,9 +9,12 @@ class NotificationComponent extends Component {
         this.state = {notifications: []}
     }
 
-    notificationsList(){
+    resetAllNotifications(){
+        // this.props.dispatch({type: 'CHANGE_NOTIFICATIONS', value: []})
+    }
+
+    notificationsList(notifications){
         var notificationsDomList = [];
-        var notifications        = this.props.notifications;
 
         if(!notifications) return [];
         if(notifications.length <= 0) return [];
@@ -39,9 +42,11 @@ class NotificationComponent extends Component {
 
     render() {
         console.log(this.props.notifications);
-        const {dispatch}    = this.props;
-        const sefl          = this;
-        const notifications = this.notificationsList();
+        const {dispatch}     = this.props;
+        const sefl           = this;
+        const notifications  = this.notificationsList(this.props.notifications);
+        var   groupClassName = '';
+        if(notifications.length > 0) groupClassName = 'active';
         if(this.props.clientId && _index == 0){
             _index ++;
             socketMG.receiveNotifi(this.props.clientId, notification => {
@@ -54,10 +59,13 @@ class NotificationComponent extends Component {
         }
         
         return (
-            <div className="dropdown" id="show-notifications-group">
+            <div 
+                className={`dropdown ${groupClassName}`} 
+                id="show-notifications-group">
                 <span
                     className="show-item-notifi dropdown-toggle"
-                    data-toggle="dropdown"> 
+                    data-toggle="dropdown"
+                    onClick={() => this.resetAllNotifications()}> 
                         <i className="fa fa-bell" /> 
                 </span>
                 <ul className="dropdown-menu">
@@ -67,10 +75,6 @@ class NotificationComponent extends Component {
                 </ul>
             </div>
         );
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log(nextProps.notifications);
     }
 }
 

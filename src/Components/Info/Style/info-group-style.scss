@@ -162,6 +162,12 @@ $border: 1px solid #e5e5e5;
                 }
             }
         }
+
+        &.active{
+            & span.show-item-notifi{
+                color: darkred;
+            }
+        }
     }
 
     @media screen and (max-width: 768px){
