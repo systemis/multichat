@@ -35,11 +35,7 @@ class ChatGroup extends Component {
 
     rvNotifi_M(userId, sendId){
         var {dispatch}    = this.props; 
-        var clientInfo    = this.props.clientInfo;
-        var notifications = clientInfo.notifications;
-
-        console.log(notifications);
-
+        var notifications = this.props.notifications;
         if(notifications.length <= 0) return;
 
         for(var i = 0; i < notifications.length; i++){
@@ -48,10 +44,8 @@ class ChatGroup extends Component {
             }
         }
 
-        console.log(notifications);
-        clientInfo.notifications = notifications;
-        dispatch({type: `CHANGE_CLIENT_INFO`, value: clientInfo});
         userMG.rvNotifi_M(userId, sendId);
+        dispatch({type: `CHANGE_NOTIFICATIONS`, value: notifications});
     }
 
     getMessages(){
@@ -263,5 +257,6 @@ export default connect((state) => {
         chatId: state.chatId,
         chatUserName: state.chatUserName,
         chatRoomInfo: state.chatRoomInfo,
+        notifications: state.notifications
     }
 })(ChatGroup);

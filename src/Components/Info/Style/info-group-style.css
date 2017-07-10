@@ -10,18 +10,18 @@
     position: relative;
     height: 60px;
     border-bottom: 1px solid #e5e5e5; }
-    #info-group .header-bar .dropdown .show-client-name {
+    #info-group .header-bar .dropdown:last-child .show-client-name {
       float: right;
       margin-right: 15px;
       margin-top: 15px; }
-      #info-group .header-bar .dropdown .show-client-name .caret {
+      #info-group .header-bar .dropdown:last-child .show-client-name .caret {
         margin-left: 10px; }
-      #info-group .header-bar .dropdown .show-client-name:hover {
+      #info-group .header-bar .dropdown:last-child .show-client-name:hover {
         color: red; }
-    #info-group .header-bar .dropdown .dropdown-menu {
+    #info-group .header-bar .dropdown:last-child .dropdown-menu {
       right: 15px;
       top: 40px; }
-      #info-group .header-bar .dropdown .dropdown-menu li a span {
+      #info-group .header-bar .dropdown:last-child .dropdown-menu li a span {
         display: block; }
   #info-group .show-info .show-simple-info {
     padding-bottom: 20px;
@@ -89,6 +89,18 @@
     margin: 0 15px; }
     #info-group .fa.fa-bell:hover {
       color: darkred; }
+  #info-group #show-notifications-group ul {
+    list-style-type: none; }
+    #info-group #show-notifications-group ul li {
+      padding-top: 5px;
+      padding-bottom: 5px; }
+      #info-group #show-notifications-group ul li:not(:first-child) {
+        margin-top: 10px; }
+      #info-group #show-notifications-group ul li .row .show-photo img {
+        width: 30px;
+        height: 30px; }
+      #info-group #show-notifications-group ul li:hover {
+        background: darkred; }
   @media screen and (max-width: 768px) {
     #info-group {
       position: absolute;

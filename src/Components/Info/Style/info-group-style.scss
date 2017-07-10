@@ -18,7 +18,7 @@ $border: 1px solid #e5e5e5;
         position: relative;
         height: 60px;
         border-bottom: $border;
-        & .dropdown{
+        & .dropdown:last-child{
             & .show-client-name{
                 float: right;
                 margin-right: 15px;
@@ -135,6 +135,32 @@ $border: 1px solid #e5e5e5;
         margin: 0 15px; 
         &:hover{
             color: darkred;
+        }
+    }
+
+    & #show-notifications-group{
+        & ul{
+            list-style-type: none;
+            & li{
+                padding-top: 5px;
+                padding-bottom: 5px;
+                &:not(:first-child){
+                    margin-top: 10px;
+                }
+                
+                & .row{
+                    & .show-photo{
+                        & img{
+                            width: 30px;
+                            height: 30px;
+                        }
+                    }
+                }
+
+                &:hover{
+                    background: darkred;
+                }
+            }
         }
     }
 

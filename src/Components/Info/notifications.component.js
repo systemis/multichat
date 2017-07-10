@@ -5,14 +5,15 @@ import socketMG             from '../../js/socket.js';
 class NotificationComponent extends Component {
     constructor(props){
         super(props);
-        this.state = {notifications: []};
+        this.state = {notifications: []}
     }
 
     notificationsList(){
         var notificationsDomList = [];
-        var notifications        = this.state.notifications;
-        if(notifications.length <= 0) return [];
+        var notifications        = this.props.notifications;
 
+        if(!notifications) return [];
+        if(notifications.length <= 0) return [];
     
         for(var i = 0; i < notifications.length; i++){
             const notifiDom = (
@@ -36,9 +37,10 @@ class NotificationComponent extends Component {
     }
 
     render() {
+        console.log(this.props.notifications);
         const notifications = this.notificationsList();
         return (
-            <div className="dropdown">
+            <div className="dropdown" id="show-notifications-group">
                 <span
                     className="show-item-notifi dropdown-toggle"
                     data-toggle="dropdown"> 
@@ -54,20 +56,21 @@ class NotificationComponent extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+        console.log('change');
         const {dispatch} = this.props;
-        if(nextProps.clientId !== this.props.clientId){
-            socketMG.removeNotifiListner(this.props.clientId);
-            socketMG.receiveNotifi(nextProps.clientId, notification => {
-                var notifications = this.state.notifications;
+        const sefl      = this;
+        if(nextProps.clientId && nextProps !== this.props.clientId){
+            socketMG.receiveNotifi(this.props.clientId, notification => {
+                var notifications = sefl.props.notifications;
                 notifications.push(notification);
-
+                
+                sefl.setState({notifications: notifications});
                 dispatch({type: 'CHANGE_NOTIFICATIONS', value: notifications});
-            })
-        }        
+            })     
+        }
 
-        if(JSON.stringify(nextProps.clientInfo.notifications) !== JSON.stringify(this.props.clientInfo.notifications)){
-            console.log(`New notifications was updated `);
-            this.setState({notifications: nextProps.clientInfo.notifications});
+        if(nextProps.notifications && JSON.stringify(nextProps.notifications) !== JSON.stringify(this.props.notifications)){
+            this.setState({notifications: nextProps.notifications});
         }
 
         this.render();
@@ -76,8 +79,8 @@ class NotificationComponent extends Component {
 }
 
 export default connect(state => {
-    return{
-        clientId  : state.clientId,
-        clientInfo: state.clientInfo
+    return {
+        clientId: state.clientId, 
+        notifications: state.notifications
     }
-})(NotificationComponent)
+})(NotificationComponent);

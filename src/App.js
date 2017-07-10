@@ -9,7 +9,6 @@ import userMG                                       from './js/user.js';
 import chatSocket                                   from './js/chat.js';
 import './App.css';
 
-
 const DieuHuong = React.createClass({
   render(){
     return (
@@ -39,12 +38,14 @@ class App extends Component {
 
   getClientInfo(){
     const {dispatch} = this.props;
+      const sefl       = this;
     userMG.getClientInfo((err, result) => {
       if(!err) {
         dispatch({type: "CHANGE_CLIENT_ID", value: result.id});
         dispatch({type: "CHANGE_CLIENT_INFO", value: result});
         dispatch({type: "CHANGE_CHAT_ID", value: result.id})
         dispatch({type: "CHANGE_USER_INFO", value: result});
+        dispatch({type: "CHANGE_NOTIFICATIONS", value: result.notifications});
       }
     })
   }
@@ -94,6 +95,7 @@ class App extends Component {
 
     this.render();
     this.getUsersList(nextProps.clientId);
+
     return true;
   }
 }

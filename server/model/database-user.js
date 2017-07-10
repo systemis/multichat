@@ -250,9 +250,6 @@ class UserMD {
     }
 
     rvNotification(userId, sendId, fn){
-        console.log(userId);
-        console.log(sendId);
-        
         this.findUserById(userId, (err, rs) => {
             if(err || rs === 'NOT_REGISTER') return fn(true, null);
             var notifications = JSON.parse(rs.notifications);
@@ -268,7 +265,6 @@ class UserMD {
                     }
 
                     notifications = JSON.stringify(notifications);
-                    console.log(notifications);
                     connection.query(`UPDATE ${tableName} SET notifications = ? WHERE id = ?`, [notifications, userId], (error, result) => {
                         if(error) return fn(true, null);
                         return fn(null, 'success');

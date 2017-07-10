@@ -36,9 +36,21 @@ const usersListReducer = (state = "", action) => {
     }
 }
 
+const notificationsReducer = (state = "", action) => {
+    switch(action.type){
+        case `CHANGE_NOTIFICATIONS`:
+            console.log(action.value);
+            return action.value;
+        default: 
+            return state;
+    }
+}
+
+
 export default {
-    clientIdReducer   : clientIdReducer, 
-    clientInfoReducer : clientInfoReducer, 
-    userInfoReducer   : userInfoReducer, 
-    usersListReducer  : usersListReducer
+    clientIdReducer      : clientIdReducer, 
+    clientInfoReducer    : clientInfoReducer, 
+    userInfoReducer      : userInfoReducer, 
+    usersListReducer     : usersListReducer,
+    notificationsReducer : notificationsReducer
 };

@@ -47,6 +47,7 @@ const reducer = redux.combineReducers({
     chatId        : chatReducer.chatIdReducer,
     chatUserName  : chatReducer.chatUserNameReducer,
     usersList     : userReducer.usersListReducer,
+    notifications : userReducer.notificationsReducer, 
     isAding       : isAdingReducer,
 })
 
@@ -57,6 +58,7 @@ const store = redux.createStore(reducer, redux.compose(
 store.subscribe(() => {
     // console.log("Version screen: " + store.getState().userInfo);
     // console.log(store.getState().chatRoomInfo);
+    // console.log(store.getState().notifications);
 })
 
 export default store;
