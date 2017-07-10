@@ -27,7 +27,6 @@ class RomMD{
             var messages = result.messages;
             messages.push(message);
             messages = JSON.stringify(messages);
-            console.log("Add new message");
             connection.query(`UPDATE ${tablename} SET messages = ? WHERE id = ?`, [messages, id], (er, rs) => {
                 if(er) {
                     console.log(er);
@@ -52,7 +51,6 @@ class RomMD{
             connection.query(`UPDATE ${tablename} SET messages = ? WHERE id = ?`, [messages, chatRoomId], (er, rs) => {
                 if(er) return fn(er, "");
 
-                console.log(JSON.parse(messages));
                 return fn(null, JSON.parse(messages));
             })
         })

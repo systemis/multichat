@@ -30,7 +30,6 @@ class HomePage extends Component {
     }
 
     mainLayout(){
-        console.log(`Handling to show app's screen `);
         if(this.props.screenVersion ==='desktop'){
             return (
                 <div className="home-page row">

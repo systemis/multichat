@@ -1,4 +1,4 @@
-const clientIdReducer = (state = -1, action) => {
+const clientIdReducer = (state = "", action) => {
     switch(action.type){
         case 'CHANGE_CLIENT_ID':
             return action.value;
@@ -10,6 +10,7 @@ const clientIdReducer = (state = -1, action) => {
 const clientInfoReducer = (state = "", action) => {
     switch(action.type){
         case 'CHANGE_CLIENT_INFO':
+            console.log(action.value);
             return action.value;
         default: 
             return state;

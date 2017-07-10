@@ -41,6 +41,10 @@ class socketManager {
         socket.removeListener(`/receive/message/${chatRoomId}`)
         socket.removeListener(`/receive/request_rd_message${chatRoomId}`);
     }
+
+    removeNotifiListner(userId){
+        socket.removeListener(`/receive/new-notifi/${userId}`);
+    }
 }
 
 export default new socketManager();

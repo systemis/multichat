@@ -31,6 +31,9 @@ module.exports = (app, onlineUsers) => {
                 if(result === "NOT_REGISTER"){
                     res.send("NOT_REGISTER");
                 }else{
+                    result.friends       = JSON.parse(result.friends);
+                    result.notifications = JSON.parse(result.notifications);
+
                     res.send(result);
                 };
             }
@@ -180,6 +183,8 @@ module.exports = (app, onlineUsers) => {
         }else{
             userDM.findUserById(req.user.id, (err, result) => {
                 if(!err && result !== 'NOT_REGISTER'){
+                    result.friends       = JSON.parse(result.friends);
+                    result.notifications = JSON.parse(result.notifications);
                     return res.send(result)
                 }
             })
@@ -219,7 +224,9 @@ module.exports = (app, onlineUsers) => {
     app.post(`/rv/notifi_m`, (req, res) => {
         const userId = req.body.userId;
         const sendId = req.body.sendId;
+
         userDM.rvNotification(userId, sendId, (err, result) => {
+            console.log(`Result rv notification ${result}`);
             if(err) console.log(err);
             res.send({err, result});
         })

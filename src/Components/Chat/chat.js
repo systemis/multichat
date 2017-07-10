@@ -33,13 +33,34 @@ class ChatGroup extends Component {
         })
     }
 
+    rvNotifi_M(userId, sendId){
+        var {dispatch}    = this.props; 
+        var clientInfo    = this.props.clientInfo;
+        var notifications = clientInfo.notifications;
+
+        console.log(notifications);
+
+        if(notifications.length <= 0) return;
+
+        for(var i = 0; i < notifications.length; i++){
+            if(notifications[i].message.sendId === sendId){
+                notifications.splice(i, 1);
+            }
+        }
+
+        console.log(notifications);
+        clientInfo.notifications = notifications;
+        dispatch({type: `CHANGE_CLIENT_INFO`, value: clientInfo});
+        userMG.rvNotifi_M(userId, sendId);
+    }
+
     getMessages(){
         var messages = this.props.chatRoomInfo.messages;
         var users    = this.props.chatRoomInfo.users;
 
         if(users && JSON.stringify(users) !== this.state.users) {
             if(messages.length > 0){
-                userMG.rvNotifi_M(this.props.clientId, messages[messages.length - 1].sendId)
+                this.rvNotifi_M(this.props.clientId, messages[messages.length - 1].sendId);
                 if(!messages[messages.length - 1].rd){
                     messages[messages.length - 1].rd = true;
                     chatMG.sendRequestRD(this.props.chatRoomId);
@@ -136,7 +157,7 @@ class ChatGroup extends Component {
                 sefl.setState({messages: nMSs});
 
                 chatMG.sendRequestRD(chatRoomId);
-                setTimeout(() => userMG.rvNotifi_M(this.props.clientId, newMessage.sendId), 2000);
+                setTimeout(() => this.rvNotifi_M(this.props.clientId, newMessage.sendId), 2000);
                 new Audio(sound).play();
             }
         })        

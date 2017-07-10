@@ -23,8 +23,9 @@ class socketMG{
                     
                     const userId = result.users.filter(u => {return u !== message.sendId});
                     const notifi = {type: 'message', message: message};
-                    
-                    io.socket.emit(`/receive/new-notifi/${userId}`, notifi);
+
+                    console.log('emit');
+                    io.sockets.emit(`/receive/new-notifi/${userId}`, notifi);
                     userMD.addNotification(userId, notifi, (err, rs) => {
                         console.log(err);
                         return;
