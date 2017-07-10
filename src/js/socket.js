@@ -1,11 +1,15 @@
 import io  from 'socket.io-client';
 const urlConnect1 = `http://localhost:3000/`;
 const urlConnect2 = `https://chattogether.herokuapp.com/`;
-const socket      = io.connect(urlConnect2);
+const socket      = io.connect(urlConnect1);
 
 class socketManager {
     sendMessage(chatRoomId, message){
         socket.emit(`new_message`, {chatRoomId: chatRoomId, message: message});
+    }
+
+    sendRequestRD(chatRoomId){
+        socket.emit(`request_rd_message`, chatRoomId);
     }
 
     receiveMessage(chatRomId, fn){
@@ -15,11 +19,11 @@ class socketManager {
     }
 
     receiveRequestRD(chatRoomId, fn){
-        socket.on(`send_request_rd_message${chatRoomId}`, value => fn(true));
+        socket.on(`/receive/request_rd_message${chatRoomId}`, value => fn(value));
     }
 
-    sendRequestRD(chatRoomId){
-        socket.emit(`request_rd_message`, chatRoomId);
+    receiveNotifi(userId, fn){
+        socket.on(`/receive/new-notifi/${userId}`, notifi => fn(notifi));
     }
 
     disConnect(userId){
@@ -35,7 +39,7 @@ class socketManager {
 
     removeListener(chatRoomId){
         socket.removeListener(`/receive/message/${chatRoomId}`)
-        socket.removeListener(`send_request_rd_message${chatRoomId}`);
+        socket.removeListener(`/receive/request_rd_message${chatRoomId}`);
     }
 }
 

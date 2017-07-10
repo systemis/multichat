@@ -210,6 +210,14 @@ class UserMD {
         })
     }
 
+    getNotifications(userId, fn){
+        this.findUserById(userId, (err, result) => {
+            if(err || result === 'NOT_REGISTER') return fn("error", null);
+
+            return fn(null, JSON.parse(result.notifications));
+        })
+    }
+
     addNotification(userId, notifi, fn){
         this.findUserById(userId, (err, result) => {
             if(err || result === 'NOT_REGISTER') return fn(err, null);

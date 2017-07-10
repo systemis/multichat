@@ -25,8 +25,8 @@ module.exports = (app, onlineUsers) => {
         const idFind = req.params.id;
         userDM.findUserById(id, (err, result) => {
             if(err) {
-                res.send("ERROR");
                 console.log("Error when get info" + result);
+                res.send("ERROR");
             }else{
                 if(result === "NOT_REGISTER"){
                     res.send("NOT_REGISTER");
@@ -75,9 +75,6 @@ module.exports = (app, onlineUsers) => {
             for(var j = 0; j < bundle.length; j++){
                 var date2 = Date.parse(bundle[j].lastMessage.date);
                 if(date1 > date2){
-                    console.log('Okk');
-                    console.log(bundle[i].lastMessage.date);
-                    console.log(bundle[j].lastMessage.date);
 
                     const ss  = bundle[i];
                     bundle[i] = bundle[j];
@@ -212,10 +209,16 @@ module.exports = (app, onlineUsers) => {
         }
     })
 
+    app.post(`/get/notifis/:userId`, (req, res) => {
+        const userId = req.params.userId;
+        userDM.getNotifications(userId, (err, result) => {
+            res.send({err: result});
+        })
+    })
+
     app.post(`/rv/notifi_m`, (req, res) => {
         const userId = req.body.userId;
         const sendId = req.body.sendId;
-
         userDM.rvNotification(userId, sendId, (err, result) => {
             if(err) console.log(err);
             res.send({err, result});

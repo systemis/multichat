@@ -60,7 +60,6 @@ class userMG {
         $.ajax({
             url: `/get/users/list/${clientId}`, type: `POST`,
             success: data => {
-                console.log(data);
                 fn(data.err, data.result);
             },
             error: fn(null, [])
@@ -70,9 +69,7 @@ class userMG {
     addFriend(clientId, friendId){
         $.ajax({
             url: `/add/friend`, type: `POST`, data: {clientId, friendId},
-            success: data => {
-                // console.log(`Add friend is ${JSON.stringify(data)}`);
-            },
+            success: data => {return;},
             error: err => console.log(`Add friend fault `)
         })
     }
@@ -107,10 +104,18 @@ class userMG {
         })
     }
 
+    getNotifis(userId, fn){
+        $.ajax({
+            url: `/get/notifis/${userId}`, type: `POST`,
+            success: data => fn({err: data.err, result: data.result}),
+            error: err => fn({err: err, result: null})
+        })
+    }
+
     rvNotifi_M(userId, sendId){
         $.ajax({
             url: `/rv/notifi_m`, type: `POST`, data: {userId, sendId},
-            success: data => console.log(data),
+            success: data => {return;},
             error:   err  => console.log(err)
         })
     }

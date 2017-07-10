@@ -20,7 +20,12 @@ class socketMG{
 
                 roomMD.findChatRoomById(chatRoomId, (error, result) => {
                     if(error) return;
-                    userMD.addNotification(result.users.filter(u => {return u !== message.sendId}), {type: 'message', message: message}, (err, rs) => {
+                    
+                    const userId = result.users.filter(u => {return u !== message.sendId});
+                    const notifi = {type: 'message', message: message};
+                    
+                    io.socket.emit(`/receive/new-notifi/${userId}`, notifi);
+                    userMD.addNotification(userId, notifi, (err, rs) => {
                         console.log(err);
                         return;
                     })
@@ -30,7 +35,7 @@ class socketMG{
             })
 
             socket.on('request_rd_message', chatRoomId => {
-                io.sockets.emit(`send_request_rd_message${chatRoomId}`, true);
+                io.sockets.emit(`/receive/request_rd_message${chatRoomId}`, true);
                 setTimeout(() => {
                     roomMD.updateRd(chatRoomId, (err, result) => {
                         if(err) console.log(err);

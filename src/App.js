@@ -41,6 +41,7 @@ class App extends Component {
     const {dispatch} = this.props;
     userMG.getClientInfo((err, result) => {
       if(!err) {
+        console.log(JSON.stringify(result.notifications));
         dispatch({type: "CHANGE_CLIENT_ID", value: result.id});
         dispatch({type: "CHANGE_CLIENT_INFO", value: result});
         dispatch({type: "CHANGE_CHAT_ID", value: result.id})

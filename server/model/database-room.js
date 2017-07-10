@@ -44,12 +44,15 @@ class RomMD{
             if(error) return fn(error, null);
 
             var messages = result.messages;
-            messages[messages.length - 1].rd = true;
-            messages = JSON.stringify(messages);
+            for(var i = 0; i < messages.length; i++){
+                messages[i].rd = true;
+            }
 
+            messages = JSON.stringify(messages);
             connection.query(`UPDATE ${tablename} SET messages = ? WHERE id = ?`, [messages, chatRoomId], (er, rs) => {
                 if(er) return fn(er, "");
 
+                console.log(JSON.parse(messages));
                 return fn(null, JSON.parse(messages));
             })
         })
