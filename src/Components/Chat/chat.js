@@ -45,6 +45,9 @@ class ChatGroup extends Component {
         }
 
         userMG.rvNotifi_M(userId, sendId);
+
+        // TODO: Change notifications value 
+        console.log('Changeing notifications');
         dispatch({type: `CHANGE_NOTIFICATIONS`, value: notifications});
     }
 
@@ -54,7 +57,7 @@ class ChatGroup extends Component {
 
         if(users && JSON.stringify(users) !== this.state.users) {
             if(messages.length > 0){
-                this.rvNotifi_M(this.props.clientId, messages[messages.length - 1].sendId);
+                this.rvNotifi_M(this.props.clientId, this.props.chatId);
                 if(!messages[messages.length - 1].rd){
                     messages[messages.length - 1].rd = true;
                     chatMG.sendRequestRD(this.props.chatRoomId);
@@ -140,18 +143,18 @@ class ChatGroup extends Component {
         var {dispatch} = this.props;
         var sefl       = this;
 
-        console.log(chatRoomId);
         chatMG.receiveMessage(chatRoomId, (newMessage) => {
             var nMSs = sefl.state.messages;
             console.log('new message client ')
-            // play sound 
+            
             if(newMessage.sendId !== this.props.clientId){
                 newMessage.rd = true;
                 nMSs.push(newMessage);
                 sefl.setState({messages: nMSs});
-
                 chatMG.sendRequestRD(chatRoomId);
                 setTimeout(() => this.rvNotifi_M(this.props.clientId, newMessage.sendId), 2000);
+                
+                //TODO: play sound 
                 new Audio(sound).play();
             }
         })        

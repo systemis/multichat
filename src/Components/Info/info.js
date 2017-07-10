@@ -176,6 +176,7 @@ export default connect(state => {
         clientInfo: state.clientInfo,
         screenVersion: state.screenVersion, 
         userInfo: state.userInfo,
-        chatId: state.chatId
+        chatId: state.chatId,
+        notifications: state.notifications
     };
 })(InfoGroup);

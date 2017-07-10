@@ -138,8 +138,6 @@ module.exports = (app, onlineUsers) => {
 
     app.post(`/check/user/online/:userId`, (req, res) => {
         const userId = req.params.userId;
-        console.log(`Online users id: ${JSON.stringify(onlineUsers)}`);
-
         if(onlineUsers.indexOf(userId) < 0) return res.send(false);
         return res.send(true);
     })
@@ -154,15 +152,8 @@ module.exports = (app, onlineUsers) => {
 
     app.post(`/check/client/:clientId`, (req, res) => {
         const clientId = req.params.clientId;
-
-        console.log(req.user.id);
-        console.log(clientId);
-
-        if(clientId === req.user.id){
-            return res.send(true);
-        }
-
-        return res.send(false);
+        if(clientId !== req.user.id) return res.send(false)
+        return res.send(true);
     })
 
     app.post(`/update/client-info`, (req, res) => {

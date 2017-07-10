@@ -252,24 +252,20 @@ class UserMD {
     rvNotification(userId, sendId, fn){
         this.findUserById(userId, (err, rs) => {
             if(err || rs === 'NOT_REGISTER') return fn(true, null);
+            if(userId === sendId) return fn('equals', null);
             var notifications = JSON.parse(rs.notifications);
             
-            notifications.map((value, index) => {
-                if(value.message.sendId === sendId){
-                    notifications.splice(index, 1);
+            for(var i = 0; i < notifications.length; i ++){
+                if(notifications[i].message.sendId === sendId){
+                    notifications.splice(i, 1);
+                    console.log('xoa');
                 }
+            }
 
-                if(index === notifications.length - 1){
-                    if(value.message.sendId === sendId){
-                        notifications.splice(index, 1);
-                    }
-
-                    notifications = JSON.stringify(notifications);
-                    connection.query(`UPDATE ${tableName} SET notifications = ? WHERE id = ?`, [notifications, userId], (error, result) => {
-                        if(error) return fn(true, null);
-                        return fn(null, 'success');
-                    })
-                }
+            notifications = JSON.stringify(notifications);
+            connection.query(`UPDATE ${tableName} SET notifications = ? WHERE id = ?`, [notifications, userId], (error, result) => {
+                if(error) return fn(true, null);
+                return fn(null, 'success');
             })
         })
     }
