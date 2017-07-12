@@ -36,23 +36,19 @@ class ChatGroup extends Component {
     rvNotifi_M(userId, sendId){
         var {dispatch}    = this.props; 
         var notifications = [...this.props.notifications];
+        var updateNotifis = [];
         if(notifications.length <= 0) return;
-
-        console.log(notifications);
-
+        
         for(var i = 0; i < notifications.length; i++){
-            if(notifications[i].message.sendId === sendId){
-                notifications.splice(i, 1);
+            if(notifications[i].message.sendId !== sendId){
+                updateNotifis.push(notifications[i]);
+            }
+
+            if(i === notifications.length - 1){
+                userMG.rvNotifi_M(userId, sendId);
+                this.props.dispatch({type: 'CHANGE_NOTIFICATIONS', value: updateNotifis});
             }
         }
-
-        userMG.rvNotifi_M(userId, sendId);
-
-        // TODO: Change notifications value 
-        console.log('Changeing notifications');
-        console.log(notifications);
-        this.props.dispatch({type: 'CHANGE_NOTIFICATIONS', value: notifications});
-        
     }
 
     getMessages(){

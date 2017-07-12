@@ -254,19 +254,21 @@ class UserMD {
             if(err || rs === 'NOT_REGISTER') return fn(true, null);
             if(userId === sendId) return fn('equals', null);
             var notifications = JSON.parse(rs.notifications);
+            var updateNotifs  = [];
             
             for(var i = 0; i < notifications.length; i ++){
-                if(notifications[i].message.sendId === sendId){
-                    notifications.splice(i, 1);
-                    console.log('xoa');
+                if(notifications[i].message.sendId !== sendId){
+                    updateNotifs.push(notifications[i]);
+                }
+
+                if(i === notifications.length - 1){
+                    updateNotifs = JSON.stringify(updateNotifs);
+                    connection.query(`UPDATE ${tableName} SET notifications = ? WHERE id = ?`, [updateNotifs, userId], (error, result) => {
+                        if(error) return fn(true, null);
+                        return fn(null, 'success');
+                    })
                 }
             }
-
-            notifications = JSON.stringify(notifications);
-            connection.query(`UPDATE ${tableName} SET notifications = ? WHERE id = ?`, [notifications, userId], (error, result) => {
-                if(error) return fn(true, null);
-                return fn(null, 'success');
-            })
         })
     }
 
