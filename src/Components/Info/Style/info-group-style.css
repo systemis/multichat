@@ -13,7 +13,7 @@
     #info-group .header-bar .dropdown:last-child .show-client-name {
       float: right;
       margin-right: 15px;
-      margin-top: 15px; }
+      line-height: 60px; }
       #info-group .header-bar .dropdown:last-child .show-client-name .caret {
         margin-left: 10px; }
       #info-group .header-bar .dropdown:last-child .show-client-name:hover {

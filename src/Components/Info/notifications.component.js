@@ -84,9 +84,7 @@ class NotificationComponent extends Component {
                     className="show-item-notifi dropdown-toggle"
                     data-toggle="dropdown"
                     onClick={() => this.resetAllNotifications()}> 
-                        <span 
-                            className="fa fa-bell"
-                            style={{position: 'relative'}}>
+                        <span className="fa fa-bell">
                             {quantumOfNoEle()}
                         </span> 
                 </span>

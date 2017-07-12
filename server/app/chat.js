@@ -46,6 +46,7 @@ module.exports = (app) => {
         if(req.isAuthenticated()){
             roomMD.findChatRoomById(chatRoomId, (err, result) => {
                 if(err){ 
+                    console.log(`Error access room ${err}`);
                     return res.send({err, result});
                 }
 
@@ -56,7 +57,7 @@ module.exports = (app) => {
                 }
             })
         }else{
-            return res.send({err: null, result: false});
+            return res.send({err: "Error", result: null});
         }
     })
 }

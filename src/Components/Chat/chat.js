@@ -17,7 +17,7 @@ const scrollMessageGroupToBottom = () => {
 class ChatGroup extends Component {
     constructor(props) {
         super(props);
-        this.state       = {users: [], messages: []};
+        this.state  = {users: [], messages: []};
     }
     
     accessRoom(chatRoomId){
