@@ -124,6 +124,7 @@ class ChatGroup extends Component {
         const message      = messageField.value;
         const aMessage     = {
             sendId: this.props.clientId,
+            name: this.props.clientInfo.name, 
             sendAvatar: this.props.clientInfo.avatar,
             message: message,
             rd: false

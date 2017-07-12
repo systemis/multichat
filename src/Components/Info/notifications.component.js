@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect}            from 'react-redux';
+import NotificationItem     from './notification.item.js';
 import socketMG             from '../../js/socket.js';
+import cET                  from '../../js/accessRoomEvent.js';
 
 var _index = 0;
 class NotificationComponent extends Component {
@@ -35,8 +37,17 @@ class NotificationComponent extends Component {
         if(notifications.length <= 0) return [];
     
         for(var i = notifications.length - 1; i >=0; i--){
+            const clickItemEvent = new cET({
+                dispatch: this.props.dispatch,
+                clientId: this.props.clientId,
+                data: {
+                    id: notifications[i].message.sendId,
+                    name: notifications[i].message.name
+                }
+            })
+
             const notifiDom = (
-                <li>
+                <li onClick={() => clickItemEvent.click()}>
                     <div className="row">
                         <div className="col-md-3 col-sm-3 sol-xs-3 show-photo">
                             <img alt="Show pic" src={notifications[i].message.sendAvatar} />
@@ -89,9 +100,7 @@ class NotificationComponent extends Component {
                         </span> 
                 </span>
                 <ul className="dropdown-menu">
-                    {notifications.map(item => {
-                        return item;
-                    })}
+                    {notifications.map(item => {return item})}
                 </ul>
             </div>
         );
