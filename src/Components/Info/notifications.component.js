@@ -34,7 +34,7 @@ class NotificationComponent extends Component {
         if(!notifications) return [];
         if(notifications.length <= 0) return [];
     
-        for(var i = 0; i < notifications.length; i++){
+        for(var i = notifications.length - 1; i >=0; i--){
             const notifiDom = (
                 <li>
                     <div className="row">
@@ -49,7 +49,7 @@ class NotificationComponent extends Component {
             )
 
             notificationsDomList.push(notifiDom);
-            if(i === notifications.length - 1){
+            if(i === 0){
                 return notificationsDomList;
             }
         }
@@ -57,6 +57,7 @@ class NotificationComponent extends Component {
 
     render() {
         console.log(this.props.notifications);
+        this.receiveNotifi();
         const notifications  = this.notificationsList(this.props.notifications);
         const lengthNotifis  = notifications.length;
         const groupClassName = () => {
@@ -67,7 +68,7 @@ class NotificationComponent extends Component {
         const quantumOfNoEle = () => {
             if(lengthNotifis > 0){
                 return (
-                    <span style={{position: 'relative', top: '-10px'}}> 
+                    <span style={{position: 'relative', top: '-10px', color: 'red'}}> 
                         {lengthNotifis.toString()}
                     </span>
                 )
@@ -75,7 +76,6 @@ class NotificationComponent extends Component {
             return ;}
         
         
-        this.receiveNotifi();
         return (
             <div 
                 className={`dropdown ${groupClassName}`} 
