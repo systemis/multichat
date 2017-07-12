@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import $                    from 'jquery';
 import {connect}            from 'react-redux';
 import userMG               from '../../js/user.js';
-import chatMG               from '../../js/chat.js';
 import socketMG             from '../../js/socket.js';
 import cET                  from '../../js/accessRoomEvent.js';
 
