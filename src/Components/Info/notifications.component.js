@@ -13,6 +13,21 @@ class NotificationComponent extends Component {
         // this.props.dispatch({type: 'CHANGE_NOTIFICATIONS', value: []})
     }
 
+    receiveNotifi(){
+        if(!this.props.clientId || _index !== 0) return;
+
+        ++ _index;
+        const sefl       = this;
+        const {dispatch} = this.props;
+        const clientId   = this.props.clientId;
+
+        socketMG.receiveNotifi(clientId, notification => {
+            var notifications = [...sefl.props.notifications];
+            notifications.push(notification);
+            dispatch({type: 'CHANGE_NOTIFICATIONS', value: notifications});
+        })
+    }
+
     notificationsList(notifications){
         var notificationsDomList = [];
 
@@ -42,22 +57,25 @@ class NotificationComponent extends Component {
 
     render() {
         console.log(this.props.notifications);
-        const {dispatch}     = this.props;
-        const sefl           = this;
         const notifications  = this.notificationsList(this.props.notifications);
-        var   groupClassName = '';
-        if(notifications.length > 0) groupClassName = 'active';
-        if(this.props.clientId && _index == 0){
-            _index ++;
-            socketMG.receiveNotifi(this.props.clientId, notification => {
-                console.log('new notifications');
-                var notifications = sefl.props.notifications;
-                notifications.push(notification);
-                dispatch({type: 'CHANGE_NOTIFICATIONS', value: notifications});
-                sefl.setState({notifications: notifications});
-            })     
-        }
+        const lengthNotifis  = notifications.length;
+        const groupClassName = () => {
+            if(lengthNotifis > 0){
+                return 'active';
+            }
+            return ' ';}
+        const quantumOfNoEle = () => {
+            if(lengthNotifis > 0){
+                return (
+                    <span style={{position: 'relative', top: '-10px'}}> 
+                        {lengthNotifis.toString()}
+                    </span>
+                )
+            }
+            return ;}
         
+        
+        this.receiveNotifi();
         return (
             <div 
                 className={`dropdown ${groupClassName}`} 
@@ -66,7 +84,11 @@ class NotificationComponent extends Component {
                     className="show-item-notifi dropdown-toggle"
                     data-toggle="dropdown"
                     onClick={() => this.resetAllNotifications()}> 
-                        <i className="fa fa-bell" /> 
+                        <span 
+                            className="fa fa-bell"
+                            style={{position: 'relative'}}>
+                            {quantumOfNoEle()}
+                        </span> 
                 </span>
                 <ul className="dropdown-menu">
                     {notifications.map(item => {
