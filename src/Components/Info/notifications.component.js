@@ -15,6 +15,7 @@ class NotificationComponent extends Component {
         // this.props.dispatch({type: 'CHANGE_NOTIFICATIONS', value: []})
     }
 
+    // Receive new notification 
     receiveNotifi(){
         if(!this.props.clientId || _index !== 0) return;
 
@@ -37,17 +38,20 @@ class NotificationComponent extends Component {
         if(notifications.length <= 0) return [];
     
         for(var i = notifications.length - 1; i >=0; i--){
-            const clickItemEvent = new cET({
+            const propsCustom = {
                 dispatch: this.props.dispatch,
                 clientId: this.props.clientId,
                 data: {
                     id: notifications[i].message.sendId,
                     name: notifications[i].message.name
                 }
-            })
+            }
 
             const notifiDom = (
-                <li onClick={() => clickItemEvent.click()}>
+                <li onClick={() => {
+                    console.log(propsCustom);
+                    new cET(propsCustom).click();
+                }}>
                     <div className="row">
                         <div className="col-md-3 col-sm-3 sol-xs-3 show-photo">
                             <img alt="Show pic" src={notifications[i].message.sendAvatar} />
@@ -71,11 +75,6 @@ class NotificationComponent extends Component {
         this.receiveNotifi();
         const notifications  = this.notificationsList(this.props.notifications);
         const lengthNotifis  = notifications.length;
-        const groupClassName = () => {
-            if(lengthNotifis > 0){
-                return 'active';
-            }
-            return ' ';}
         const quantumOfNoEle = () => {
             if(lengthNotifis > 0){
                 return (
@@ -89,7 +88,7 @@ class NotificationComponent extends Component {
         
         return (
             <div 
-                className={`dropdown ${groupClassName}`} 
+                className={`dropdown `} 
                 id="show-notifications-group">
                 <span
                     className="show-item-notifi dropdown-toggle"

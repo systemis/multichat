@@ -46,11 +46,11 @@ class userMG {
             success: data => {
                 switch(data.result){
                     case "NOT_REGISTER":
-                        return fn(false, "Tai khoan khong ton tai");
+                        return fn("Tai khoan khong ton tai", null);
                     case "ERROR":
-                        return fn(true, "Co loi xay ra");
+                        return fn("Co loi xay ra", null);
                     default:
-                        return fn(false, data);
+                        return fn(null, data);
                 }
             }, error: err => fn(true, "Co loi xay ra")
         })

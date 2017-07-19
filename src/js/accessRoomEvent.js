@@ -4,6 +4,7 @@ import socketMG             from './socket.js';
 class cET{
     constructor(props){
         this.props = props;
+        console.log(props);
     }
     
     update_leftbar_list(){
@@ -53,7 +54,7 @@ class cET{
         
 
         chatMG.checkChatRoomId(this.props.clientId + this.props.data.id, (err, bool) => {
-            if(bool) { console.log("dd"); return this.changeChatRoomId(this.props.clientId + this.props.data.id); }
+            if(bool) { return this.changeChatRoomId(this.props.clientId + this.props.data.id); }
             
             chatMG.checkChatRoomId(this.props.data.id + this.props.clientId, (er, bo) => {
                 if(er) { return this.handling_error(); }

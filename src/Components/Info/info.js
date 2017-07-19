@@ -10,7 +10,7 @@ import './Style/info-group-style.css';
 class InfoGroup extends Component {
     constructor(props){
         super(props);
-        this.state = {isChange: false, indexShowMainLayout: 0}
+        this.state = {isChange: false, indexShowMainLayout: 0, userInfo: {}}
         this.backIndexScreen = this.backIndexScreen.bind(this);
     }
 
@@ -59,7 +59,7 @@ class InfoGroup extends Component {
         if(this.state.indexShowMainLayout > 0){
             return (
                 <UpdateGroup 
-                    data={this.props.userInfo} 
+                    data={this.state.userInfo} 
                     backIndexScreen={this.backIndexScreen}/>
             )
         }
@@ -69,15 +69,15 @@ class InfoGroup extends Component {
                 <table className="table-show-user-default-info">
                     <tr> 
                         <td className="show-title">Nick name:</td>
-                        <td className="show-value">{this.props.userInfo.name}</td>
+                        <td className="show-value">{this.state.userInfo.name}</td>
                     </tr>
                     <tr> 
                         <td className="show-title">Tel:</td>
-                        <td className="show-value">{this.props.userInfo.phone}</td>
+                        <td className="show-value">{this.state.userInfo.phone}</td>
                     </tr>
                     <tr> 
                         <td className="show-title">Andress</td>
-                        <td className="show-value">{this.props.userInfo.andress}</td>
+                        <td className="show-value">{this.state.userInfo.andress}</td>
                     </tr>
                     <tr> 
                         <td className="show-title">Date of birth:</td>
@@ -85,15 +85,25 @@ class InfoGroup extends Component {
                     </tr>
                     <tr> 
                         <td className="show-title">Gender</td>
-                        <td className="show-value">{this.props.userInfo.gender}</td>
+                        <td className="show-value">{this.state.userInfo.gender}</td>
                     </tr>
                     <tr> 
                         <td className="show-title">Language</td>
-                        <td className="show-value">{this.props.userInfo.language}</td>
+                        <td className="show-value">{this.state.userInfo.language}</td>
                     </tr>
                 </table>
             </div>
         )
+    }
+
+    
+    componentWillMount() {
+        const sefl = this;
+        userMG.getUserInfo(this.props.chatId, (err, result) => {
+            if(err) return console.log(`Error when get userinfo: ${err}`);
+
+            sefl.setState({userInfo: result});
+        })   
     }
 
     render() {
@@ -137,18 +147,18 @@ class InfoGroup extends Component {
                     <div className="show-simple-info">
                         <div className="show-avatar">
                             <p>
-                                <img src={this.props.userInfo.avatar} alt="User Avatar " />
+                                <img src={this.state.userInfo.avatar} alt="User Avatar " />
                                 {this.changeAvatarGroup()}
                             </p>
                         </div>
                         <div className="show-name-andress">
                             <p 
                                 className="show-name"> 
-                                {this.props.userInfo.name} 
+                                {this.state.userInfo.name} 
                                 {this.editBtn()}
                             </p>
                             <p className="show-andress"> 
-                                {this.props.userInfo.status} 
+                                {this.state.userInfo.status} 
                             </p>
                         </div>
                     </div>

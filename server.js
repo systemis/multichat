@@ -34,7 +34,7 @@ require('./server/router.js')(app);
 
 new ss(server, onlineUsers);
 
-server.listen(process.env.PORT || 3000, () => {
+server.listen(process.env.PORT || 9999, () => {
     // userDm.dropTable((err, result) => {})
     // roomDm.dropTable((err, result) => {})
 });

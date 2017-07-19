@@ -38,7 +38,7 @@ class App extends Component {
 
   getClientInfo(){
     const {dispatch} = this.props;
-      const sefl       = this;
+    const sefl       = this;
     userMG.getClientInfo((err, result) => {
       if(!err) {
         dispatch({type: "CHANGE_CLIENT_ID", value: result.id});

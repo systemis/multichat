@@ -9,12 +9,3 @@ var mysql = require('mysql');
 //     database: 'sql12182975',
 //     // socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
 // })
-
-module.exports = mysql.createConnection({
-    connectionLimit: 100,
-    host: '',
-    port: 3306,
-    user: '',
-    password: '',
-    database: '',
-})
