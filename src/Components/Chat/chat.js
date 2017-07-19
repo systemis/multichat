@@ -183,48 +183,53 @@ class ChatGroup extends Component {
             }
 
             return "";}
-
-        return (
-            <div className={className()} id="chat-group">
-                <div className="b-group">
-                    <div className="header-bar">
-                    <p className="chat-group-show-name">
-                        {this.props.chatUserName} 
-                    </p>
-                    <ul className="chat-group-list-tool">
-                        <li>
-                            <i className="fa fa-phone" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i className="fa fa-video-camera" aria-hidden="true"></i>
-                        </li>
-                    </ul>
-                </div>
-                <div 
-                    className="show-message"
-                    id="show-messages-group">
-                    {
-                        this.showMessages().map((item, index) => {
-                            return item;
-                        })
-                    }
-                </div>
-                <div className="group-send-message">
-                    <form id="message-field-send" style={{width: '100%', height: '100%'}}>
-                        <input 
-                            type="text"
-                            id="input-message"
-                            placeholder="Type your message ..." />
-                        <span
-                            className="fa fa-paper-plane" 
-                            aria-hidden="true"
-                            onClick={() => this.sendMessage()}>
-                        </span>
-                    </form>
-                </div>
+        const mainLayout = () => {
+            if(this.props.chatId === this.props.clientId || !this.props.chatId){
+                return <h1> Xin chao </h1>;
+            }
+            return(
+                <div className={className()} id="chat-group">
+                    <div className="b-group">
+                        <div className="header-bar">
+                        <p className="chat-group-show-name">
+                            {this.props.chatUserName} 
+                        </p>
+                        <ul className="chat-group-list-tool">
+                            <li>
+                                <i className="fa fa-phone" aria-hidden="true"></i>
+                            </li>
+                            <li>
+                                <i className="fa fa-video-camera" aria-hidden="true"></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <div 
+                        className="show-message"
+                        id="show-messages-group">
+                        {
+                            this.showMessages().map((item, index) => {
+                                return item;
+                            })
+                        }
+                    </div>
+                    <div className="group-send-message">
+                        <form id="message-field-send" style={{width: '100%', height: '100%'}}>
+                            <input 
+                                type="text"
+                                id="input-message"
+                                placeholder="Type your message ..." />
+                            <span
+                                className="fa fa-paper-plane" 
+                                aria-hidden="true"
+                                onClick={() => this.sendMessage()}>
+                            </span>
+                        </form>
+                    </div>
                 </div>
             </div>
-        );
+            )}
+        
+        return mainLayout();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -242,8 +247,11 @@ class ChatGroup extends Component {
     }
 
     componentDidMount() {
-        scrollMessageGroupToBottom();
-        this.setActionForChatForm();
+        if(this.props.chatId && this.props.chatId !== this.props.clientId){
+            scrollMessageGroupToBottom();
+            this.setActionForChatForm();   
+        }
+
         if(this.props.screenVersion !== 'desktop' && this.props.chatRoomId){
             this.receiveMessage(this.props.chatRoomId);
             this.receiveRequestRD(this.props.chatRoomId);

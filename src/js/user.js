@@ -41,7 +41,7 @@ class userMG {
     }
 
     getUserInfo(id, fn){
-        if(!id || id === -1) return fn('ID underfine!', null);
+        if(!id) return fn('ID underfine!', null);
         $.ajax({
             url: `/get/user-info/${id}`, type: 'POST', 
             success: data => {
