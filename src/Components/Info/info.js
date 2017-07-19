@@ -172,6 +172,7 @@ class InfoGroup extends Component {
 
 export default connect(state => {
     return {
+        clientId: state.clientId,
         clientInfo: state.clientInfo,
         screenVersion: state.screenVersion, 
         userInfo: state.userInfo,

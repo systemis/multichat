@@ -211,7 +211,6 @@ class ChatGroup extends Component {
                 </div>
                 <div className="group-send-message">
                     <form id="message-field-send" style={{width: '100%', height: '100%'}}>
-                        <i className="fa fa-paperclip"> </i>
                         <input 
                             type="text"
                             id="input-message"
