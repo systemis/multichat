@@ -3,11 +3,17 @@ import React, { Component } from 'react';
 class AMessageItem extends Component {
     render() {
         const rdLabel = (rd) => {
+            console.log(rd);
             if(rd){
                 return (
-                    <p className="rd"> Readed </p>
+                    <span
+                        className="fa fa-check" 
+                        aria-hidden="true"
+                        style={{float: 'right', fontSize: '33px', color: 'green'}}></span>
                 )
             }
+            
+            return;
         }
 
         return (
@@ -20,8 +26,8 @@ class AMessageItem extends Component {
                 </div>
                 <div className="show-message-value">
                     <p className="value"> {this.props.message} </p>
+                    {rdLabel(this.props.className.rd)}
                 </div>
-                {rdLabel(this.props.className.rd)}
             </div>
         );
     }
