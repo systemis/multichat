@@ -23,7 +23,7 @@ module.exports = (app, onlineUsers) => {
 
     app.post('/get/user-info/:id', (req, res) => {
         const idFind = req.params.id;
-        userDM.findUserById(id, (err, result) => {
+        userDM.findUserById(idFind, (err, result) => {
             if(err) {
                 console.log("Error when get info" + result);
                 res.send("ERROR");

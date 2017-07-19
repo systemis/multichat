@@ -44,7 +44,7 @@ class App extends Component {
         dispatch({type: "CHANGE_CLIENT_ID", value: result.id});
         dispatch({type: "CHANGE_CLIENT_INFO", value: result});
         dispatch({type: "CHANGE_CHAT_ID", value: result.id})
-        dispatch({type: "CHANGE_USER_INFO", value: result});
+        // dispatch({type: "CHANGE_USER_INFO", value: result});
         dispatch({type: "CHANGE_NOTIFICATIONS", value: result.notifications});
       }
     })
@@ -87,10 +87,19 @@ class App extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    const sefl = this;
     if(nextState.screenWidth > 768){
       this.changeScreenVersion("desktop");
     }else{
       this.changeScreenVersion("mobile");
+    }
+
+    if(this.props.chatId || nextProps.chatId){
+          console.log(nextProps.chatId);
+          userMG.getUserInfo(nextProps.chatId, (err, result) => {
+              if(err) return console.log(`Error when get userinfo: ${err}`);
+              sefl.props.dispatch({type: 'CHANGE_USER_INFO', value: {...result}});
+          })   
     }
 
     this.render();
@@ -104,6 +113,7 @@ export default connect((state) => {
   return {
     clientId: state.clientId,
     usersList: state.usersList,
-    screenVersion: state.screenVersion
+    screenVersion: state.screenVersion,
+    chatId: state.chatId
   };
 })(App);

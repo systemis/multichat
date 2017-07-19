@@ -41,8 +41,9 @@ class userMG {
     }
 
     getUserInfo(id, fn){
+        if(!id || id === -1) return fn('ID underfine!', null);
         $.ajax({
-            url: `/get/user-info/:${id}`, type: 'POST', 
+            url: `/get/user-info/${id}`, type: 'POST', 
             success: data => {
                 switch(data.result){
                     case "NOT_REGISTER":
@@ -50,6 +51,7 @@ class userMG {
                     case "ERROR":
                         return fn("Co loi xay ra", null);
                     default:
+                        console.log(data);
                         return fn(null, data);
                 }
             }, error: err => fn(true, "Co loi xay ra")
