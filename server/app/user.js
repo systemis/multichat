@@ -32,7 +32,7 @@ module.exports = (app, onlineUsers) => {
                     res.send("NOT_REGISTER");
                 }else{
                     result.friends       = JSON.parse(result.friends);
-                    result.notifications = JSON.parse(result.notifications);
+                    delete result.notifications;
 
                     res.send(result);
                 };

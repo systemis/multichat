@@ -9,4 +9,3 @@ var mysql = require('mysql');
 //     database: 'sql12182975',
 //     // socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
 // })
-
