@@ -2,11 +2,7 @@
     margin: 0;
     padding: 0;
 }
-@mixin character-group-big{
-    height: 100vh;
-}
-$boder: 1px solid #e5e5e5;
-#chat-group{
+@mixin groupChar(){
     @include flex();
     height: 100vh;
     background: #EEF1F6;
@@ -15,6 +11,13 @@ $boder: 1px solid #e5e5e5;
         float: left;
         width: 50%;
     }
+}
+@mixin character-group-big{
+    height: 100vh;
+}
+$boder: 1px solid #e5e5e5;
+#chat-group{
+    @include groupChar();
     & .header-bar{
         position: relative;
         height: 60px;
@@ -116,7 +119,6 @@ $boder: 1px solid #e5e5e5;
             }
         }
     }
-        
     
     & .group-send-message{
         position: absolute;
@@ -161,7 +163,6 @@ $boder: 1px solid #e5e5e5;
         }
     }
 
-
     & .b-group{
         position: absolute;
         top: 0;
@@ -180,5 +181,57 @@ $boder: 1px solid #e5e5e5;
         top: 0;
         bottom: 40px;
         overflow: scroll;
+    }
+}
+#intro-app-group{
+    @include groupChar();
+    overflow: scroll;
+    & .show-title{
+        padding-top: 80px;
+        & .title, & .be-title{
+            text-align: center;
+            font-weight: bold;
+            font-family: inherit;
+            line-height: 0;
+        }
+        & .title{
+            font-size: 7.5vw;
+        }
+        & .be-title{
+            padding-top: 30px;
+            font-size: 15px;
+        }
+    }
+
+    & .show-faq-group{
+        padding: 6px 12px;
+        margin-top: 5em;
+        & .title{
+            font-weight: bold;
+            font-family: inherit;
+            &:first-child{
+                font-size: 3.5vw;
+            }
+        }
+
+        & .FAQ-item{
+            margin-top: 20px;
+            & .show-title-faq{
+                & h2{
+                    font-size: 1.5em;
+                    font-weight: 600;
+                    line-height: 2.25;
+                    border-bottom: 1px solid darkgray;
+                    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+                }
+            }
+
+            & .show-text{
+                & p{
+                    font-size: 18px;
+                    font-family: 'Times New Roman', Times, serif;
+                }
+            }
+        }
     }
 }

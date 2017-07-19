@@ -185,7 +185,40 @@ class ChatGroup extends Component {
             return "";}
         const mainLayout = () => {
             if(this.props.chatId === this.props.clientId || !this.props.chatId){
-                return <h1> Xin chao </h1>;
+                const faqItem = (title, text) => {
+                    return(
+                        <div className="FAQ-item">
+                            <div className="show-title-faq">
+                                <h2> {title} </h2>
+                            </div>
+                            <div className="show-text">
+                                {text}
+                            </div>
+                        </div>)
+                }
+
+                return (
+                    <div className={className()} id="intro-app-group">
+                        <div className="show-title">
+                            <p className="title">Wellcome</p>
+                            <br/>
+                            <p className="be-title">to Chattogether </p>
+                        </div>
+                        <div className="show-faq-group">
+                            <h1 className="title">FAQ</h1>
+                            {faqItem('What is Chattogether ?', <p> <strong>Chattogether</strong> is social network app chat like facebook message but have some limit. It is a real project for <strong> fun and learn  </strong></p>)}
+                            {faqItem('Who is it for ?', <p> For anyone, friend and someone want to support me for study - <strong> test app </strong> </p>)}
+                            {faqItem('About developer :', <p>The app is created by  <strong> <a href="https://systemis-blog.herokuapp.com/"> systemis </a></strong> and <strong> peter </strong> support for me </p>)}
+                            {faqItem('How it app work ?', <p> <strong> Chattogether </strong> run <strong> react.js </strong> on Font-end and <strong> node.js </strong> on back-end. The api is used in app: 
+                                <ul>    
+                                    <li> Mysqli</li>
+                                    <li> Socket.io - realtime </li>
+                                    <li> Imgur - api for image </li>
+                                </ul>
+                            The app is a opensource on <a href="https://github.com/systemis/ChatTogether"> Github </a>
+                            </p>)}
+                        </div>
+                    </div>)
             }
             return(
                 <div className={className()} id="chat-group">

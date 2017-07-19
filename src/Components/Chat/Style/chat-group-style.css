@@ -125,4 +125,46 @@
       bottom: 40px;
       overflow: scroll; } }
 
+#intro-app-group {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: #EEF1F6;
+  position: relative;
+  overflow: scroll; }
+  #intro-app-group.desktop {
+    float: left;
+    width: 50%; }
+  #intro-app-group .show-title {
+    padding-top: 80px; }
+    #intro-app-group .show-title .title, #intro-app-group .show-title .be-title {
+      text-align: center;
+      font-weight: bold;
+      font-family: inherit;
+      line-height: 0; }
+    #intro-app-group .show-title .title {
+      font-size: 7.5vw; }
+    #intro-app-group .show-title .be-title {
+      padding-top: 30px;
+      font-size: 15px; }
+  #intro-app-group .show-faq-group {
+    padding: 6px 12px;
+    margin-top: 5em; }
+    #intro-app-group .show-faq-group .title {
+      font-weight: bold;
+      font-family: inherit; }
+      #intro-app-group .show-faq-group .title:first-child {
+        font-size: 3.5vw; }
+    #intro-app-group .show-faq-group .FAQ-item {
+      margin-top: 20px; }
+      #intro-app-group .show-faq-group .FAQ-item .show-title-faq h2 {
+        font-size: 1.5em;
+        font-weight: 600;
+        line-height: 2.25;
+        border-bottom: 1px solid darkgray;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif; }
+      #intro-app-group .show-faq-group .FAQ-item .show-text p {
+        font-size: 18px;
+        font-family: 'Times New Roman', Times, serif; }
+
 /*# sourceMappingURL=chat-group-style.css.map */
