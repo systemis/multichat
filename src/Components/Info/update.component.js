@@ -36,7 +36,7 @@ class UpdateComponent extends Component {
                 window.location.reload();
             })
         }else{
-            alert(`Mot so thong tin con thieu`);
+            alert(`Thông tin về tên không được bỏ trống !`);
         }
     }
 
@@ -70,8 +70,9 @@ class UpdateComponent extends Component {
                 <br />
                 <select 
                     name="update-info-gender-field" 
-                    id="update-user-gender-field">
-                        <option value="Male" >Male</option>    
+                    id="update-user-gender-field"
+                    onChange={() => console.log(document.getElementById('update-user-gender-field').value)}>
+                        <option value="Male">Male</option>    
                         <option value="Female">Female</option>    
                 </select>
                 <br />
@@ -103,7 +104,8 @@ class UpdateComponent extends Component {
     }
 
     componentDidMount() {
-        this.setValue();        
+        this.setValue(); 
+        console.log(document.getElementById('update-user-gender-field').value)   
     }
 }
 

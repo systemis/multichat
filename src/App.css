@@ -7,8 +7,7 @@
   font-family: "nyt-cheltenham",georgia,"times new roman",times,serif;
   padding: 0; }
   #main-layout #App .row {
-    margin: 0;
-    padding: 0; }
+    margin: 0; }
   #main-layout #App .title-app {
     position: absolute;
     text-align: center;

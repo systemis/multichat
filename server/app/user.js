@@ -162,7 +162,6 @@ module.exports = (app, onlineUsers) => {
         if(req.isAuthenticated()){
             const userId      = req.user.id;
             const infoUpdated = req.body.infoUpdated;
-
             userDM.updateUserInfo(userId, infoUpdated, (err, result) => {
                 return res.send(result);
             })
