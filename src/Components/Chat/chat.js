@@ -227,14 +227,6 @@ class ChatGroup extends Component {
                         <p className="chat-group-show-name">
                             {this.props.chatUserName} 
                         </p>
-                        <ul className="chat-group-list-tool">
-                            <li>
-                                <i className="fa fa-phone" aria-hidden="true"></i>
-                            </li>
-                            <li>
-                                <i className="fa fa-video-camera" aria-hidden="true"></i>
-                            </li>
-                        </ul>
                     </div>
                     <div 
                         className="show-message"
