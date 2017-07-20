@@ -44,7 +44,6 @@ class App extends Component {
         dispatch({type: "CHANGE_CLIENT_ID", value: result.id});
         dispatch({type: "CHANGE_CLIENT_INFO", value: result});
         dispatch({type: "CHANGE_CHAT_ID", value: result.id})
-        // dispatch({type: "CHANGE_USER_INFO", value: result});
         dispatch({type: "CHANGE_NOTIFICATIONS", value: result.notifications});
       }
     })
@@ -53,8 +52,10 @@ class App extends Component {
   getUsersList(clientId){
       const {dispatch} = this.props;
       if(clientId){
-        if(this.props.usersList) return;
+        console.log(this.props.usersList);
+        if(this.props.usersList instanceof Array) return;
         userMG.getUserLists(clientId, (err, result) => {
+          console.log(result);
           dispatch({type: `CHANGE_USERS_LIST`, value: result});
         })
       }
@@ -76,7 +77,6 @@ class App extends Component {
   componentDidMount() {
     const sefl = this;
     this.getClientInfo();
-    this.getUsersList(this.props.clientId);
     window.onresize = () => {
       const width = $(window).width();
       const oldW  = this.state.screenWidth;
@@ -94,17 +94,18 @@ class App extends Component {
       this.changeScreenVersion("mobile");
     }
 
-    if(this.props.chatId || nextProps.chatId){
-          console.log(nextProps.chatId);
-          userMG.getUserInfo(nextProps.chatId, (err, result) => {
-              if(err) return console.log(`Error when get userinfo: ${err}`);
-              sefl.props.dispatch({type: 'CHANGE_USER_INFO', value: {...result}});
-          })   
+    if(this.props.chatId !== nextProps.chatId){
+        userMG.getUserInfo(nextProps.chatId, (err, result) => {
+            if(err) return console.log(`Error when get userinfo: ${err}`);
+            sefl.props.dispatch({type: 'CHANGE_USER_INFO', value: {...result}});
+        })   
+    }
+
+    if(this.props.clientId !== nextProps.clientId && nextProps.clientId){
+        this.getUsersList(nextProps.clientId);
     }
 
     this.render();
-    this.getUsersList(nextProps.clientId);
-
     return true;
   }
 }

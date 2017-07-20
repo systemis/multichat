@@ -3,6 +3,9 @@ module.exports = (app, onlineUsers) => {
     var fs            = require('fs');
     var imgurUploader = require('imgur-uploader');
     var multer        = require('multer');
+    var http          = require('http');
+    var request       = require('request');
+    var stream        = require('stream').Transform;
     var userDM        = require('../model/database-user.js');
     var roomMD        = require('../model/database-room.js');
 
@@ -107,13 +110,14 @@ module.exports = (app, onlineUsers) => {
         var bundle    = [];
 
         userDM.getRoomsRequested(clientId, (err, rs) => {
-            if(err || res === 'NOT_REGISTER') return res.send({err: "Error", result: null});
+            if(err || rs.length <= 0){
+                return res.send({err: null, result: []});
+            }
 
             rs.map((chatId, index) => {
                 roomMD.findChatRoomById(chatId, (error, result) => {
                     if(!error){
                         const userId = result.users.filter(u => {return u !== clientId}).join('');
-                        console.log(userId);
                         userDM.checkAlreadyExistsId(userId, (error2, result2) => {
                             if(!error2 && result2 !== 'NOT_REGISTER' && result.messages.length > 0){
                                 bundle.push({
@@ -124,8 +128,6 @@ module.exports = (app, onlineUsers) => {
                             
                             if(index === rs.length - 1){
                                 sortUserList(bundle, usersList => {
-                                    console.log(usersList);
-
                                     return res.send({err: null, result: usersList});
                                 });
                             }
@@ -222,4 +224,18 @@ module.exports = (app, onlineUsers) => {
             res.send({err, result});
         })
     })
+
+
+    var request = require('request').defaults({ encoding: null });
+    // app.get('/get/avatar/:userId', (req, res) => {
+    //     const userId = req.params.userId;
+    //     request.get('http://www.frommers.com/system/media_items/attachments/000/855/269/s500/murad_osmann.jpg?1438208757', function (error, response, body) {
+    //         if (!error && response.statusCode == 200) {
+    //             data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
+    //             res.send(data);
+    //         }
+    //     });  
+
+    //     res.send(fs.readFile('http://www.frommers.com/system/media_items/attachments/000/855/269/s500/murad_osmann.jpg?1438208757'))
+    // })
 }

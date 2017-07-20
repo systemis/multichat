@@ -21,7 +21,6 @@ const chatRoomIdReducer = (state = "", action) => {
 const chatIdReducer = (state = "", action) => {
     switch(action.type){
         case "CHANGE_CHAT_ID":
-            console.log(action.value);
             return action.value;
         default:
             return state;

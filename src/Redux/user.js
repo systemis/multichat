@@ -10,7 +10,6 @@ const clientIdReducer = (state = "", action) => {
 const clientInfoReducer = (state = "", action) => {
     switch(action.type){
         case 'CHANGE_CLIENT_INFO':
-            console.log(action.value);
             return action.value;
         default: 
             return state;
@@ -39,7 +38,6 @@ const usersListReducer = (state = "", action) => {
 const notificationsReducer = (state = "", action) => {
     switch(action.type){
         case `CHANGE_NOTIFICATIONS`:
-            console.log(action.value);
             return action.value;
         default: 
             return state;

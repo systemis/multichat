@@ -11,7 +11,8 @@
     padding: 0;
     width: 100%;
     height: 40px;
-    list-style-type: none; }
+    list-style-type: none;
+    background: gainsboro; }
     .home-page-mobile .bottom-bar .row .show-tools .choose-screen-tab {
       float: left;
       width: 33.3333%;

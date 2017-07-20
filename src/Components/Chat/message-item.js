@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class AMessageItem extends Component {
     render() {
         const rdLabel = (rd) => {
-            console.log(rd);
             if(rd){
                 return (
                     <span

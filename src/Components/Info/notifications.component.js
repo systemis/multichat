@@ -49,7 +49,6 @@ class NotificationComponent extends Component {
 
             const notifiDom = (
                 <li onClick={() => {
-                    console.log(propsCustom);
                     new cET(propsCustom).click();
                 }}>
                     <div className="row">
@@ -71,7 +70,6 @@ class NotificationComponent extends Component {
     }
 
     render() {
-        console.log(this.props.notifications);
         this.receiveNotifi();
         const notifications  = this.notificationsList(this.props.notifications);
         const lengthNotifis  = notifications.length;

@@ -4,7 +4,6 @@ import socketMG             from './socket.js';
 class cET{
     constructor(props){
         this.props = props;
-        console.log(props);
     }
     
     update_leftbar_list(){
@@ -31,7 +30,6 @@ class cET{
         const screenVersion = this.props.screenVersion; 
         chatMG.acessRom(chatRoomId, (err, result) => {
             if(err) {
-                console.log(err);
                 return this.handling_error();
             }
             

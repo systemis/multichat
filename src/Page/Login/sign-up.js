@@ -48,7 +48,6 @@ class SignUpPage extends Component {
             if(name && email && password){
                 userMG.register(name, email, password, (err, result) => {
                     if(err){
-                        console.log(result);
                         return alert('Loi: ' + JSON.stringify(result));
                     }
 

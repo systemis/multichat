@@ -51,7 +51,6 @@ class userMG {
                     case "ERROR":
                         return fn("Co loi xay ra", null);
                     default:
-                        console.log(data);
                         return fn(null, data);
                 }
             }, error: err => fn(true, "Co loi xay ra")
@@ -59,12 +58,17 @@ class userMG {
     }
 
     getUserLists(clientId, fn){
+        // if(!clientId) {
+        //     console.log('check is auth');
+        //     return fn(null, "");   
+        // }
+
         $.ajax({
             url: `/get/users/list/${clientId}`, type: `POST`,
             success: data => {
                 fn(data.err, data.result);
             },
-            error: fn(null, [])
+            error: err => fn(null, [])
         })
     }
 

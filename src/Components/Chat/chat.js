@@ -10,7 +10,9 @@ import './Style/chat-group-style.css';
 
 const scrollMessageGroupToBottom = () => {
     $(document).ready(() => {
-        $('#show-messages-group').scrollTop($('#show-messages-group')[0].scrollHeight)
+        if(document.getElementById('show-messages-group')){
+            $('#show-messages-group').scrollTop($('#show-messages-group')[0].scrollHeight)
+        }
     });
 }
 
@@ -52,11 +54,12 @@ class ChatGroup extends Component {
     }
 
     getMessages(){
+        var clientId = this.props.clientId;
         var messages = this.props.chatRoomInfo.messages;
         var users    = this.props.chatRoomInfo.users;
 
         if(users && JSON.stringify(users) !== this.state.users) {
-            if(messages.length > 0){
+            if(messages.length > 0 && messages[messages.length - 1].sendId !== clientId){
                 this.rvNotifi_M(this.props.clientId, this.props.chatId);
                 if(!messages[messages.length - 1].rd){
                     messages[messages.length - 1].rd = true;
@@ -146,8 +149,6 @@ class ChatGroup extends Component {
 
         chatMG.receiveMessage(chatRoomId, (newMessage) => {
             var nMSs = sefl.state.messages;
-            console.log('new message client ')
-            
             if(newMessage.sendId !== this.props.clientId){
                 newMessage.rd = true;
                 nMSs.push(newMessage);
@@ -169,7 +170,6 @@ class ChatGroup extends Component {
                 var messagesUD = this.state.messages;
                 messagesUD[messagesUD.length - 1].rd = true;
                 this.setState({messages: messagesUD});
-                console.log('Readed');
             }
         })
     }
@@ -246,7 +246,9 @@ class ChatGroup extends Component {
                         }
                     </div>
                     <div className="group-send-message">
-                        <form id="message-field-send" style={{width: '100%', height: '100%'}}>
+                        <form 
+                            id="message-field-send" 
+                            style={{width: '100%', height: '100%'}}>
                             <input 
                                 type="text"
                                 id="input-message"
@@ -269,25 +271,22 @@ class ChatGroup extends Component {
         if(nextProps.chatRoomId !== this.props.chatRoomId){
             this.receiveMessage(nextProps.chatRoomId);
             this.receiveRequesRD(nextProps.chatRoomId);
+            this.setActionForChatForm();   
 
             if(this.props.chatRoomId) socketMG.removeListener(this.props.chatRoomId);
         }
 
-        this.render();
-        scrollMessageGroupToBottom();
+        if(this.props.chatId && this.props.chatId !== this.props.clientId){
+            scrollMessageGroupToBottom();
+        }
         chatMG.update();
+        this.render();
         return true;        
     }
 
     componentDidMount() {
-        if(this.props.chatId && this.props.chatId !== this.props.clientId){
-            scrollMessageGroupToBottom();
-            this.setActionForChatForm();   
-        }
-
-        if(this.props.screenVersion !== 'desktop' && this.props.chatRoomId){
-            this.receiveMessage(this.props.chatRoomId);
-            this.receiveRequestRD(this.props.chatRoomId);
+        if(this.props.chatId &&  this.props.chatId !== this.props.clientId){
+             this.setActionForChatForm();
         }
     }
 }

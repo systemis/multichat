@@ -50,8 +50,6 @@ class Navigation extends Component {
                     result = _result;
                 }
 
-
-                console.log(result);
                 this.setState({searchUser: result});
                 this.setState({doneSearching: true});
             })
@@ -87,12 +85,15 @@ class Navigation extends Component {
                 return <ProgressBar />
             }
         }else{
-            // return <UsersView data={this.state.test}/>
-            if(this.props.usersList && this.props.usersList.length > 0){
+            if(!this.props.usersList) return <ProgressBar />
+            if(this.props.usersList.length > 0){
                 return <UsersView data={this.props.usersList}/>
             }
-            
-            return <ProgressBar />
+
+            if(this.props.usersList.length <= 0){
+                return <h2 style={{textAlign: 'center'}}>
+                        Find people in top </h2>
+            }
         }
     }
 
