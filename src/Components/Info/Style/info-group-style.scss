@@ -1,3 +1,4 @@
+$border: 1px solid #e5e5e5;
 @mixin flex(){
     margin: 0;
     padding: 0;
@@ -5,7 +6,7 @@
 @mixin character-group-big{
     height: 100vh;
 }
-$border: 1px solid #e5e5e5;
+
 #info-group{
     @include flex();
     height: 100vh;
@@ -89,6 +90,7 @@ $border: 1px solid #e5e5e5;
                 }
             }
         }
+        
         & .show-default-info{
             padding-top: 30px;
             padding-right: 30px;
@@ -133,6 +135,15 @@ $border: 1px solid #e5e5e5;
         position: absolute;
         line-height: 60px;
         margin: 0 15px; 
+        & span.show-count{
+            position: relative;
+            top: -10px;
+            color: white;
+            padding: 0px 3px;
+            background: red;
+            font-weight: 700;
+            border-radius: 50%;
+        }
         &:hover{
             color: darkred;
         }

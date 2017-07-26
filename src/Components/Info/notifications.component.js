@@ -11,10 +11,6 @@ class NotificationComponent extends Component {
         this.state = {notifications: []}
     }
 
-    resetAllNotifications(){
-        // this.props.dispatch({type: 'CHANGE_NOTIFICATIONS', value: []})
-    }
-
     // Receive new notification 
     receiveNotifi(){
         if(!this.props.clientId || _index !== 0) return;
@@ -55,7 +51,8 @@ class NotificationComponent extends Component {
                         <div className="col-md-3 col-sm-3 sol-xs-3 show-photo">
                             <img alt="Show pic" src={notifications[i].message.sendAvatar} />
                         </div>
-                        <div className="col-md-3 col-sm-3 sol-xs-3 show-message">
+                        <div className="col-md-9 col-sm-9 sol-xs-9 show-message">
+                            <p> {notifications[i].message.name} </p>
                             <p> {notifications[i].message.message} </p>
                         </div>                    
                     </div>
@@ -76,7 +73,7 @@ class NotificationComponent extends Component {
         const quantumOfNoEle = () => {
             if(lengthNotifis > 0){
                 return (
-                    <span style={{position: 'relative', top: '-10px', color: 'red'}}> 
+                    <span className="show-count"> 
                         {lengthNotifis.toString()}
                     </span>
                 )
@@ -90,8 +87,7 @@ class NotificationComponent extends Component {
                 id="show-notifications-group">
                 <span
                     className="show-item-notifi dropdown-toggle"
-                    data-toggle="dropdown"
-                    onClick={() => this.resetAllNotifications()}> 
+                    data-toggle="dropdown"> 
                         <span className="fa fa-bell">
                             {quantumOfNoEle()}
                         </span> 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect}            from 'react-redux';
 import UpdateGroup          from './update.component.js';
 import NotificationsGroup   from './notifications.component.js';
+import socketMG             from '../../js/socket.js';
 import userMG               from '../../js/user.js';
 import testAvatar           from '../../Image/test_avatar_men.jpg';
 import $                    from 'jquery';
@@ -114,6 +115,7 @@ class InfoGroup extends Component {
                                 let {clientInfo} = this.props;
                                 let {clientId}   = this.props;
                                 // dispatch({type: 'CHANGE_USER_INFO', value: clientInfo});
+                                socketMG.removeListener(this.props.chatId);
                                 dispatch({type: 'CHANGE_CHAT_ID'  ,  value: clientId})
                             }}>
                                 {this.props.clientInfo.name}

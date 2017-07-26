@@ -3,10 +3,12 @@ import {connect}            from 'react-redux';
 import Navigation           from '../../Components/Navigation/navigation.js';
 import ChatGroup            from '../../Components/Chat/chat.js';
 import InfoGroup            from '../../Components/Info/info.js';
+import socketMG             from '../../js/socket.js';
 import './Style/home-mobile.css';
 
-const screensPage     = [<Navigation />, <ChatGroup />, <InfoGroup />];
+var countCheck = 0;
 
+const screensPage     = [<Navigation />, <ChatGroup />, <InfoGroup />];
 
 class HomePage extends Component {
     showActiveHolde(index){
@@ -68,11 +70,25 @@ class HomePage extends Component {
     render() {
         return this.mainLayout();
     }
+
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if(nextProps.clientId && this.props.clientId !== nextProps.clientId){
+            if(countCheck !== 0) return;
+            
+            console.log(nextProps.clientId);
+            socketMG.onLineEvent(nextProps.clientId);
+            ++countCheck;
+        }
+
+        return true;
+    }
 }
 
 export default connect(state => {
     return {
         screenVersion: state.screenVersion, 
+        clientId: state.clientId,
         index: state.indexShowSPM,
         chatRoomInfo: state.chatRoomInfo
     }

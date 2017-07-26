@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import MessageItem          from './message-item.js'
-import socketMG             from '../../js/socket.js';
 import {connect}            from 'react-redux';
 import $                    from 'jquery';
+import MessageItem          from './message-item.js'
+import socketMG             from '../../js/socket.js';
 import chatMG               from '../../js/chat.js';
 import userMG               from '../../js/user.js';
 import sound                from '../../accest/sound.mp3';
@@ -48,7 +48,7 @@ class ChatGroup extends Component {
 
             if(i === notifications.length - 1){
                 userMG.rvNotifi_M(userId, sendId);
-                this.props.dispatch({type: 'CHANGE_NOTIFICATIONS', value: updateNotifis});
+                dispatch({type: 'CHANGE_NOTIFICATIONS', value: updateNotifis});
             }
         }
     }

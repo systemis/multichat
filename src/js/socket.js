@@ -1,9 +1,18 @@
 import io  from 'socket.io-client';
-const urlConnect1 = `http://localhost:3000/`;
+const urlConnect1 = `http://localhost:9999/`;
 const urlConnect2 = `https://chattogether.herokuapp.com/`;
-const socket      = io.connect(urlConnect2);
+const socket      = io.connect(urlConnect1);
+
+socket.on('disconnect', () => {
+    console.log('You are disconnecting !')
+});
 
 class socketManager {
+    onLineEvent(userId){
+        socket.userId = userId;
+        socket.emit('onLine', {userId: userId});
+    }
+
     sendMessage(chatRoomId, message){
         socket.emit(`new_message`, {chatRoomId: chatRoomId, message: message});
     }
@@ -12,8 +21,8 @@ class socketManager {
         socket.emit(`request_rd_message`, chatRoomId);
     }
 
-    receiveMessage(chatRomId, fn){
-        socket.on(`/receive/message/${chatRomId}`, data => {
+    receiveMessage(chatRoomId, fn){
+        socket.on(`/receive/message/${chatRoomId}`, data => {
             fn(data);
         })
     }
@@ -26,8 +35,8 @@ class socketManager {
         socket.on(`/receive/new-notifi/${userId}`, notifi => fn(notifi));
     }
 
-    disConnect(userId){
-        socket.emit(`offLine`, {userId: userId});
+    disConnect(){
+        socket.disconnect();
     }
 
     checkOnline(userId, fn){

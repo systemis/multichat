@@ -15,6 +15,7 @@ class UserItem extends Component {
 
     componentWillMount() {
         const update_online_status = (isOnline) => {
+            console.log(`checkOnline user: ` + isOnline);
             if(isOnline){
                 return this.setState({isOnline: 'online'});
             }

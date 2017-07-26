@@ -3,8 +3,11 @@ const tablename  = `RoomsData`;
 class RomMD{
     constructor(){
         connection.query("CREATE TABLE IF NOT EXISTS `RoomsData` ( `id` VARCHAR(200) NOT NULL , `users` TEXT NOT NULL , `messages` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci", (err, reult) => {
-            if(err) return console.log(`Create table ${tablename} failure`);
-
+            if(err) {
+                console.log(err);
+                return console.log(`Create table ${tablename} failure`);
+            }
+            
             console.log(`Create table ${tablename} success`);
         })
     }

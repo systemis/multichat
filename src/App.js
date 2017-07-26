@@ -6,7 +6,6 @@ import HomePage                                     from './Page/Home/home.js';
 import SignInPage                                   from './Page/Login/sign-in.js';
 import SignUpPage                                   from './Page/Login/sign-up.js';
 import userMG                                       from './js/user.js';
-import chatSocket                                   from './js/chat.js';
 import './App.css';
 
 const DieuHuong = React.createClass({

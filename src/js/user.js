@@ -130,7 +130,7 @@ class userMG {
         $.ajax({
             url: `/logout`, type: `GET`, 
             success: data => {
-                socketMG.disConnect(userId);
+                socketMG.disConnect();
 
                 window.location.href = '/sign-in';
             }

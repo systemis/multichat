@@ -87,6 +87,14 @@
     position: absolute;
     line-height: 60px;
     margin: 0 15px; }
+    #info-group .fa.fa-bell span.show-count {
+      position: relative;
+      top: -10px;
+      color: white;
+      padding: 0px 3px;
+      background: red;
+      font-weight: 700;
+      border-radius: 50%; }
     #info-group .fa.fa-bell:hover {
       color: darkred; }
   #info-group #show-notifications-group ul {

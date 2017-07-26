@@ -43,16 +43,20 @@ class socketMG{
                 }, 2000);
             })
 
-            socket.on(`offLine`, data => {
-                const userId = data.userId;
+            io.sockets.on('connection', sk => {
+                sk.on('onLine', data => {
+                    sk.userId = data.userId;
+                })
 
-                onlineUsers.splice(onlineUsers.indexOf(userId), 1);
-                lastUserOn  = onlineUsers[onlineUsers.length - 1];
+                sk.on('disconnect', () => {
+                    const userId = sk.userId;
+                    if(userId){
+                        onlineUsers.splice(onlineUsers.indexOf(userId), 1);
+                        lastUserOn  = onlineUsers[onlineUsers.length - 1];
+                    }
 
-                console.log(`Online users id offLine: ${JSON.stringify(onlineUsers)}`);
-                console.log(`Online users id offLine: ${lastUserOn}`);
-
-                io.sockets.emit(`check_online_user/${userId}`, false);
+                    io.sockets.emit(`check_online_user/${userId}`, false);
+                })
             })
 
             setInterval(() => {
@@ -67,6 +71,7 @@ class socketMG{
 
                     lastUserOn = onlineUsers[lT];
                 }
+
             }, 5000)
         })
     }
