@@ -7,7 +7,7 @@ class socketMG{
     constructor(server, _onlineUsers){
         io          = require('socket.io')(server);
         lastUserOn  = _onlineUsers[_onlineUsers.length - 1]
-        onlineUsers  = _onlineUsers
+        onlineUsers = _onlineUsers
                 
         io.on('connect', socket => {
             socket.on('new_message', data => {
@@ -45,17 +45,22 @@ class socketMG{
 
             io.sockets.on('connection', sk => {
                 sk.on('onLine', data => {
-                    sk.userId = data.userId;
+                    const userId = data.userId;
+                    if(onlineUsers.indexOf(userId) === -1){
+                        console.log('dd ' + sk.userId);
+                        sk.userId = userId;
+                        onlineUsers.push(userId);
+                    }
                 })
 
                 sk.on('disconnect', () => {
                     const userId = sk.userId;
-                    if(userId){
+                    if(userId && onlineUsers.indexOf(userId) !== -1){
                         onlineUsers.splice(onlineUsers.indexOf(userId), 1);
                         lastUserOn  = onlineUsers[onlineUsers.length - 1];
+                        
+                        io.sockets.emit(`check_online_user/${userId}`, false);
                     }
-
-                    io.sockets.emit(`check_online_user/${userId}`, false);
                 })
             })
 
@@ -72,6 +77,7 @@ class socketMG{
                     lastUserOn = onlineUsers[lT];
                 }
 
+                console.log(onlineUsers);
             }, 5000)
         })
     }
