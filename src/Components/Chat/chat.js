@@ -69,14 +69,15 @@ class ChatGroup extends Component {
 
             this.setState({messages: messages});
             this.setState({users: JSON.stringify(users)});
-        };
+        }
     }
 
     showMessages(){
-        var messages        = this.state.messages;
+        var messages        = [...this.state.messages];
         var messagesListDom = [];
 
         if(messages){
+            console.log(messages[messages.length - 1]);
             messages.map((message, index) => {
                 var className = {
                     messageName: '',
@@ -148,10 +149,12 @@ class ChatGroup extends Component {
         var sefl       = this;
 
         chatMG.receiveMessage(chatRoomId, (newMessage) => {
-            var nMSs = sefl.state.messages;
+            var nMSs = [...sefl.state.messages];
+            console.log(`New message `);
             if(newMessage.sendId !== this.props.clientId){
                 newMessage.rd = true;
                 nMSs.push(newMessage);
+                console.log(nMSs[nMSs.length - 1]);
                 sefl.setState({messages: nMSs});
                 chatMG.sendRequestRD(chatRoomId);
                 setTimeout(() => this.rvNotifi_M(this.props.clientId, newMessage.sendId), 2000);
@@ -163,13 +166,16 @@ class ChatGroup extends Component {
     }
 
     receiveRequesRD(chatRoomId){
-        var {dispatch} = this.props;
+        const {dispatch} = this.props;
+        const sefl       = this;
 
         chatMG.receiveRequestRD(chatRoomId, value => {
-            if(this.state.messages[this.state.messages.length - 1].sendId === this.props.clientId){
-                var messagesUD = this.state.messages;
+            if(sefl.state.messages[sefl.state.messages.length - 1].sendId === sefl.props.clientId){
+                var messagesUD = [...sefl.state.messages];
                 messagesUD[messagesUD.length - 1].rd = true;
-                this.setState({messages: messagesUD});
+                
+                console.log('Changing message: ' + JSON.stringify(messagesUD[messagesUD.length - 1]));
+                sefl.setState({messages: messagesUD});
             }
         })
     }
@@ -261,9 +267,11 @@ class ChatGroup extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if(nextProps.chatRoomId !== this.props.chatRoomId){
+            console.log('Change chatroomid');
+            this.setActionForChatForm();   
             this.receiveMessage(nextProps.chatRoomId);
             this.receiveRequesRD(nextProps.chatRoomId);
-            this.setActionForChatForm();   
+            
 
             if(this.props.chatRoomId) socketMG.removeListener(this.props.chatRoomId);
         }
@@ -271,14 +279,18 @@ class ChatGroup extends Component {
         if(this.props.chatId && this.props.chatId !== this.props.clientId){
             scrollMessageGroupToBottom();
         }
+        
         chatMG.update();
         this.render();
+        
         return true;        
     }
 
     componentDidMount() {
         if(this.props.chatId &&  this.props.chatId !== this.props.clientId){
-             this.setActionForChatForm();
+            this.receiveMessage(this.props.chatRoomId);
+            this.receiveRequesRD(this.props.chatRoomId);
+            this.setActionForChatForm();
         }
     }
 }
